@@ -1,4 +1,4 @@
-package myproject;
+package uss.launcher;
 
 import java.io.File;
 
@@ -7,7 +7,7 @@ import org.apache.catalina.startup.Tomcat;
 
 public class WebServerLauncher {
 	public static void main(String[] args) throws Exception {
-        String webappDirLocation = "webapps/";
+        String webappDirLocation = "webapp/";
         Tomcat tomcat = new Tomcat();
         String webPort = System.getenv("PORT");
         if(webPort == null || webPort.isEmpty()) {

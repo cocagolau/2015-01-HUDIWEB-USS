@@ -1,4 +1,4 @@
-package myproject;
+package uss;
 
 import static org.junit.Assert.*;
 

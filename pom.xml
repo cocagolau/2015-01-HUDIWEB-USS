@@ -73,7 +73,7 @@
   <build>
   	<sourceDirectory>src</sourceDirectory>
     <testSourceDirectory>test</testSourceDirectory>
-    <outputDirectory>webapps/WEB-INF/classes</outputDirectory>
+    <outputDirectory>webapp/WEB-INF/classes</outputDirectory>
 
 	<resources>
 		<resource>
