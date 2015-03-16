@@ -2,8 +2,8 @@ package uss.controllers.methods;
 
 import java.io.UnsupportedEncodingException;
 
-import uss.mapper.annotation.HttpMethod;
-import uss.mapper.dispatch.support.Http;
+import lib.mapping.annotation.HttpMethod;
+import lib.mapping.dispatch.support.Http;
 
 public class Methods {
 

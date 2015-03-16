@@ -1,13 +1,13 @@
-package uss.mapper.dispatch;
+package lib.mapping.dispatch;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import uss.database.util.DBExecuter;
-import uss.mapper.annotation.Mapping;
-import uss.mapper.dispatch.support.Http;
+import lib.database.util.DAO;
+import lib.mapping.annotation.Mapping;
+import lib.mapping.dispatch.support.Http;
 
 public class MethodHolder {
 
@@ -35,7 +35,7 @@ public class MethodHolder {
 		return method;
 	}
 
-	public void executeBefore(Http http, DBExecuter exe) {
+	public void executeBefore(Http http, DAO exe) {
 		if (!method.isAnnotationPresent(Mapping.class))
 			return;
 		String[] before = method.getAnnotation(Mapping.class).before();
@@ -46,7 +46,7 @@ public class MethodHolder {
 		}
 	}
 
-	public void executeAfter(Http http, DBExecuter exe) {
+	public void executeAfter(Http http, DAO exe) {
 		if (!method.isAnnotationPresent(Mapping.class))
 			return;
 		String[] after = method.getAnnotation(Mapping.class).after();
@@ -57,7 +57,7 @@ public class MethodHolder {
 		}
 	}
 
-	public void execute(Http http, DBExecuter exe) {
+	public void execute(Http http, DAO exe) {
 		try {
 			switch (method.getParameterCount()) {
 			case 0:
@@ -68,7 +68,7 @@ public class MethodHolder {
 					method.invoke(instance, http);
 					return;
 				}
-				if (method.getParameterTypes()[0].equals(DBExecuter.class)) {
+				if (method.getParameterTypes()[0].equals(DAO.class)) {
 					method.invoke(instance, exe);
 					return;
 				}

@@ -1,4 +1,4 @@
-package uss.database.util;
+package lib.database.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -16,7 +16,7 @@ import java.util.Map;
 
 import uss.setting.Setting;
 
-public class DBExecuter {
+public class DAO {
 
 	public static Connection getConnection() {
 		Connection con = null;
@@ -34,7 +34,7 @@ public class DBExecuter {
 
 	Connection conn;
 
-	public DBExecuter() {
+	public DAO() {
 		conn = getConnection();
 	}
 

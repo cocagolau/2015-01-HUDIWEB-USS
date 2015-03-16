@@ -2,14 +2,14 @@ package uss.controllers;
 
 import java.io.IOException;
 
-import uss.database.util.DBExecuter;
-import uss.mapper.annotation.Mapping;
-import uss.mapper.dispatch.support.Http;
+import lib.database.util.DAO;
+import lib.mapping.annotation.Mapping;
+import lib.mapping.dispatch.support.Http;
 
 public class TestController {
 
 	@Mapping(value = "/index", before = "kr")
-	public void test(Http http, DBExecuter db) throws IOException {
+	public void test(Http http, DAO db) throws IOException {
 		http.getResp().getWriter().write("가나다라");
 	}
 

@@ -1,8 +1,8 @@
 package uss.dispatcher;
 
-import org.junit.Test;
+import lib.mapping.dispatch.support.ClassFinder;
 
-import uss.mapper.dispatch.support.ClassFinder;
+import org.junit.Test;
 
 public class ClassFinderTest {
 

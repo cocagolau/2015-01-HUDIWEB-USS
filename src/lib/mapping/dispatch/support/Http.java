@@ -1,4 +1,4 @@
-package uss.mapper.dispatch.support;
+package lib.mapping.dispatch.support;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

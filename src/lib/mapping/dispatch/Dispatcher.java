@@ -1,4 +1,4 @@
-package uss.mapper.dispatch;
+package lib.mapping.dispatch;
 
 import java.io.IOException;
 
@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import uss.mapper.dispatch.support.Http;
+import lib.mapping.dispatch.support.Http;
+
 
 @WebServlet("/*")
 public class Dispatcher extends HttpServlet {

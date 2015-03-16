@@ -1,14 +1,14 @@
-package uss.mapper.dispatch;
+package lib.mapping.dispatch;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import uss.database.util.DBExecuter;
-import uss.mapper.annotation.HttpMethod;
-import uss.mapper.annotation.Mapping;
-import uss.mapper.dispatch.support.ClassFinder;
-import uss.mapper.dispatch.support.Http;
+import lib.database.util.DAO;
+import lib.mapping.annotation.HttpMethod;
+import lib.mapping.annotation.Mapping;
+import lib.mapping.dispatch.support.ClassFinder;
+import lib.mapping.dispatch.support.Http;
 import uss.setting.Setting;
 
 public class Mapper {
@@ -31,9 +31,9 @@ public class Mapper {
 			http.sendError(404);
 			return;
 		}
-		DBExecuter exe = null;
+		DAO exe = null;
 		if (method.needDBConnector()) {
-			exe = new DBExecuter();
+			exe = new DAO();
 		}
 		method.executeBefore(http, exe);
 		method.execute(http, exe);

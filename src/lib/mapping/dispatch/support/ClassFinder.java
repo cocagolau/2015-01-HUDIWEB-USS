@@ -1,4 +1,4 @@
-package uss.mapper.dispatch.support;
+package lib.mapping.dispatch.support;
 
 import java.io.File;
 import java.net.URL;
