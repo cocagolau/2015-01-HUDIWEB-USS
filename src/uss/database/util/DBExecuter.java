@@ -14,13 +14,15 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import uss.setting.Setting;
+
 public class DBExecuter {
 
 	public static Connection getConnection() {
 		Connection con = null;
-		String url = "";
-		String id = "";
-		String pw = "";
+		String url = Setting.DB_URL;
+		String id = Setting.DB_ID;
+		String pw = Setting.DB_PASSWORD;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(url, id, pw);

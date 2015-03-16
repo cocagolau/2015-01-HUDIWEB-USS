@@ -9,10 +9,9 @@ import uss.mapper.annotation.HttpMethod;
 import uss.mapper.annotation.Mapping;
 import uss.mapper.dispatch.support.ClassFinder;
 import uss.mapper.dispatch.support.Http;
+import uss.setting.Setting;
 
 public class Mapper {
-
-	private final static String CONTROLLER_PATH = "uss.controllers";
 
 	private Map<String, MethodHolder> uriMap = new HashMap<String, MethodHolder>();
 	private Map<String, MethodHolder> methodsMap = new HashMap<String, MethodHolder>();
@@ -21,7 +20,7 @@ public class Mapper {
 
 	private Mapper() {
 		ClassFinder cf = new ClassFinder();
-		cf.find(CONTROLLER_PATH).forEach(cLass -> {
+		cf.find(Setting.CONTROLLER_PATH).forEach(cLass -> {
 			uriSetting(cLass);
 		});
 	}
