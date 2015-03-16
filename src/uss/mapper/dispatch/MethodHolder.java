@@ -31,54 +31,52 @@ public class MethodHolder {
 		this.instance = instance;
 	}
 
-	public void execute(Http http) {
-		try {
-			this.executeBefore(http);
-			if (method.getParameterCount() == 0) {
-				method.invoke(instance);
-				return;
-			}
-			method.invoke(instance, http);
-			this.executeAfter(http);
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			e.printStackTrace();
-		}
-		return;
-	}
-
 	public Method getMethod() {
 		return method;
 	}
 
-	public void executeBefore(Http http) {
-		if(!method.isAnnotationPresent(Mapping.class))
+	public void executeBefore(Http http, DBExecuter exe) {
+		if (!method.isAnnotationPresent(Mapping.class))
 			return;
 		String[] before = method.getAnnotation(Mapping.class).before();
 		for (int i = 0; i < before.length; i++) {
 			if (before[i].equals(""))
 				continue;
-			Mapper.executeMethod(before[i], http);
+			Mapper.getMethod(before[i]).execute(http, exe);
 		}
 	}
-	
-	public void executeAfter(Http http) {
-		if(!method.isAnnotationPresent(Mapping.class))
+
+	public void executeAfter(Http http, DBExecuter exe) {
+		if (!method.isAnnotationPresent(Mapping.class))
 			return;
 		String[] after = method.getAnnotation(Mapping.class).after();
 		for (int i = 0; i < after.length; i++) {
 			if (after[i].equals(""))
 				continue;
-			Mapper.executeMethod(after[i], http);
+			Mapper.getMethod(after[i]).execute(http, exe);
 		}
 	}
 
-	public void execute(Http http, DBExecuter connector) {
+	public void execute(Http http, DBExecuter exe) {
 		try {
-			if (method.getParameterCount() == 1) {
-				method.invoke(instance, connector);
+			switch (method.getParameterCount()) {
+			case 0:
+				method.invoke(instance);
+				return;
+			case 1:
+				if (method.getParameterTypes()[0].equals(Http.class)) {
+					method.invoke(instance, http);
+					return;
+				}
+				if (method.getParameterTypes()[0].equals(DBExecuter.class)) {
+					method.invoke(instance, exe);
+					return;
+				}
+			case 2:
+				method.invoke(instance, http, exe);
 				return;
 			}
-			method.invoke(instance, http, connector);
+			System.out.println("Errrrrrr");
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			e.printStackTrace();
 		}
@@ -86,9 +84,19 @@ public class MethodHolder {
 	}
 
 	public boolean needDBConnector() {
-		return method.getAnnotation(Mapping.class).DB();
+		if(method.getAnnotation(Mapping.class).DB())
+			return true;
+		String[] before = method.getAnnotation(Mapping.class).before();
+		for(int i=0; i<before.length;i++){
+			if(Mapper.getMethod(before[i]).getMethod().getAnnotation(Mapping.class).DB())
+				return true;
+		}
+		String[] after = method.getAnnotation(Mapping.class).after();
+		for(int i=0; i<after.length;i++){
+			if(Mapper.getMethod(after[i]).getMethod().getAnnotation(Mapping.class).DB())
+				return true;
+		}
+		return false;
 	}
-
-	
 
 }

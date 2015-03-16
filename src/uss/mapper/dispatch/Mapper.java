@@ -27,21 +27,19 @@ public class Mapper {
 
 	public static void execute(String url, Http http) {
 		MethodHolder method = mapper.uriMap.get(url);
-
 		if (method == null) {
 			http.sendError(404);
 			return;
 		}
-		method.executeBefore(http);
+		DBExecuter exe = null;
 		if (method.needDBConnector()) {
-			DBExecuter connector = new DBExecuter();
-			method.execute(http, connector);
-			method.executeAfter(http);
-			connector.close();
-			return;
+			exe = new DBExecuter();
 		}
-		method.execute(http);
-		method.executeAfter(http);
+		method.executeBefore(http, exe);
+		method.execute(http, exe);
+		method.executeAfter(http, exe);
+		if (exe != null)
+			exe.close();
 	}
 
 	private void uriSetting(Class<?> eachClass) {
@@ -59,8 +57,8 @@ public class Mapper {
 		}
 	}
 
-	public static void executeMethod(String string, Http http) {
-		mapper.methodsMap.get(string).execute(http);
+	public static MethodHolder getMethod(String string) {
+		return mapper.methodsMap.get(string);
 	}
 
 }
