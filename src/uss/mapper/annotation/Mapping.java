@@ -12,4 +12,6 @@ public @interface Mapping {
 	
 	String[] after() default "";
 
+	boolean DB() default false;
+
 }

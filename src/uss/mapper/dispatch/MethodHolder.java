@@ -5,6 +5,8 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import uss.database.connector.DBExecuter;
+import uss.mapper.annotation.Mapping;
 import uss.mapper.dispatch.support.Http;
 
 public class MethodHolder {
@@ -30,13 +32,14 @@ public class MethodHolder {
 	}
 
 	public void execute(Http http) {
-		System.out.println(method.getName());
 		try {
+			this.executeBefore(http);
 			if (method.getParameterCount() == 0) {
 				method.invoke(instance);
 				return;
 			}
 			method.invoke(instance, http);
+			this.executeAfter(http);
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			e.printStackTrace();
 		}
@@ -46,6 +49,42 @@ public class MethodHolder {
 	public Method getMethod() {
 		return method;
 	}
+
+	public void executeBefore(Http http) {
+		String[] before = method.getAnnotation(Mapping.class).before();
+		for (int i = 0; i < before.length; i++) {
+			if (before[i].equals(""))
+				continue;
+			Mapper.executeMethod(before[i], http);
+		}
+	}
+	
+	public void executeAfter(Http http) {
+		String[] after = method.getAnnotation(Mapping.class).after();
+		for (int i = 0; i < after.length; i++) {
+			if (after[i].equals(""))
+				continue;
+			Mapper.executeMethod(after[i], http);
+		}
+	}
+
+	public void execute(Http http, DBExecuter connector) {
+		try {
+			if (method.getParameterCount() == 1) {
+				method.invoke(instance, connector);
+				return;
+			}
+			method.invoke(instance, http, connector);
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		return;
+	}
+
+	public boolean needDBConnector() {
+		return method.getAnnotation(Mapping.class).DB();
+	}
+
 	
 
 }

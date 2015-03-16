@@ -4,7 +4,9 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import uss.mapper.annotation.*;
+import uss.database.connector.DBExecuter;
+import uss.mapper.annotation.HttpMethod;
+import uss.mapper.annotation.Mapping;
 import uss.mapper.dispatch.support.ClassFinder;
 import uss.mapper.dispatch.support.Http;
 
@@ -26,23 +28,21 @@ public class Mapper {
 
 	public static void execute(String url, Http http) {
 		MethodHolder method = mapper.uriMap.get(url);
+
 		if (method == null) {
 			http.sendError(404);
 			return;
 		}
-		String[] before = method.getMethod().getAnnotation(Mapping.class).before();
-		String[] after = method.getMethod().getAnnotation(Mapping.class).after();
-		for (int i = 0; i < before.length; i++) {
-			if (before[i].equals(""))
-				continue;
-			mapper.methodsMap.get(before[i]).execute(http);
+		method.executeBefore(http);
+		if (method.needDBConnector()) {
+			DBExecuter connector = new DBExecuter();
+			method.execute(http, connector);
+			method.executeAfter(http);
+			connector.close();
+			return;
 		}
 		method.execute(http);
-		for (int i = 0; i < after.length; i++) {
-			if (after[i].equals(""))
-				continue;
-			mapper.methodsMap.get(after[i]).execute(http);
-		}
+		method.executeAfter(http);
 	}
 
 	private void uriSetting(Class<?> eachClass) {
@@ -58,6 +58,10 @@ public class Mapper {
 				methodsMap.put(method.value(), new MethodHolder(methods[i]));
 			}
 		}
+	}
+
+	public static void executeMethod(String string, Http http) {
+		mapper.methodsMap.get(string).execute(http);
 	}
 
 }
