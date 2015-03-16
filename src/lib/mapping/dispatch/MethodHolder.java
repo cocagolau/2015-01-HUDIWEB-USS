@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import lib.database.util.DAO;
+import lib.database.DAO;
 import lib.mapping.annotation.Mapping;
 import lib.mapping.dispatch.support.Http;
 

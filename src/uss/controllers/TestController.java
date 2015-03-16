@@ -2,7 +2,7 @@ package uss.controllers;
 
 import java.io.IOException;
 
-import lib.database.util.DAO;
+import lib.database.DAO;
 import lib.mapping.annotation.Mapping;
 import lib.mapping.dispatch.support.Http;
 
