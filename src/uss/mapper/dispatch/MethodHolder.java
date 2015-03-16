@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import uss.database.connector.DBExecuter;
+import uss.database.util.DBExecuter;
 import uss.mapper.annotation.Mapping;
 import uss.mapper.dispatch.support.Http;
 
@@ -51,6 +51,8 @@ public class MethodHolder {
 	}
 
 	public void executeBefore(Http http) {
+		if(!method.isAnnotationPresent(Mapping.class))
+			return;
 		String[] before = method.getAnnotation(Mapping.class).before();
 		for (int i = 0; i < before.length; i++) {
 			if (before[i].equals(""))
@@ -60,6 +62,8 @@ public class MethodHolder {
 	}
 	
 	public void executeAfter(Http http) {
+		if(!method.isAnnotationPresent(Mapping.class))
+			return;
 		String[] after = method.getAnnotation(Mapping.class).after();
 		for (int i = 0; i < after.length; i++) {
 			if (after[i].equals(""))

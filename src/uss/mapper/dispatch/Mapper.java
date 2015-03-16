@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import uss.database.connector.DBExecuter;
+import uss.database.util.DBExecuter;
 import uss.mapper.annotation.HttpMethod;
 import uss.mapper.annotation.Mapping;
 import uss.mapper.dispatch.support.ClassFinder;
