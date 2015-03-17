@@ -13,9 +13,10 @@ public class TestController {
 		http.setView(new Json());
 	}
 	
-	@Mapping(value = "/index2", before = "kr")
+	@Mapping(value = "/{}", before = "kr")
 	public void test(Http http) {
 		http.write("가나다라");
+		http.write(http.getUriVariable(0));
 		http.setView(new Json());
 	}
 	

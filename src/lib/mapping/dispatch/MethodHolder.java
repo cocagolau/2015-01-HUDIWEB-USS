@@ -11,6 +11,7 @@ import lib.mapping.dispatch.support.Http;
 
 public class MethodHolder {
 
+	
 	private Map<String, Object> instanceMap = new HashMap<String, Object>();
 
 	private Object instance;
@@ -42,7 +43,7 @@ public class MethodHolder {
 		for (int i = 0; i < before.length; i++) {
 			if (before[i].equals(""))
 				continue;
-			Mapper.getMethod(before[i]).execute(http, dao);
+			Mapper.getMethod(before[i], http).execute(http, dao);
 		}
 	}
 
@@ -53,7 +54,7 @@ public class MethodHolder {
 		for (int i = 0; i < after.length; i++) {
 			if (after[i].equals(""))
 				continue;
-			Mapper.getMethod(after[i]).execute(http, dao);
+			Mapper.getMethod(after[i], http).execute(http, dao);
 		}
 	}
 
@@ -86,17 +87,16 @@ public class MethodHolder {
 		for (int i = 0; i < before.length; i++) {
 			if (before[i].equals(""))
 				continue;
-			if (Mapper.getMethod(before[i]).needDAO())
+			if (Mapper.getMethod(before[i], null).needDAO())
 				return true;
 		}
 		String[] after = method.getAnnotation(Mapping.class).after();
 		for (int i = 0; i < after.length; i++) {
 			if (after[i].equals(""))
 				continue;
-			if (Mapper.getMethod(after[i]).needDAO())
+			if (Mapper.getMethod(after[i], null).needDAO())
 				return true;
 		}
 		return false;
 	}
-
 }

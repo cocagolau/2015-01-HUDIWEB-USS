@@ -57,9 +57,12 @@ public class Http {
 		}
 	}
 
-	public void setParams(ArrayList<String> params) {
-		this.params = params;
+	public void addParameter(String group) {
+		if(params==null)
+			params = new ArrayList<String>();
+		params.add(group);
 	}
+
 
 	public String getUriVariable(int number) {
 		return params.get(number);
@@ -120,7 +123,7 @@ public class Http {
 	}
 
 	public void render() {
-		if (view == null)
+		if(view==null)
 			return;
 		view.render(this);
 	}
@@ -128,5 +131,6 @@ public class Http {
 	public void setView(View view) {
 		this.view = view;
 	}
+
 
 }

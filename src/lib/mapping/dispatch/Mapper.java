@@ -1,8 +1,6 @@
 package lib.mapping.dispatch;
 
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,8 +16,8 @@ public class Mapper {
 	
 	private static final Logger logger = LoggerFactory.getLogger(Mapper.class);
 
-	private Map<String, MethodHolder> uriMap = new HashMap<String, MethodHolder>();
-	private Map<String, MethodHolder> methodsMap = new HashMap<String, MethodHolder>();
+	private MethodHolderMap uriMap = new MethodHolderMap();
+	private MethodHolderMap methodsMap = new MethodHolderMap();
 
 	private static Mapper mapper = new Mapper();
 
@@ -31,7 +29,7 @@ public class Mapper {
 	}
 
 	public static void execute(String url, Http http) {
-		MethodHolder method = mapper.uriMap.get(url);
+		MethodHolder method = mapper.uriMap.get(url, http);
 		if (method == null) {
 			http.sendError(404);
 			return;
@@ -64,8 +62,8 @@ public class Mapper {
 		}
 	}
 
-	public static MethodHolder getMethod(String string) {
-		return mapper.methodsMap.get(string);
+	public static MethodHolder getMethod(String string, Http http) {
+		return mapper.methodsMap.get(string, http);
 	}
 
 }
