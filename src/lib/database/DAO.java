@@ -1,8 +1,5 @@
 package lib.database;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -138,7 +135,7 @@ public class DAO {
 	
 	public <T> T getRecord(Class<T> cLass, String sql, Object...parameters){
 		Map<String, Object> record = getRecordMap(sql, parameters);
-		T result = getInvokedInstance(cLass, record);
+		T result = MapParser.getObject(cLass, record);
 		return result;
 	}
 	
@@ -146,38 +143,11 @@ public class DAO {
 		List<Map<String, Object>> records = getRecordsMap(sql, parameters);
 		List<T> result = new ArrayList<T>();
 		records.forEach(record->{
-			result.add(this.getInvokedInstance(cLass, record));
+			result.add(MapParser.getObject(cLass, record));
 		});
 		return result;
 	}
 
-	private <T> T getInvokedInstance(Class<T> cLass, Map<String, Object> record) {
-		Field[] fields = cLass.getFields();
-		T result = null;
-		try {
-			result = cLass.getConstructor().newInstance();
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
-				| SecurityException e) {
-			e.printStackTrace();
-		}
-		for(int i=0; i<fields.length;i++){
-			Object obj = record.get(fields[i].getName());
-			if(obj == null)
-				continue;
-			try {
-				Method setterMethod = cLass.getMethod(setterString(fields[i].getName()), obj.getClass());
-				if(setterMethod == null)
-					continue;
-				try {
-					setterMethod.invoke(result, obj);
-				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-				}
-			} catch (NoSuchMethodException | SecurityException e) {
-			}
-		}
-		return result;
-	}
-	
 
 	public Boolean execute(String sql, Object... parameters) {
 		PreparedStatement pstmt;
@@ -221,7 +191,4 @@ public class DAO {
 			}
 	}
 	
-	public static String setterString(String fieldName) {
-		return "set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-	}
 }
