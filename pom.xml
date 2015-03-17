@@ -12,6 +12,7 @@
 	</properties>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
@@ -96,6 +97,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.9</version>
 				<configuration>
 					<downloadSources>true</downloadSources>
 				</configuration>
@@ -104,16 +106,31 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.2</version>
+				<executions>
+					<execution>
+						<id>default-testCompile</id>
+						<phase>test-compile</phase>
+						<goals>
+							<goal>testCompile</goal>
+						</goals>
+						<configuration>
+							<skip>true</skip>
+						</configuration>
+					</execution>
+				</executions>
 				<configuration>
 					<!-- or whatever version you use -->
 					<source>1.8</source>
 					<target>1.8</target>
+					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
+				<version>2.6</version>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
