@@ -11,9 +11,14 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import uss.setting.Setting;
 
 public class DAO {
+	
+	private static final Logger logger = LoggerFactory.getLogger(DAO.class);
 
 	public static Connection getConnection() {
 		Connection con = null;
@@ -46,8 +51,8 @@ public class DAO {
 			rs = pstmt.executeQuery();
 			close(pstmt);
 		} catch (SQLException e) {
-			System.out.println(sql);
-			System.out.println(parameters);
+			logger.debug(sql);
+			logger.debug(parameters.toString());
 			e.printStackTrace();
 		}
 		return rs;
@@ -64,8 +69,8 @@ public class DAO {
 			}
 			close(rs);
 		} catch (SQLException e) {
-			System.out.println(sql);
-			System.out.println(parameters);
+			logger.debug(sql);
+			logger.debug(parameters.toString());
 			e.printStackTrace();
 		}
 		return record;
@@ -84,8 +89,8 @@ public class DAO {
 			}
 			close(rs);
 		} catch (SQLException e) {
-			System.out.println(sql);
-			System.out.println(parameters);
+			logger.debug(sql);
+			logger.debug(parameters.toString());
 			e.printStackTrace();
 		}
 		return record;
@@ -105,7 +110,7 @@ public class DAO {
 			}
 			close(rs);
 		} catch (SQLException e) {
-			System.out.println(sql);
+			logger.debug(sql);
 			e.printStackTrace();
 		}
 
@@ -127,7 +132,7 @@ public class DAO {
 			}
 			close(rs);
 		} catch (SQLException e) {
-			System.out.println(sql);
+			logger.debug(sql);
 			e.printStackTrace();
 		}
 		return result;
@@ -161,7 +166,7 @@ public class DAO {
 			close(pstmt);
 			return result != 0;
 		} catch (SQLException e) {
-			System.out.println(sql);
+			logger.debug(sql);
 			e.printStackTrace();
 		}
 		return false;

@@ -4,6 +4,9 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import lib.database.DAO;
 import lib.mapping.annotation.HttpMethod;
 import lib.mapping.annotation.Mapping;
@@ -12,6 +15,8 @@ import lib.mapping.dispatch.support.Http;
 import uss.setting.Setting;
 
 public class Mapper {
+	
+	private static final Logger logger = LoggerFactory.getLogger(Mapper.class);
 
 	private Map<String, MethodHolder> uriMap = new HashMap<String, MethodHolder>();
 	private Map<String, MethodHolder> methodsMap = new HashMap<String, MethodHolder>();
@@ -31,6 +36,7 @@ public class Mapper {
 			http.sendError(404);
 			return;
 		}
+		logger.debug(url+" > " + method.getMethod().getName());
 		DAO dao = null;
 		if (method.needDAO()) {
 			dao = new DAO();
