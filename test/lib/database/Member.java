@@ -21,6 +21,18 @@ public class Member {
 		this.age = age;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}

@@ -5,10 +5,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-public class MapParser {
-	
-	public static String setterString(String fieldName) {
-		return "set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+public class Parser {
+
+	private static final String SET = "set";
+
+	public static String upperString(String prefix, String fieldName) {
+		return prefix + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
 	}
 
 	public static <T> T getObject(Class<T> cLass, Map<String, Object> record) {
@@ -25,7 +27,7 @@ public class MapParser {
 			if (obj == null)
 				continue;
 			try {
-				Method setterMethod = cLass.getMethod(setterString(fields[i].getName()), obj.getClass());
+				Method setterMethod = cLass.getMethod(upperString(SET, fields[i].getName()), obj.getClass());
 				if (setterMethod == null)
 					continue;
 				try {
@@ -37,4 +39,5 @@ public class MapParser {
 		}
 		return result;
 	}
+
 }

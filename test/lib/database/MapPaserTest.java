@@ -14,7 +14,7 @@ public class MapPaserTest {
 		map.put("name", "abc");
 		map.put("age", 17);
 		map.put("birthday", new Date());
-		MapParser.getObject(Member.class, map);
+		Parser.getObject(Member.class, map);
 		System.out.println(map);
 	}
 

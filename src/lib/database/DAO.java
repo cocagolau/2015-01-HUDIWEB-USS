@@ -140,7 +140,7 @@ public class DAO {
 	
 	public <T> T getRecord(Class<T> cLass, String sql, Object...parameters){
 		Map<String, Object> record = getRecordMap(sql, parameters);
-		T result = MapParser.getObject(cLass, record);
+		T result = Parser.getObject(cLass, record);
 		return result;
 	}
 	
@@ -148,7 +148,7 @@ public class DAO {
 		List<Map<String, Object>> records = getRecordsMap(sql, parameters);
 		List<T> result = new ArrayList<T>();
 		records.forEach(record->{
-			result.add(MapParser.getObject(cLass, record));
+			result.add(Parser.getObject(cLass, record));
 		});
 		return result;
 	}
