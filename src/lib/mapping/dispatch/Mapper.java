@@ -31,15 +31,16 @@ public class Mapper {
 			http.sendError(404);
 			return;
 		}
-		DAO exe = null;
-		if (method.needDBConnector()) {
-			exe = new DAO();
+		DAO dao = null;
+		if (method.needDAO()) {
+			dao = new DAO();
 		}
-		method.executeBefore(http, exe);
-		method.execute(http, exe);
-		method.executeAfter(http, exe);
-		if (exe != null)
-			exe.close();
+		method.executeBefore(http, dao);
+		method.execute(http, dao);
+		method.executeAfter(http, dao);
+		if (dao != null)
+			dao.close();
+		http.render();
 	}
 
 	private void uriSetting(Class<?> eachClass) {

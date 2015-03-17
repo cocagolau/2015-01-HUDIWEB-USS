@@ -10,12 +10,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import lib.mapping.view.View;
 
 public class Http {
 
 	private HttpServletRequest req;
 	private HttpServletResponse resp;
 	private ArrayList<String> params;
+	private View view;
 
 	public HttpServletRequest getReq() {
 		return req;
@@ -24,7 +26,6 @@ public class Http {
 	public HttpServletResponse getResp() {
 		return resp;
 	}
-
 
 	public String getParameter(String name) {
 		return req.getParameter(name);
@@ -48,8 +49,12 @@ public class Http {
 		resp.setContentType(type);
 	}
 
-	public void write(String string) throws IOException {
-		resp.getWriter().write(string);
+	public void write(String string) {
+		try {
+			resp.getWriter().write(string);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void setParams(ArrayList<String> params) {
@@ -112,6 +117,16 @@ public class Http {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void render() {
+		if (view == null)
+			return;
+		view.render(this);
+	}
+
+	public void setView(View view) {
+		this.view = view;
 	}
 
 }

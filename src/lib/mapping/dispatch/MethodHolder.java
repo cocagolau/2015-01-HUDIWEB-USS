@@ -35,65 +35,65 @@ public class MethodHolder {
 		return method;
 	}
 
-	public void executeBefore(Http http, DAO exe) {
+	public void executeBefore(Http http, DAO dao) {
 		if (!method.isAnnotationPresent(Mapping.class))
 			return;
 		String[] before = method.getAnnotation(Mapping.class).before();
 		for (int i = 0; i < before.length; i++) {
 			if (before[i].equals(""))
 				continue;
-			Mapper.getMethod(before[i]).execute(http, exe);
+			Mapper.getMethod(before[i]).execute(http, dao);
 		}
 	}
 
-	public void executeAfter(Http http, DAO exe) {
+	public void executeAfter(Http http, DAO dao) {
 		if (!method.isAnnotationPresent(Mapping.class))
 			return;
 		String[] after = method.getAnnotation(Mapping.class).after();
 		for (int i = 0; i < after.length; i++) {
 			if (after[i].equals(""))
 				continue;
-			Mapper.getMethod(after[i]).execute(http, exe);
+			Mapper.getMethod(after[i]).execute(http, dao);
 		}
 	}
 
-	public void execute(Http http, DAO exe) {
+	public void execute(Http http, DAO dao) {
 		try {
 			switch (method.getParameterCount()) {
-			case 0:
-				method.invoke(instance);
-				return;
 			case 1:
-				if (method.getParameterTypes()[0].equals(Http.class)) {
-					method.invoke(instance, http);
-					return;
-				}
-				if (method.getParameterTypes()[0].equals(DAO.class)) {
-					method.invoke(instance, exe);
-					return;
-				}
+				method.invoke(instance, http);
+				return;
 			case 2:
-				method.invoke(instance, http, exe);
+				method.invoke(instance, http, dao);
 				return;
 			}
-			System.out.println("Errrrrrr");
+			System.out.println("첫번째 파라미터는 Http, DAO를 사용할 경우 두번째 파라미터는 DAO입니다.");
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			e.printStackTrace();
 		}
 		return;
 	}
 
-	public boolean needDBConnector() {
-		if(method.getAnnotation(Mapping.class).DB())
-			return true;
+	public boolean needDAO() {
+		Class<?>[] paramtypes = method.getParameterTypes();
+		for (int i = 0; i < paramtypes.length; i++) {
+			if (paramtypes.equals(DAO.class))
+				return true;
+		}
+		if (!method.isAnnotationPresent(Mapping.class))
+			return false;
 		String[] before = method.getAnnotation(Mapping.class).before();
-		for(int i=0; i<before.length;i++){
-			if(Mapper.getMethod(before[i]).getMethod().getAnnotation(Mapping.class).DB())
+		for (int i = 0; i < before.length; i++) {
+			if (before[i].equals(""))
+				continue;
+			if (Mapper.getMethod(before[i]).needDAO())
 				return true;
 		}
 		String[] after = method.getAnnotation(Mapping.class).after();
-		for(int i=0; i<after.length;i++){
-			if(Mapper.getMethod(after[i]).getMethod().getAnnotation(Mapping.class).DB())
+		for (int i = 0; i < after.length; i++) {
+			if (after[i].equals(""))
+				continue;
+			if (Mapper.getMethod(after[i]).needDAO())
 				return true;
 		}
 		return false;
