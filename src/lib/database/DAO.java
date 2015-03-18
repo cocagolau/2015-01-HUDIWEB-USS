@@ -1,5 +1,6 @@
 package lib.database;
 
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ import org.slf4j.LoggerFactory;
 import uss.setting.Setting;
 
 public class DAO {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(DAO.class);
 
 	public static Connection getConnection() {
@@ -116,7 +117,7 @@ public class DAO {
 
 		return result;
 	}
-	
+
 	public List<Map<String, Object>> getRecordsMap(String sql, Object... parameters) {
 		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
 		try {
@@ -137,22 +138,21 @@ public class DAO {
 		}
 		return result;
 	}
-	
-	public <T> T getRecord(Class<T> cLass, String sql, Object...parameters){
+
+	public <T> T getRecord(Class<T> cLass, String sql, Object... parameters) {
 		Map<String, Object> record = getRecordMap(sql, parameters);
 		T result = Parser.getObject(cLass, record);
 		return result;
 	}
-	
-	public <T> List<T>  getRecords(Class<T> cLass, String sql, Object...parameters){
+
+	public <T> List<T> getRecords(Class<T> cLass, String sql, Object... parameters) {
 		List<Map<String, Object>> records = getRecordsMap(sql, parameters);
 		List<T> result = new ArrayList<T>();
-		records.forEach(record->{
+		records.forEach(record -> {
 			result.add(Parser.getObject(cLass, record));
 		});
 		return result;
 	}
-
 
 	public Boolean execute(String sql, Object... parameters) {
 		PreparedStatement pstmt;
@@ -195,5 +195,15 @@ public class DAO {
 			} catch (SQLException sqle) {
 			}
 	}
-	
+
+	public void insert(String tableName, Object record) {
+		SqlAndParams sap = new SqlAndParams(record);
+		execute(sap.getInsertString(tableName));
+	}
+
+	public BigInteger insertAndGetPrimaryKey(String tableName, Object record) {
+		insert(tableName, record);
+		return (BigInteger) getRecord("SELECT LAST_INSERT_ID();", 1).get(0);
+	}
+
 }

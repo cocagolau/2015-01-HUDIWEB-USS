@@ -26,7 +26,7 @@ public class SqlAndParams {
 	private List<Object> params;
 	private List<Field> fields;
 
-	SqlAndParams(Object record) {
+	public SqlAndParams(Object record) {
 		Class<?> cLass = record.getClass();
 		Field[] fields = cLass.getDeclaredFields();
 		params = new ArrayList<Object>();
