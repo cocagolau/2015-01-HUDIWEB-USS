@@ -14,7 +14,7 @@ public class Parser {
 	}
 
 	public static <T> T getObject(Class<T> cLass, Map<String, Object> record) {
-		Field[] fields = cLass.getFields();
+		Field[] fields = cLass.getDeclaredFields();
 		T result = null;
 		try {
 			result = cLass.getConstructor().newInstance();

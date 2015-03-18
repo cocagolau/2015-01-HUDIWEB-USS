@@ -78,7 +78,7 @@ public class MethodHolder {
 	public boolean needDAO() {
 		Class<?>[] paramtypes = method.getParameterTypes();
 		for (int i = 0; i < paramtypes.length; i++) {
-			if (paramtypes.equals(DAO.class))
+			if (paramtypes[i].equals(DAO.class))
 				return true;
 		}
 		if (!method.isAnnotationPresent(Mapping.class))
