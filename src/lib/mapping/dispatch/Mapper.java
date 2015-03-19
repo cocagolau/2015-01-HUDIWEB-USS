@@ -7,14 +7,13 @@ import lib.mapping.annotation.HttpMethod;
 import lib.mapping.annotation.Mapping;
 import lib.mapping.dispatch.support.ClassFinder;
 import lib.mapping.dispatch.support.Http;
+import lib.setting.Setting;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uss.setting.Setting;
-
 public class Mapper {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(Mapper.class);
 
 	private MethodHolderMap uriMap = new MethodHolderMap();
@@ -24,11 +23,9 @@ public class Mapper {
 
 	private Mapper() {
 		ClassFinder cf = new ClassFinder();
-		cf.find(Setting.CONTROLLER_PATH).forEach(cLass -> {
+		cf.find(Setting.get("ControllerPath")).forEach(cLass -> {
 			uriSetting(cLass);
 		});
-		
-		
 	}
 
 	public static void execute(String url, Http http) {
@@ -37,7 +34,7 @@ public class Mapper {
 			http.sendError(404);
 			return;
 		}
-		logger.debug(url+" > " + method.getMethod().getName());
+		logger.debug(url + " > " + method.getMethod().getName());
 		DAO dao = null;
 		if (method.needDAO()) {
 			dao = new DAO();
@@ -55,7 +52,7 @@ public class Mapper {
 		for (int i = 0; i < methods.length; i++) {
 			if (methods[i].isAnnotationPresent(Mapping.class)) {
 				Mapping mapping = methods[i].getAnnotation(Mapping.class);
-				uriMap.put(mapping.value(), new MethodHolder(methods[i]));
+				uriMap.put(mapping.method() + ">" + mapping.value(), new MethodHolder(methods[i]));
 			}
 			if (methods[i].isAnnotationPresent(HttpMethod.class)) {
 				HttpMethod method = methods[i].getAnnotation(HttpMethod.class);

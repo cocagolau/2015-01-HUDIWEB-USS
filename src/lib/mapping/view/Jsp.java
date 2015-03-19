@@ -7,7 +7,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 
 import lib.mapping.dispatch.support.Http;
-import uss.setting.Setting;
+import lib.setting.Setting;
 
 public class Jsp implements View {
 
@@ -38,7 +38,7 @@ public class Jsp implements View {
 			http.getReq().setAttribute(keys.get(i), objs.get(i));
 		}
 		try {
-			http.forword(Setting.JSP_PATH + jspFileName);
+			http.forword(Setting.get("jspPath") + jspFileName);
 		} catch (ServletException | IOException e) {
 			e.printStackTrace();
 		}

@@ -12,10 +12,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import lib.setting.Setting;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import uss.setting.Setting;
 
 public class DAO {
 
@@ -23,9 +23,9 @@ public class DAO {
 
 	public static Connection getConnection() {
 		Connection con = null;
-		String url = Setting.DB_URL;
-		String id = Setting.DB_ID;
-		String pw = Setting.DB_PASSWORD;
+		String url = Setting.get("DBUrl");
+		String id = Setting.get("DBId");
+		String pw = Setting.get("DBPassword");
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(url, id, pw);
