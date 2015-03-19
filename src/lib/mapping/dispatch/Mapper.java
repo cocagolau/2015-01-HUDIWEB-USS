@@ -23,7 +23,7 @@ public class Mapper {
 
 	private Mapper() {
 		ClassFinder cf = new ClassFinder();
-		cf.find(Setting.get("ControllerPath")).forEach(cLass -> {
+		cf.find(Setting.get("controllerPath")).forEach(cLass -> {
 			uriSetting(cLass);
 		});
 	}
