@@ -39,7 +39,7 @@ public class SqlAndParams {
 					continue;
 				params.add(param);
 				this.fields.add(fields[i]);
-				fieldNames += fields[i].getName() + DETER;
+				fieldNames = record.getClass().getName() + "_" + fields[i].getName() + DETER;
 			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 				e.printStackTrace();
 			}
