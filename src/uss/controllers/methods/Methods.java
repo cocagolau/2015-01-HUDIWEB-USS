@@ -7,12 +7,14 @@ import lib.mapping.dispatch.support.Http;
 
 public class Methods {
 
-	@HttpMethod("kr")
-	public void encording(Http http){
+	@HttpMethod("render")
+	public void encording(Http http) {
+
 		try {
 			http.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 	}
+
 }

@@ -27,6 +27,8 @@ public class Mapper {
 		cf.find(Setting.CONTROLLER_PATH).forEach(cLass -> {
 			uriSetting(cLass);
 		});
+		
+		
 	}
 
 	public static void execute(String url, Http http) {
@@ -50,7 +52,6 @@ public class Mapper {
 
 	private void uriSetting(Class<?> eachClass) {
 		Method methods[] = eachClass.getDeclaredMethods();
-
 		for (int i = 0; i < methods.length; i++) {
 			if (methods[i].isAnnotationPresent(Mapping.class)) {
 				Mapping mapping = methods[i].getAnnotation(Mapping.class);

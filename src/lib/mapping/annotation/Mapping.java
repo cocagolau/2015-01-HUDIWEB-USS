@@ -11,4 +11,6 @@ public @interface Mapping {
 	String[] before() default "";
 	
 	String[] after() default "";
+	
+	String method() default "GET";
 }

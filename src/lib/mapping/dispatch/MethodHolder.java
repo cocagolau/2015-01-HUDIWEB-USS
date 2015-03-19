@@ -12,7 +12,7 @@ import lib.mapping.dispatch.support.Http;
 public class MethodHolder {
 
 	
-	private Map<String, Object> instanceMap = new HashMap<String, Object>();
+	private static Map<String, Object> instanceMap = new HashMap<String, Object>();
 
 	private Object instance;
 	private Method method;
