@@ -206,6 +206,11 @@ public class DAO {
 		SqlAndParams sap = new SqlAndParams(record);
 		execute(sap.getInsertString(tableName));
 	}
+	
+	public void post(String tableName, Object record) {
+		SqlAndParams sap = new SqlAndParams(record);
+		execute(sap.getInsertString(tableName));
+	}
 
 	public BigInteger insertAndGetPrimaryKey(String tableName, Object record) {
 		insert(tableName, record);
