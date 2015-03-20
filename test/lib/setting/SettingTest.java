@@ -8,6 +8,7 @@ public class SettingTest {
 	@Test
 	public void test() {
 		System.out.println(Setting.get("jspPath"));
+		Boolean.parseBoolean("true");
 	}
 
 }
