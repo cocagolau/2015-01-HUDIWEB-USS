@@ -5,7 +5,7 @@ CREATE TABLE `User` (
 	`User_nickName` VARCHAR(255) NOT NULL DEFAULT '',
 	`User_password` VARCHAR(255) NOT NULL DEFAULT '',
 	`User_profile` text NOT NULL DEFAULT '',
-	`User_gender` VARCHAR(255) NOT NULL DEFAULT '',
+	`User_gender` integer NOT NULL DEFAULT 0,
 	
 	PRIMARY KEY(`User_id`)
 ) ENGINE = InnoDB DEFAULT CHARACTER SET utf8;
