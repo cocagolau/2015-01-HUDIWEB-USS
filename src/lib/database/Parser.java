@@ -13,7 +13,7 @@ public class Parser {
 		return prefix + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
 	}
 
-	public static <T> T getObject(Class<T> cLass, Map<String, Object> record) {
+	public static <T> T setObject(Class<T> cLass, Map<String, Object> record) {
 		Field[] fields = cLass.getDeclaredFields();
 		T result = null;
 		try {
@@ -23,7 +23,7 @@ public class Parser {
 			e.printStackTrace();
 		}
 		for (int i = 0; i < fields.length; i++) {
-			Object obj = record.get(cLass.getName() + "_" + fields[i].getName());
+			Object obj = record.get(cLass.getSimpleName() + "_" + fields[i].getName());
 			if (obj == null)
 				continue;
 			try {

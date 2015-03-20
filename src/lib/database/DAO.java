@@ -147,7 +147,7 @@ public class DAO {
 
 	public <T> T getRecord(Class<T> cLass, String sql, Object... parameters) {
 		Map<String, Object> record = getRecordMap(sql, parameters);
-		T result = Parser.getObject(cLass, record);
+		T result = Parser.setObject(cLass, record);
 		return result;
 	}
 
@@ -155,7 +155,7 @@ public class DAO {
 		List<Map<String, Object>> records = getRecordsMap(sql, parameters);
 		List<T> result = new ArrayList<T>();
 		records.forEach(record -> {
-			result.add(Parser.getObject(cLass, record));
+			result.add(Parser.setObject(cLass, record));
 		});
 		return result;
 	}
@@ -202,19 +202,37 @@ public class DAO {
 			}
 	}
 
-	public void insert(String tableName, Object record) {
+	public void insert(Object record) {
 		SqlAndParams sap = new SqlAndParams(record);
-		execute(sap.getInsertString(tableName));
-	}
-	
-	public void post(String tableName, Object record) {
-		SqlAndParams sap = new SqlAndParams(record);
-		execute(sap.getInsertString(tableName));
+		String sql = "INSERT " + sap.getTableName() + " set " + sap.getIntegratedFieldNames();
+		execute(sql, sap.getIntegratedParams().toArray());
 	}
 
-	public BigInteger insertAndGetPrimaryKey(String tableName, Object record) {
-		insert(tableName, record);
+	public void update(Object record) {
+		SqlAndParams sap = new SqlAndParams(record);
+		String sql = "UPDATE " + sap.getTableName() + " set " + sap.getFieldNames() + " WHERE " + sap.getKeyFieldNames();
+		execute(sql, sap.getIntegratedParams().toArray());
+	}
+
+	public void delete(Object record) {
+		SqlAndParams sap = new SqlAndParams(record);
+		execute("DELETE FROM " + sap.getTableName() + " WHERE " + sap.getKeyFieldNames(), sap.getKeyParams().toArray());
+	}
+
+	public BigInteger insertAndGetPrimaryKey(Object record) {
+		insert(record);
 		return (BigInteger) getRecord("SELECT LAST_INSERT_ID();", 1).get(0);
+	}
+
+	public void post(Object record) {
+		SqlAndParams sap = new SqlAndParams(record);
+		if (sap.getKeyParams().size() == 0) {
+			String sql = "INSERT " + sap.getTableName() + " set " + sap.getIntegratedFieldNames();
+			execute(sql, sap.getIntegratedParams().toArray());
+			return;
+		}
+		String sql = "UPDATE " + sap.getTableName() + " set " + sap.getFieldNames() + " WHERE " + sap.getKeyFieldNames();
+		execute(sql, sap.getIntegratedParams().toArray());
 	}
 
 }

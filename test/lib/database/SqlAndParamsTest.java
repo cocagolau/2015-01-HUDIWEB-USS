@@ -13,8 +13,6 @@ public class SqlAndParamsTest {
 		a.setBirthday(new Date());
 		SqlAndParams sap = new SqlAndParams(a);
 		System.out.println(sap);
-		System.out.println(sap.getInsertString("member"));
-		System.out.println(sap.getUpdateString("member", "where id=?"));
 	}
 
 }
