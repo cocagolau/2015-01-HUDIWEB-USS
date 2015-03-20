@@ -1,2 +1,2 @@
-mysql -h picks.crb97qp69ve9.ap-northeast-1.rds.amazonaws.com -u picks -p picks < db_init.sql
-mysql -h picks.crb97qp69ve9.ap-northeast-1.rds.amazonaws.com -u picks -p picks < db_testData.sql
+mysql -h uss.crb97qp69ve9.ap-northeast-1.rds.amazonaws.com -u uss -p uss < db_init.sql
+mysql -h uss.crb97qp69ve9.ap-northeast-1.rds.amazonaws.com -u uss -p uss < db_testData.sql
