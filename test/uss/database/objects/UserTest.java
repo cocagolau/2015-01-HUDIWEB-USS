@@ -1,6 +1,5 @@
 package uss.database.objects;
 
-import static org.junit.Assert.*;
 import lib.database.DAO;
 
 import org.junit.Test;

@@ -3,6 +3,8 @@ package lib.database;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Map;
 
 public class Parser {
@@ -26,6 +28,9 @@ public class Parser {
 			Object obj = record.get(cLass.getSimpleName() + "_" + fields[i].getName());
 			if (obj == null)
 				continue;
+			if (obj.getClass().equals(Timestamp.class)){
+				obj = new Date(((Timestamp) obj).getTime());
+			}
 			try {
 				Method setterMethod = cLass.getMethod(upperString(SET, fields[i].getName()), obj.getClass());
 				if (setterMethod == null)
