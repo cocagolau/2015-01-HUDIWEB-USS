@@ -227,8 +227,7 @@ public class DAO {
 	public void post(Object record) {
 		SqlAndParams sap = new SqlAndParams(record);
 		if (sap.getKeyParams().size() == 0) {
-			String sql = "INSERT " + sap.getTableName() + " set " + sap.getIntegratedFieldNames();
-			execute(sql, sap.getIntegratedParams().toArray());
+			insert(record);
 			return;
 		}
 		String sql = "UPDATE " + sap.getTableName() + " set " + sap.getFieldNames() + " WHERE " + sap.getKeyFieldNames();
