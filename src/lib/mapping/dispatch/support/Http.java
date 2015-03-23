@@ -24,6 +24,7 @@ public class Http {
 	private HttpServletResponse resp;
 	private ArrayList<String> params;
 	private View view;
+	private Map<String, Object> map;
 
 	public HttpServletRequest getReq() {
 		return req;
@@ -163,6 +164,14 @@ public class Http {
 
 	public void setView(View view) {
 		this.view = view;
+	}
+
+	public void put(String str, Object obj) {
+		map.put(str, obj);
+	}
+
+	public Object get(String string) {
+		return map.get(string);
 	}
 
 }
