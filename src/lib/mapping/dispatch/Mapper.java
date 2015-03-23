@@ -7,6 +7,7 @@ import lib.mapping.annotation.HttpMethod;
 import lib.mapping.annotation.Mapping;
 import lib.mapping.dispatch.support.ClassFinder;
 import lib.mapping.dispatch.support.Http;
+import lib.mapping.exception.HandleException;
 import lib.setting.Setting;
 
 import org.slf4j.Logger;
@@ -29,22 +30,29 @@ public class Mapper {
 	}
 
 	public static void execute(String url, Http http) {
-		MethodHolder method = mapper.uriMap.get(url, http);
-		if (method == null) {
-			http.sendError(404);
-			return;
+		try {
+			MethodHolder method = mapper.uriMap.get(url, http);
+			if (method == null) {
+				http.sendError(404);
+				return;
+			}
+			logger.debug(url + " > " + method.getMethod().getName());
+			DAO dao = null;
+			if (method.needDAO()) {
+				dao = new DAO();
+			}
+			
+			method.executeBefore(http, dao);
+			method.execute(http, dao);
+			method.executeAfter(http, dao);
+
+			if (dao != null)
+				dao.close();
+			http.render();
+		} catch (HandleException e) {
+			e.handle(http);
+			http.render();
 		}
-		logger.debug(url + " > " + method.getMethod().getName());
-		DAO dao = null;
-		if (method.needDAO()) {
-			dao = new DAO();
-		}
-		method.executeBefore(http, dao);
-		method.execute(http, dao);
-		method.executeAfter(http, dao);
-		if (dao != null)
-			dao.close();
-		http.render();
 	}
 
 	private void uriSetting(Class<?> eachClass) {

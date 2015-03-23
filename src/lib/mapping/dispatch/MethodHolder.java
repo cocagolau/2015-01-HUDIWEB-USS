@@ -8,6 +8,7 @@ import java.util.Map;
 import lib.database.DAO;
 import lib.mapping.annotation.Mapping;
 import lib.mapping.dispatch.support.Http;
+import lib.mapping.exception.HandleException;
 
 public class MethodHolder {
 
@@ -35,7 +36,7 @@ public class MethodHolder {
 		return method;
 	}
 
-	public void executeBefore(Http http, DAO dao) {
+	public void executeBefore(Http http, DAO dao) throws HandleException {
 		if (!method.isAnnotationPresent(Mapping.class))
 			return;
 		String[] before = method.getAnnotation(Mapping.class).before();
@@ -49,7 +50,7 @@ public class MethodHolder {
 		}
 	}
 
-	public void executeAfter(Http http, DAO dao) {
+	public void executeAfter(Http http, DAO dao) throws HandleException {
 		if (!method.isAnnotationPresent(Mapping.class))
 			return;
 		String[] after = method.getAnnotation(Mapping.class).after();
@@ -60,7 +61,7 @@ public class MethodHolder {
 		}
 	}
 
-	public void execute(Http http, DAO dao) {
+	public void execute(Http http, DAO dao) throws HandleException {
 		try {
 			switch (method.getParameterCount()) {
 			case 1:
