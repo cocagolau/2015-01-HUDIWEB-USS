@@ -32,12 +32,15 @@ public class Mapper {
 	public static void execute(String url, Http http) {
 		try {
 			MethodHolder method = mapper.uriMap.get(url, http);
+			
 			if (method == null) {
 				http.sendError(404);
 				return;
 			}
+			
 			logger.debug(url + " > " + method.getMethod().getName());
 			DAO dao = null;
+			
 			if (method.needDAO()) {
 				dao = new DAO();
 			}
