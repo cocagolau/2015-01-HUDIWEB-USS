@@ -46,7 +46,6 @@ public class UserTest {
 	
 	@Test
 	public void PostTest() {
-		DAO dao = new DAO();
 		User user = new User();
 		user.setGender(1);
 		user.setId(4);
@@ -55,7 +54,6 @@ public class UserTest {
 		user.setPassword("abc");
 		user.setProfile("gg");
 		System.out.println(user);
-		dao.post(user);
 	}
 	
 

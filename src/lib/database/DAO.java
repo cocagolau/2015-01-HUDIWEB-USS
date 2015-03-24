@@ -168,14 +168,13 @@ public class DAO {
 				pstmt.setObject(j + 1, parameters[j]);
 			}
 			pstmt.execute();
-			int result = pstmt.getUpdateCount();
 			close(pstmt);
-			return result != 0;
+			return true;
 		} catch (SQLException e) {
 			logger.debug(sql);
 			e.printStackTrace();
+			return false;
 		}
-		return false;
 	}
 
 	private static void close(ResultSet rs) {
@@ -202,36 +201,28 @@ public class DAO {
 			}
 	}
 
-	public void insert(Object record) {
-		SqlAndParams sap = new SqlAndParams(record);
-		String sql = "INSERT " + sap.getTableName() + " set " + sap.getIntegratedFieldNames();
-		execute(sql, sap.getIntegratedParams().toArray());
+	private final static String INSERT = "INSERT %s SET %s";
+	public boolean insert(Object record) {
+		SqlParams sap = new SqlParams(record);
+		String sql = String.format(INSERT, sap.getTableName(), sap.getIntegratedFieldNames());
+		return execute(sql, sap.getIntegratedParams().toArray());
+	}
+	
+	private final static String UPDATE = "UPDATE %s SET %s WHERE %s";
+	public boolean update(Object record) {
+		SqlParams sap = new SqlParams(record);
+		String sql = String.format(UPDATE, sap.getTableName(), sap.getFieldNames(), sap.getKeyFieldNames());
+		return execute(sql, sap.getIntegratedParams().toArray());
 	}
 
-	public void update(Object record) {
-		SqlAndParams sap = new SqlAndParams(record);
-		String sql = "UPDATE " + sap.getTableName() + " set " + sap.getFieldNames() + " WHERE " + sap.getKeyFieldNames();
-		execute(sql, sap.getIntegratedParams().toArray());
+	private final static String DELETE = "UPDATE %s SET %s WHERE %s";
+	public boolean delete(Object record) {
+		SqlParams sap = new SqlParams(record);
+		return execute(String.format(DELETE, sap.getTableName(), sap.getKeyFieldNames()), sap.getKeyParams().toArray());
 	}
 
-	public void delete(Object record) {
-		SqlAndParams sap = new SqlAndParams(record);
-		execute("DELETE FROM " + sap.getTableName() + " WHERE " + sap.getKeyFieldNames(), sap.getKeyParams().toArray());
+	private final static String LAST = "SELECT LAST_INSERT_ID();";
+	public BigInteger getLastKey() {
+		return (BigInteger) getRecord(LAST, 1).get(0);
 	}
-
-	public BigInteger insertAndGetPrimaryKey(Object record) {
-		insert(record);
-		return (BigInteger) getRecord("SELECT LAST_INSERT_ID();", 1).get(0);
-	}
-
-	public void post(Object record) {
-		SqlAndParams sap = new SqlAndParams(record);
-		if (sap.getKeyParams().size() == 0) {
-			insert(record);
-			return;
-		}
-		String sql = "UPDATE " + sap.getTableName() + " set " + sap.getFieldNames() + " WHERE " + sap.getKeyFieldNames();
-		execute(sql, sap.getIntegratedParams().toArray());
-	}
-
 }

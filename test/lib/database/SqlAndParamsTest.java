@@ -11,7 +11,7 @@ public class SqlAndParamsTest {
 		Member a = new Member();
 		a.setAge(18);
 		a.setBirthday(new Date());
-		SqlAndParams sap = new SqlAndParams(a);
+		SqlParams sap = new SqlParams(a);
 		System.out.println(sap);
 	}
 

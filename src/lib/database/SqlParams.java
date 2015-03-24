@@ -7,7 +7,7 @@ import java.util.List;
 
 import lib.database.annotation.Key;
 
-public class SqlAndParams {
+public class SqlParams {
 	private static final String DETER = "=?, ";
 	private static final String GET = "get";
 
@@ -60,7 +60,11 @@ public class SqlAndParams {
 		return result;
 	}
 
-	public SqlAndParams(Object record) {
+	public static boolean hasKey(Object obj) {
+		return new SqlParams(obj).getKeyParams().size() != 0;
+	}
+
+	public SqlParams(Object record) {
 		Class<?> cLass = record.getClass();
 		tableName = cLass.getSimpleName();
 		Field[] fields = cLass.getDeclaredFields();
