@@ -151,8 +151,25 @@ public class DAO {
 		return result;
 	}
 
+	public <T> T getRecordByClass(Class<T> cLass, Object... parameters) {
+		SqlParams sp = new SqlParams(cLass);
+		Map<String, Object> record = getRecordMap(String.format("SELECT * FROM %s WHERE %s", sp.getTableName(), sp.getKeyFieldNames()), parameters);
+		T result = Parser.setObject(cLass, record);
+		return result;
+	}
+
 	public <T> List<T> getRecords(Class<T> cLass, String sql, Object... parameters) {
 		List<Map<String, Object>> records = getRecordsMap(sql, parameters);
+		List<T> result = new ArrayList<T>();
+		records.forEach(record -> {
+			result.add(Parser.setObject(cLass, record));
+		});
+		return result;
+	}
+	
+	public <T> List<T> getRecordsByClass(Class<T> cLass, String whereClause, Object... parameters) {
+		SqlParams sp = new SqlParams(cLass);
+		List<Map<String, Object>> records = getRecordsMap(String.format("SELECT * FROM %s WHERE %s", sp.getTableName(), whereClause), parameters);
 		List<T> result = new ArrayList<T>();
 		records.forEach(record -> {
 			result.add(Parser.setObject(cLass, record));
@@ -202,13 +219,15 @@ public class DAO {
 	}
 
 	private final static String INSERT = "INSERT %s SET %s";
+
 	public boolean insert(Object record) {
 		SqlParams sap = new SqlParams(record);
 		String sql = String.format(INSERT, sap.getTableName(), sap.getIntegratedFieldNames());
 		return execute(sql, sap.getIntegratedParams().toArray());
 	}
-	
+
 	private final static String UPDATE = "UPDATE %s SET %s WHERE %s";
+
 	public boolean update(Object record) {
 		SqlParams sap = new SqlParams(record);
 		String sql = String.format(UPDATE, sap.getTableName(), sap.getFieldNames(), sap.getKeyFieldNames());
@@ -216,12 +235,14 @@ public class DAO {
 	}
 
 	private final static String DELETE = "UPDATE %s SET %s WHERE %s";
+
 	public boolean delete(Object record) {
 		SqlParams sap = new SqlParams(record);
 		return execute(String.format(DELETE, sap.getTableName(), sap.getKeyFieldNames()), sap.getKeyParams().toArray());
 	}
 
 	private final static String LAST = "SELECT LAST_INSERT_ID();";
+
 	public BigInteger getLastKey() {
 		return (BigInteger) getRecord(LAST, 1).get(0);
 	}

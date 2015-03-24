@@ -64,6 +64,20 @@ public class SqlParams {
 		return new SqlParams(obj).getKeyParams().size() != 0;
 	}
 
+	public SqlParams(Class<?> cLass) {
+		tableName = cLass.getSimpleName();
+		Field[] fields = cLass.getDeclaredFields();
+		this.fields = new ArrayList<Field>();
+		this.keyFields = new ArrayList<Field>();
+		for (int i = 0; i < fields.length; i++) {
+			if (fields[i].isAnnotationPresent(Key.class)) {
+				this.keyFields.add(fields[i]);
+				continue;
+			}
+			this.fields.add(fields[i]);
+		}
+	}
+
 	public SqlParams(Object record) {
 		Class<?> cLass = record.getClass();
 		tableName = cLass.getSimpleName();

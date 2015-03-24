@@ -1,12 +1,13 @@
-package uss.right;
+package uss.right.user;
 
 import uss.database.objects.User;
+import uss.right.Right;
 
-public class UserUpdateRight implements Right {
+public class ReadRight implements Right {
 	
 	boolean right;
 
-	public UserUpdateRight(User loggedUser, User updateUser){
+	public ReadRight(User loggedUser, User updateUser){
 		right = loggedUser.getId().equals(updateUser.getId());
 	}
 	
