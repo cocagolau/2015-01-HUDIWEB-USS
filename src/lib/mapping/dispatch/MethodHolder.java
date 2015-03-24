@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import lib.database.DAO;
 import lib.mapping.dispatch.support.Http;
 import lib.mapping.exception.HandleException;
 
@@ -34,13 +35,17 @@ public class MethodHolder {
 		return method;
 	}
 
-	public boolean execute(Http http) {
+	public boolean execute(Http http, DAO dao) {
 		try {
 			if (method.getParameterCount() == 0) {
 				method.invoke(instance);
 				return true;
 			}
-			method.invoke(instance, http);
+			if (method.getParameterCount() == 1) {
+				method.invoke(instance, http);
+				return true;
+			}
+			method.invoke(instance, http, dao);
 			return true;
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			if (!e.getCause().getClass().getSuperclass().equals(HandleException.class)) {

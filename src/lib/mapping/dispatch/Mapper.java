@@ -9,6 +9,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import lib.database.DAO;
 import lib.mapping.annotation.HttpMethod;
 import lib.mapping.annotation.Mapping;
 import lib.mapping.dispatch.support.ClassFinder;
@@ -30,20 +31,35 @@ public class Mapper {
 
 	public void execute(String url, Http http) {
 		List<String> methods = uriMap.get(url, http);
-
 		if (methods == null) {
 			http.sendError(404);
 			return;
 		}
+		DAO dao = null;
+		if (needDAO(methods))
+			dao = new DAO();
 		logger.debug(String.format("Uri:%s -> %s", url, methods.toString()));
 		for (int i = 0; i < methods.size(); i++) {
 			MethodHolder mh = methodMap.get(methods.get(i));
 			if (mh == null)
 				continue;
-			if (!mh.execute(http))
+			if (!mh.execute(http, dao))
 				break;
 		}
+		if (dao != null)
+			dao.close();
 		http.render();
+	}
+
+	private boolean needDAO(List<String> methods) {
+		for (int i = 0; i < methods.size(); i++) {
+			MethodHolder mh = methodMap.get(methods.get(i));
+			if (mh == null)
+				continue;
+			if (mh.getMethod().getParameterCount() == 2)
+				return true;
+		}
+		return false;
 	}
 
 	private void initSetting(Class<?> eachClass) {
