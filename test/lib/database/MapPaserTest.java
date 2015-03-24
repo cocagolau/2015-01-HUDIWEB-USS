@@ -18,5 +18,10 @@ public class MapPaserTest {
 		System.out.println(map);
 		System.out.println(m);
 	}
+	
+	@Test
+	public void test2() throws NoSuchMethodException, SecurityException{
+		System.out.println(this.getClass().getMethod("test").getReturnType().equals(void.class));
+	}
 
 }

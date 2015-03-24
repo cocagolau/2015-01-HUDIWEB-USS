@@ -1,79 +1,82 @@
 package lib.mapping.dispatch;
 
 import java.lang.reflect.Method;
-
-import lib.database.DAO;
-import lib.mapping.annotation.HttpMethod;
-import lib.mapping.annotation.Mapping;
-import lib.mapping.dispatch.support.ClassFinder;
-import lib.mapping.dispatch.support.Http;
-import lib.mapping.exception.HandleException;
-import lib.setting.Setting;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import lib.mapping.annotation.HttpMethod;
+import lib.mapping.annotation.Mapping;
+import lib.mapping.dispatch.support.ClassFinder;
+import lib.mapping.dispatch.support.Http;
+import lib.setting.Setting;
+
 public class Mapper {
 
 	private static final Logger logger = LoggerFactory.getLogger(Mapper.class);
+	private Map<String, MethodHolder> methodMap = new HashMap<String, MethodHolder>();
+	private UriMap uriMap = new UriMap();
 
-	private MethodHolderMap uriMap = new MethodHolderMap();
-	private MethodHolderMap methodsMap = new MethodHolderMap();
-
-	private static Mapper mapper = new Mapper();
-
-	private Mapper() {
+	Mapper() {
 		ClassFinder cf = new ClassFinder();
 		cf.find(Setting.get("controllerPath")).forEach(cLass -> {
-			uriSetting(cLass);
+			initSetting(cLass);
 		});
 	}
 
-	public static void execute(String url, Http http) {
-		try {
-			MethodHolder method = mapper.uriMap.get(url, http);
-			
-			if (method == null) {
-				http.sendError(404);
-				return;
-			}
-			
-			logger.debug(url + " > " + method.getMethod().getName());
-			DAO dao = null;
-			
-			if (method.needDAO()) {
-				dao = new DAO();
-			}
-			
-			method.executeBefore(http, dao);
-			method.execute(http, dao);
-			method.executeAfter(http, dao);
+	public void execute(String url, Http http) {
+		List<String> methods = uriMap.get(url, http);
 
-			if (dao != null)
-				dao.close();
-			http.render();
-		} catch (HandleException e) {
-			e.handle(http);
-			http.render();
+		if (methods == null) {
+			http.sendError(404);
+			return;
 		}
+		logger.debug(String.format("Uri:%s -> %s", url, methods.toString()));
+		for (int i = 0; i < methods.size(); i++) {
+			MethodHolder mh = methodMap.get(methods.get(i));
+			if (mh == null)
+				continue;
+			if (!mh.execute(http))
+				break;
+		}
+		http.render();
 	}
 
-	private void uriSetting(Class<?> eachClass) {
+	private void initSetting(Class<?> eachClass) {
 		Method methods[] = eachClass.getDeclaredMethods();
 		for (int i = 0; i < methods.length; i++) {
 			if (methods[i].isAnnotationPresent(Mapping.class)) {
 				Mapping mapping = methods[i].getAnnotation(Mapping.class);
-				uriMap.put(mapping.method() + ">" + mapping.value(), new MethodHolder(methods[i]));
+				List<String> methodsString = new ArrayList<String>();
+				String[] before = mapping.before();
+				String[] after = mapping.after();
+				String key = mapping.method() + ">" + mapping.value();
+				addAll(methodsString, before);
+				methodsString.add(key);
+				addAll(methodsString, after);
+				uriMap.put(key, methodsString);
+				methodMap.put(key, new MethodHolder(methods[i]));
 			}
 			if (methods[i].isAnnotationPresent(HttpMethod.class)) {
 				HttpMethod method = methods[i].getAnnotation(HttpMethod.class);
-				methodsMap.put(method.value(), new MethodHolder(methods[i]));
+				String methodName = method.value();
+				if (methodName.equals(""))
+					methodName = methods[i].getName();
+				methodMap.put(methodName, new MethodHolder(methods[i]));
 			}
 		}
 	}
 
-	public static MethodHolder getMethod(String string, Http http) {
-		return mapper.methodsMap.get(string, http);
+	private void addAll(List<String> arrayList, String[] stringArray) {
+		for (int j = 0; j < stringArray.length; j++) {
+			if (stringArray[j].equals(""))
+				continue;
+			arrayList.add(stringArray[j]);
+		}
 	}
 
 }
