@@ -1,9 +1,10 @@
 package uss.database.objects;
 
+import uss.exception.JsonAlert;
 import lib.database.annotation.Key;
 
 public class User {
-	
+
 	@Key
 	private Integer id;
 	private String stringId;
@@ -66,4 +67,10 @@ public class User {
 		this.gender = gender;
 	}
 
+	public void login(User loggedUser) throws JsonAlert {
+		if (id == null)
+			throw new JsonAlert("없는 아이디입니다.");
+		if (!password.equals(loggedUser.getPassword()))
+			throw new JsonAlert("패스워드가 틀렸습니다.");
+	}
 }
