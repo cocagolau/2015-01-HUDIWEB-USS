@@ -57,4 +57,13 @@ public class MethodHolder {
 			return false;
 		}
 	}
+
+	@Override
+	public String toString() {
+		return method.getName();
+	}
+
+	public boolean needDAO() {
+		return method.getParameterCount() == 2;
+	}
 }

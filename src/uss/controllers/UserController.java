@@ -1,6 +1,9 @@
 package uss.controllers;
 
+import java.io.UnsupportedEncodingException;
+
 import lib.database.DAO;
+import lib.mapping.annotation.Before;
 import lib.mapping.annotation.HttpMethod;
 import lib.mapping.annotation.Mapping;
 import lib.mapping.dispatch.support.Http;
@@ -58,5 +61,14 @@ public class UserController {
 		User user = http.getSessionAttribute(User.class, "user");
 		if (user == null)
 			throw new JsonAlert("로그인이 필요합니다.");
+	}
+	
+	@Before
+	public void characterSet(Http http) {
+		try {
+			http.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 	}
 }

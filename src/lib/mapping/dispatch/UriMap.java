@@ -11,21 +11,21 @@ import lib.mapping.dispatch.support.Http;
 
 public class UriMap {
 
-	private Map<String, List<String>> match = new HashMap<String, List<String>>();
+	private Map<String, List<MethodHolder>> match = new HashMap<String, List<MethodHolder>>();
 	private List<String> regexList = new ArrayList<String>();
 
-	public void put(String key, List<String> methodArray) {
+	public void put(String key, List<MethodHolder> methodList) {
 		if (key.contains("{}")) {
 			String regex = key.replace("{}", "(.*)");
 			regexList.add(regex);
-			match.put(regex, methodArray);
+			match.put(regex, methodList);
 			return;
 		}
-		match.put(key, methodArray);
+		match.put(key, methodList);
 	}
 
-	public List<String> get(String key, Http http) {
-		List<String> methodArray = match.get(key);
+	public List<MethodHolder> get(String key, Http http) {
+		List<MethodHolder> methodArray = match.get(key);
 		if (methodArray != null)
 			return methodArray;
 		for (int i = 0; i < regexList.size(); i++) {
