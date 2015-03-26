@@ -1,12 +1,11 @@
 package lib.database.maker;
 
+import org.apache.catalina.User;
 import org.junit.Test;
-
-import uss.model.database.UserPhoto;
 
 public class TableMakerTest {
 
-	TableMaker tm = new TableMaker(new UserPhoto());
+	TableMaker tm = new TableMaker(User.class);
 	
 	@Test
 	public void print(){

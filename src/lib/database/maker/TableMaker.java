@@ -16,9 +16,9 @@ public class TableMaker {
 	private Class<?> tableClass;
 	private String tableName;
 
-	public TableMaker(Object tableObj) {
+	public TableMaker(Class<?> tableObj) {
 		dao = new DAO();
-		tableClass = tableObj.getClass();
+		tableClass = tableObj;
 		tableName = tableClass.getSimpleName();
 		if (!tableClass.isAnnotationPresent(Table.class))
 			return;
