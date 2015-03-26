@@ -1,7 +1,23 @@
 {
 	"controllerPath" : "uss.controllers",
 	"jspPath" : "/WEB-INF/jsp/",
-	"DBUrl" : "jdbc:mysql://uss.crb97qp69ve9.ap-northeast-1.rds.amazonaws.com:3306/uss?useUnicode=true&characterEncoding=utf8",
-	"DBId" : "uss",
-	"DBPassword" : "uss12345"
+	"database" : {
+		"url" : "jdbc:mysql://uss.crb97qp69ve9.ap-northeast-1.rds.amazonaws.com:3306/uss?useUnicode=true&characterEncoding=utf8",
+		"id" : "uss",
+		"password" : "uss12345",
+		"defaultCondition" : {
+			"String" : "NOT NULL DEFAULT ''",
+			"Integer" : "NOT NULL DEFAULT 0",
+			"Date" : "NOT NULL DEFAULT CURRENT_TIMESTAMP",
+			"Long" : "NOT NULL DEFAULT 0",
+			"Float" : "NOT NULL DEFAULT 0"
+		},
+		"defaultType" : {
+			"String" : "VARCHAR(255)",
+			"Integer" : "INTEGER",
+			"Date" : "DATETIME",
+			"Long" : "BIGINT",
+			"Float" : "FLOAT"
+		}
+	}
 }
