@@ -1,4 +1,4 @@
-package uss.database.objects;
+package uss.model.database;
 
 import uss.exception.JsonAlert;
 import lib.database.annotation.Key;

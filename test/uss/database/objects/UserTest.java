@@ -4,6 +4,8 @@ import lib.database.DAO;
 
 import org.junit.Test;
 
+import uss.model.database.User;
+
 public class UserTest {
 
 	@Test

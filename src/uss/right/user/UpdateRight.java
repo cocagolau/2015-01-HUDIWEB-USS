@@ -1,6 +1,6 @@
 package uss.right.user;
 
-import uss.database.objects.User;
+import uss.model.database.User;
 import uss.right.Right;
 
 public class UpdateRight implements Right {
