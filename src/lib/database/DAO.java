@@ -23,9 +23,9 @@ public class DAO {
 
 	public static Connection getConnection() {
 		Connection con = null;
-		String url = Setting.get("DBUrl");
-		String id = Setting.get("DBId");
-		String pw = Setting.get("DBPassword");
+		String url = Setting.get("database", "url");
+		String id = Setting.get("database", "id");
+		String pw = Setting.get("database", "password");
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(url, id, pw);
@@ -166,7 +166,7 @@ public class DAO {
 		});
 		return result;
 	}
-	
+
 	public <T> List<T> getRecordsByClass(Class<T> cLass, String whereClause, Object... parameters) {
 		SqlParams sp = new SqlParams(cLass);
 		List<Map<String, Object>> records = getRecordsMap(String.format("SELECT * FROM %s WHERE %s", sp.getTableName(), whereClause), parameters);

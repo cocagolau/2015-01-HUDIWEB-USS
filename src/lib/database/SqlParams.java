@@ -13,16 +13,17 @@ public class SqlParams {
 
 	private List<Object> params;
 	private List<Object> keyParams;
-	private List<Field> fields;
-	private List<Field> keyFields;
+	private List<SqlField> fields;
+	private List<SqlField> keyFields;
 	private String tableName;
 
+	
 	public String getFieldNames() {
 		if (fields == null)
 			return "";
 		String result = new String();
 		for (int i = 0; i < fields.size(); i++)
-			result += tableName + "_" + fields.get(i).getName() + DETER;
+			result += fields.get(i).getColumnName() + DETER;
 		if (result.length() > 0)
 			result = result.substring(0, result.length() - 2);
 		return result;
@@ -33,7 +34,7 @@ public class SqlParams {
 			return "";
 		String result = new String();
 		for (int i = 0; i < keyFields.size(); i++)
-			result += tableName + "_" + keyFields.get(i).getName() + DETER;
+			result += keyFields.get(i).getColumnName() + DETER;
 		if (result.length() > 0)
 			result = result.substring(0, result.length() - 2);
 		return result;
@@ -64,28 +65,15 @@ public class SqlParams {
 		return new SqlParams(obj).getKeyParams().size() != 0;
 	}
 
-	public SqlParams(Class<?> cLass) {
-		tableName = cLass.getSimpleName();
-		Field[] fields = cLass.getDeclaredFields();
-		this.fields = new ArrayList<Field>();
-		this.keyFields = new ArrayList<Field>();
-		for (int i = 0; i < fields.length; i++) {
-			if (fields[i].isAnnotationPresent(Key.class)) {
-				this.keyFields.add(fields[i]);
-				continue;
-			}
-			this.fields.add(fields[i]);
-		}
-	}
-
 	public SqlParams(Object record) {
 		Class<?> cLass = record.getClass();
-		tableName = cLass.getSimpleName();
+		SqlTable table = SqlTable.getInstance(cLass);
+		tableName = table.getTableName();
 		Field[] fields = cLass.getDeclaredFields();
 		params = new ArrayList<Object>();
 		keyParams = new ArrayList<Object>();
-		this.fields = new ArrayList<Field>();
-		this.keyFields = new ArrayList<Field>();
+		this.fields = new ArrayList<SqlField>();
+		this.keyFields = new ArrayList<SqlField>();
 		for (int i = 0; i < fields.length; i++) {
 			try {
 				Object param = cLass.getMethod(Parser.upperString(GET, fields[i].getName())).invoke(record);
@@ -93,11 +81,11 @@ public class SqlParams {
 					continue;
 				if (fields[i].isAnnotationPresent(Key.class)) {
 					keyParams.add(param);
-					this.keyFields.add(fields[i]);
+					this.keyFields.add(SqlField.getInstance(fields[i]));
 					continue;
 				}
 				params.add(param);
-				this.fields.add(fields[i]);
+				this.fields.add(SqlField.getInstance(fields[i]));
 			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 				e.printStackTrace();
 			}

@@ -1,17 +1,32 @@
 package uss.model.database;
 
-import uss.exception.JsonAlert;
+import lib.database.annotation.Column;
 import lib.database.annotation.Key;
+import lib.database.annotation.OtherTable;
+import lib.database.annotation.Unique;
+import uss.exception.JsonAlert;
 
 public class User {
 
-	@Key
+	@Key(AUTO_INCREMENT = true)
 	private Integer id;
+	@Unique
 	private String stringId;
 	private String nickName;
 	private String password;
 	private String profile;
+	@Column(DEFAULT = "0", DATA_TYPE = "TINYINT")
 	private Integer gender;
+	@OtherTable
+	private Integer UserPhoto_id;
+
+	public Integer getUserPhoto_id() {
+		return UserPhoto_id;
+	}
+
+	public void setUserPhoto_id(Integer userPhoto_id) {
+		UserPhoto_id = userPhoto_id;
+	}
 
 	public Integer getId() {
 		return id;

@@ -25,7 +25,7 @@ public class Parser {
 			e.printStackTrace();
 		}
 		for (int i = 0; i < fields.length; i++) {
-			Object obj = record.get(cLass.getSimpleName() + "_" + fields[i].getName());
+			Object obj = record.get(SqlField.getInstance(fields[i]).getColumnName());
 			if (obj == null)
 				continue;
 			if (obj.getClass().equals(Timestamp.class)){

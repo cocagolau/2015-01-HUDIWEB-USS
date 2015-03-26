@@ -28,10 +28,10 @@ public class Mapper {
 
 	Mapper() {
 		ClassFinder cf = new ClassFinder();
-		cf.find(Setting.get("controllerPath")).forEach(cLass -> {
+		cf.find(Setting.get("default", "controllerPath")).forEach(cLass -> {
 			makeMethodMap(cLass);
 		});
-		cf.find(Setting.get("controllerPath")).forEach(cLass -> {
+		cf.find(Setting.get("default", "controllerPath")).forEach(cLass -> {
 			makeUriMap(cLass);
 		});
 	}
@@ -45,14 +45,13 @@ public class Mapper {
 		DAO dao = null;
 
 		List<MethodHolder> todo = new ArrayList<MethodHolder>();
-		
-		
+
 		todo.addAll(beforeList);
 		todo.addAll(methods);
 		todo.addAll(afterList);
 
 		logger.debug(String.format("Uri:%s -> %s", url, todo.toString()));
-		
+
 		for (int i = 0; i < todo.size(); i++) {
 			MethodHolder mh = todo.get(i);
 			if (mh == null)
@@ -62,7 +61,7 @@ public class Mapper {
 			if (!mh.execute(http, dao))
 				break;
 		}
-		
+
 		if (dao != null)
 			dao.close();
 

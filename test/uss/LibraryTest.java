@@ -14,5 +14,13 @@ public class LibraryTest {
 		assertEquals(theDay.getDayOfWeek(), DateTimeConstants.WEDNESDAY);
 	}
 	
+	@SuppressWarnings("unused")
+	private int a = 1;
+	
+	@Test
+	public void test() throws NoSuchFieldException, SecurityException{
+		System.out.println(this.getClass().getDeclaredFields()[0].getType().equals(int.class));
+	}
+	
 
 }
