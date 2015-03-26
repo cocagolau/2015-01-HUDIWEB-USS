@@ -1,7 +1,8 @@
 package lib.database.maker;
 
-import org.apache.catalina.User;
 import org.junit.Test;
+
+import uss.model.database.User;
 
 public class TableMakerTest {
 

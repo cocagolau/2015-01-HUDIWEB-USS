@@ -152,7 +152,7 @@ public class DAO {
 	}
 
 	public <T> T getRecordByClass(Class<T> cLass, Object... parameters) {
-		SqlParams sp = new SqlParams(cLass);
+		SqlParams sp = SqlParams.getInstance(cLass);
 		Map<String, Object> record = getRecordMap(String.format("SELECT * FROM %s WHERE %s", sp.getTableName(), sp.getKeyFieldNames()), parameters);
 		T result = Parser.setObject(cLass, record);
 		return result;
@@ -168,8 +168,8 @@ public class DAO {
 	}
 
 	public <T> List<T> getRecordsByClass(Class<T> cLass, String whereClause, Object... parameters) {
-		SqlParams sp = new SqlParams(cLass);
-		List<Map<String, Object>> records = getRecordsMap(String.format("SELECT * FROM %s WHERE %s", sp.getTableName(), whereClause), parameters);
+		List<Map<String, Object>> records = getRecordsMap(
+				String.format("SELECT * FROM %s WHERE %s", SqlTable.getInstance(cLass).getTableName(), whereClause), parameters);
 		List<T> result = new ArrayList<T>();
 		records.forEach(record -> {
 			result.add(Parser.setObject(cLass, record));
@@ -222,6 +222,8 @@ public class DAO {
 
 	public boolean insert(Object record) {
 		SqlParams sap = new SqlParams(record);
+		if (sap.isEmpty())
+			return false;
 		String sql = String.format(INSERT, sap.getTableName(), sap.getIntegratedFieldNames());
 		return execute(sql, sap.getIntegratedParams().toArray());
 	}
@@ -230,6 +232,10 @@ public class DAO {
 
 	public boolean update(Object record) {
 		SqlParams sap = new SqlParams(record);
+		if (!sap.hasKeyParams())
+			return false;
+		if (!sap.hasParams())
+			return false;
 		String sql = String.format(UPDATE, sap.getTableName(), sap.getFieldNames(), sap.getKeyFieldNames());
 		return execute(sql, sap.getIntegratedParams().toArray());
 	}
@@ -238,6 +244,8 @@ public class DAO {
 
 	public boolean delete(Object record) {
 		SqlParams sap = new SqlParams(record);
+		if (!sap.hasKeyParams())
+			return false;
 		return execute(String.format(DELETE, sap.getTableName(), sap.getKeyFieldNames()), sap.getKeyParams().toArray());
 	}
 
