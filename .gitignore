@@ -83,4 +83,4 @@ pom.xml.next
 release.properties
 
 
-!target/lib.setting
+!/target/lib.setting

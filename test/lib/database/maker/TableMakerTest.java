@@ -2,11 +2,11 @@ package lib.database.maker;
 
 import org.junit.Test;
 
-import uss.model.database.User;
+import uss.model.database.UserPhoto;
 
 public class TableMakerTest {
 
-	TableMaker tm = new TableMaker(new User());
+	TableMaker tm = new TableMaker(new UserPhoto());
 	
 	@Test
 	public void print(){
