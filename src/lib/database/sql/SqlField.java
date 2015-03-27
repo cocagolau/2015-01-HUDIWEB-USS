@@ -1,4 +1,4 @@
-package lib.database;
+package lib.database.sql;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;

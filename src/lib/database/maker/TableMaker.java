@@ -3,12 +3,12 @@ package lib.database.maker;
 import java.lang.reflect.Field;
 
 import lib.database.DAO;
-import lib.database.SqlField;
-import lib.database.SqlFieldNormal;
 import lib.database.annotation.Key;
 import lib.database.annotation.OtherTable;
 import lib.database.annotation.Table;
 import lib.database.annotation.Unique;
+import lib.database.sql.SqlField;
+import lib.database.sql.SqlFieldNormal;
 
 public class TableMaker {
 
@@ -37,6 +37,11 @@ public class TableMaker {
 
 	public void dropTable() {
 		dao.execute(String.format(DROP_TABLE, tableName));
+	}
+	
+	public void reset(){
+		dropTable();
+		createTable();
 	}
 
 	private static final String PRIMARY_KEY = "PRIMARY KEY";

@@ -7,6 +7,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Map;
 
+import lib.database.sql.SqlField;
+
 public class Parser {
 
 	private static final String SET = "set";

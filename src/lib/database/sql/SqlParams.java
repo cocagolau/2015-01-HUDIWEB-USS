@@ -1,4 +1,4 @@
-package lib.database;
+package lib.database.sql;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import lib.database.Parser;
 import lib.database.annotation.Key;
 
 public class SqlParams {

@@ -1,4 +1,4 @@
-package lib.database;
+package lib.database.sql;
 
 import java.util.HashMap;
 import java.util.Map;

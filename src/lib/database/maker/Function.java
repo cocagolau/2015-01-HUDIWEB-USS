@@ -3,7 +3,7 @@ package lib.database.maker;
 import java.util.ArrayList;
 import java.util.List;
 
-import lib.database.SqlFieldNormal;
+import lib.database.sql.SqlFieldNormal;
 
 public class Function {
 	List<SqlFieldNormal> items = new ArrayList<SqlFieldNormal>();

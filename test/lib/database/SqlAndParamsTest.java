@@ -2,6 +2,8 @@ package lib.database;
 
 import java.util.Date;
 
+import lib.database.sql.SqlParams;
+
 import org.junit.Test;
 
 public class SqlAndParamsTest {
