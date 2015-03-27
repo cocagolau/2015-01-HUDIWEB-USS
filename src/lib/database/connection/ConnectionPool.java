@@ -11,9 +11,9 @@ public class ConnectionPool {
 	Queue<Connection> conns;
 
 	private static final String COM_MYSQL_JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	public static final String url = Setting.get("database", "url");
-	public static final String id = Setting.get("database", "id");
-	public static final String pw = Setting.get("database", "password");
+	private static final String URL = Setting.get("database", "url");
+	private static final String ID = Setting.get("database", "id");
+	private static final String PASSWORD = Setting.get("database", "password");
 
 
 	public synchronized Connection getConnection() {
@@ -23,7 +23,7 @@ public class ConnectionPool {
 		}
 		try {
 			Class.forName(COM_MYSQL_JDBC_DRIVER);
-			con = DriverManager.getConnection(url, id, pw);
+			con = DriverManager.getConnection(URL, ID, PASSWORD);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

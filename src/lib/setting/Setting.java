@@ -8,13 +8,13 @@ import com.google.gson.stream.JsonReader;
 
 public class Setting {
 
-	private static JNode node;
+	static JMap node;
 
 	static {
-		String path = JNode.class.getResource("/").getPath();
+		String path = JMap.class.getResource("/").getPath();
 		try {
 			JsonReader reader = new JsonReader(new FileReader(path + "../lib.setting"));
-			node = new JNode(reader);
+			node = new JMap(reader);
 			reader.close();
 		} catch (FileNotFoundException e) {
 			System.err.println(e.getLocalizedMessage());
@@ -25,7 +25,7 @@ public class Setting {
 	}
 
 	public static String get(String... keys) {
-		return node.get(keys);
+		return node.get(keys).toString();
 	}
 
 }
