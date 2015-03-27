@@ -28,10 +28,11 @@ public class Mapper {
 
 	Mapper() {
 		ClassFinder cf = new ClassFinder();
-		cf.find(Setting.get("default", "controllerPath")).forEach(cLass -> {
+		String path = Setting.get("controllerPath");
+		cf.find(path).forEach(cLass -> {
 			makeMethodMap(cLass);
 		});
-		cf.find(Setting.get("default", "controllerPath")).forEach(cLass -> {
+		cf.find(path).forEach(cLass -> {
 			makeUriMap(cLass);
 		});
 	}

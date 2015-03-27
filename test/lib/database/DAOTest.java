@@ -32,4 +32,9 @@ public class DAOTest {
 		System.out.println(dao.getRecordByClass(User.class, 1));
 	}
 
+	@Test
+	public void selectListTest() {
+		System.out.println(dao.getRecordsByClass(User.class));
+	}
+
 }

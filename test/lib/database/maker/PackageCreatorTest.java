@@ -8,7 +8,6 @@ public class PackageCreatorTest {
 	@Test
 	public void test() {
 		PackageCreator.createTable(true, "uss.model.database");
-
 	}
 
 }

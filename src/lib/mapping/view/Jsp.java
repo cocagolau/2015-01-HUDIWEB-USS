@@ -38,7 +38,7 @@ public class Jsp implements View {
 			http.getReq().setAttribute(keys.get(i), objs.get(i));
 		}
 		try {
-			http.forword(Setting.get("default", "jspPath") + jspFileName);
+			http.forword(Setting.get("jspPath") + jspFileName);
 		} catch (ServletException | IOException e) {
 			e.printStackTrace();
 		}

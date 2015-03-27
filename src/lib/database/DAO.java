@@ -169,12 +169,16 @@ public class DAO {
 
 	public <T> List<T> getRecordsByClass(Class<T> cLass, String whereClause, Object... parameters) {
 		List<Map<String, Object>> records = getRecordsMap(
-				String.format("SELECT * FROM %s WHERE %s", SqlTable.getInstance(cLass).getTableName(), whereClause), parameters);
+				String.format("SELECT * FROM %s %s", SqlTable.getInstance(cLass).getTableName(), whereClause), parameters);
 		List<T> result = new ArrayList<T>();
 		records.forEach(record -> {
 			result.add(Parser.setObject(cLass, record));
 		});
 		return result;
+	}
+	
+	public <T> List<T> getRecordsByClass(Class<T> cLass) {
+		return getRecordsByClass(cLass, "");
 	}
 
 	public Boolean execute(String sql, Object... parameters) {

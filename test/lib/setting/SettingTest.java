@@ -7,8 +7,8 @@ public class SettingTest {
 
 	@Test
 	public void test() {
-		Setting setting = new Setting();
-		System.out.println(setting);
+		System.out.println(Setting.get("controllerPath"));
+		System.out.println(Setting.get("database", "url"));
 	}
 
 }

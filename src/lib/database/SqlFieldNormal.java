@@ -14,7 +14,6 @@ public class SqlFieldNormal implements SqlField {
 		this.tableName = table.getTableName();
 		this.field = field;
 		setCondition();
-		setType();
 		setFieldString();
 	}
 
@@ -23,8 +22,6 @@ public class SqlFieldNormal implements SqlField {
 	private String columnName;
 
 	private String fieldString;
-	private String condition;
-	private String type;
 
 	@Override
 	public String getColumnName() {
@@ -40,57 +37,39 @@ public class SqlFieldNormal implements SqlField {
 	}
 
 	private final static String SPACE = " ";
-	private static final String BIGINT = "BIGINT";
-	private static final String INTEGER = "INTEGER";
-	private static final String VARCHAR = "VARCHAR(255)";
-	private static final String DATETIME = "DATETIME";
-	private static final String FLOAT = "FLOAT";
-	private static final String INT_DEFAULT = "NOT NULL DEFAULT 0";
-	private static final String DATE_DEFAULT = "NOT NULL DEFAULT CURRENT_TIMESTAMP";
-	private static final String STRING_DEFAULT = "NOT NULL DEFAULT ''";
 
 	private void setCondition() {
 		Class<?> t = field.getType();
-		String result = null;
 		if (t.equals(Integer.class) || t.equals(int.class)) {
-			String condition = Setting.get("defaultCondition", "Integer");
-			result = condition == null ? INT_DEFAULT : condition;
+			setSettings("Integer");
 		} else if (t.equals(String.class)) {
-			String condition = Setting.get("defaultCondition", "String");
-			result = condition == null ? STRING_DEFAULT : condition;
+			setSettings("String");
 		} else if (t.equals(Date.class)) {
-			String condition = Setting.get("defaultCondition", "Date");
-			result = condition == null ? DATE_DEFAULT : condition;
+			setSettings("Date");
 		} else if (t.equals(long.class) || t.equals(Long.class)) {
-			String condition = Setting.get("defaultCondition", "Long");
-			result = condition == null ? INT_DEFAULT : condition;
+			setSettings("Float");
 		} else if (t.equals(float.class) || t.equals(Float.class)) {
-			String condition = Setting.get("defaultCondition", "Float");
-			result = condition == null ? INT_DEFAULT : condition;
+			setSettings("Long");
 		}
-		this.condition = result;
 	}
 
-	private void setType() {
-		Class<?> t = field.getType();
-		String result = null;
-		if (t.equals(Integer.class) || t.equals(int.class)) {
-			String type = Setting.get("defaultType", "Integer");
-			result = type == null ? INTEGER : type;
-		} else if (t.equals(String.class)) {
-			String type = Setting.get("defaultType", "String");
-			result = type == null ? VARCHAR : type;
-		} else if (t.equals(Date.class)) {
-			String type = Setting.get("defaultType", "Date");
-			result = type == null ? DATETIME : type;
-		} else if (t.equals(long.class) || t.equals(Long.class)) {
-			String type = Setting.get("defaultType", "Long");
-			result = type == null ? BIGINT : type;
-		} else if (t.equals(float.class) || t.equals(Float.class)) {
-			String type = Setting.get("defaultType", "Float");
-			result = type == null ? FLOAT : type;
-		}
-		this.type = result;
+	private String defaultValue;
+	private String nullType;
+	private String type;
+
+	private void setSettings(String type) {
+		defaultValue = "";
+		nullType = "NULL";
+		this.type = Setting.get("database", "default", type, "DATATYPE");
+		if (!Boolean.parseBoolean(Setting.get("database", "default", type, "NOT NULL")))
+			return;
+		nullType = "NOT " + nullType;
+		if (!Boolean.parseBoolean(Setting.get("database", "default", type, "hasDefault")))
+			return;
+		String defaultvalue = Setting.get("database", "default", type, "DEFAULT");
+		if (type.equals("String") && defaultvalue.equals(""))
+			defaultvalue = "''";
+		defaultValue += "DEFAULT " + defaultvalue;
 	}
 
 	private void setFieldString() {
@@ -103,7 +82,7 @@ public class SqlFieldNormal implements SqlField {
 				fieldString = result;
 				return;
 			}
-			result += condition;
+			result += nullType + SPACE + defaultValue;
 			fieldString = result;
 			return;
 		}
@@ -130,7 +109,7 @@ public class SqlFieldNormal implements SqlField {
 
 		if (!column.DEFAULT().equals(""))
 			result += "DEFAULT" + SPACE + column.DEFAULT();
-		
+
 		fieldString = result;
 	}
 
