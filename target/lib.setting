@@ -1,0 +1,42 @@
+{
+	"controllerPath" : "uss.controllers",
+	"jspPath" : "/WEB-INF/jsp/",
+	"database" : {
+		"url" : "jdbc:mysql://uss.crb97qp69ve9.ap-northeast-1.rds.amazonaws.com:3306/uss?useUnicode=true&characterEncoding=utf8",
+		"id" : "uss",
+		"password" : "uss12345",
+		"default" : {
+			"table_suffix" : "ENGINE = InnoDB DEFAULT CHARACTER SET utf8",
+			"String" : {
+				"DATATYPE" : "VARCHAR(255)",
+				"NOT NULL" : "true",
+				"hasDefaultValue" : "true",
+				"DEFAULT" : ""
+			},
+			"Integer" : {
+				"DATATYPE" : "INTEGER",
+				"NOT NULL" : "true",
+				"hasDefaultValue" : "true",
+				"DEFAULT" : "0"
+			},
+			"Date" : {
+				"DATATYPE" : "DATETIME",
+				"NOT NULL" : "true",
+				"hasDefaultValue" : "true",
+				"DEFAULT" : "CURRENT_TIMESTAMP"
+			},
+			"Float" : {
+				"DATATYPE" : "FLOAT",
+				"NOT NULL" : "true",
+				"hasDefaultValue" : "true",
+				"DEFAULT" : "0"
+			},
+			"Long" : {
+				"DATATYPE" : "BIGINT",
+				"NOT NULL" : "true",
+				"hasDefaultValue" : "true",
+				"DEFAULT" : "0"
+			}
+		}
+	}
+}

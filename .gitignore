@@ -1,6 +1,5 @@
 /build/
-/target/
-!/target/lib.setting
+!/target/*.setting
 .DS_Store
 .classpath
 .project
