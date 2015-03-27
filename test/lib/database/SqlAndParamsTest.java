@@ -2,7 +2,7 @@ package lib.database;
 
 import java.util.Date;
 
-import lib.database.sql.SqlParams;
+import lib.database.sql.KeyParams;
 
 import org.junit.Test;
 
@@ -13,7 +13,7 @@ public class SqlAndParamsTest {
 		Member a = new Member();
 		a.setAge(18);
 		a.setBirthday(new Date());
-		SqlParams sap = new SqlParams(a);
+		KeyParams sap = new KeyParams(a);
 		System.out.println(sap);
 	}
 

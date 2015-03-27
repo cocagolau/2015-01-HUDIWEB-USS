@@ -1,7 +1,12 @@
 package lib.database;
 
+import static org.junit.Assert.assertFalse;
+
+import java.util.Date;
+
 import org.junit.Test;
 
+import uss.model.database.Matching;
 import uss.model.database.User;
 
 public class DAOTest {
@@ -12,17 +17,37 @@ public class DAOTest {
 		User user = new User();
 		user.setGender(0);
 		dao.insert(user);
+		Matching matching = new Matching();
+		matching.setMale(1);
+		matching.setFemale(2);
+		dao.insert(matching);
 	}
 
 	@Test
 	public void updateTest() {
+		Matching matching = new Matching();
+		matching.setMale(1);
+		matching.setFemale(2);
+		matching.setDate(new Date());
+		dao.update(matching);
+		
+		
 		User user = new User();
 		user.setGender(0);
-		user.setId(1);
-		user.setNickName("abc");
-		dao.update(user);
+		user.setStringId("as");
+		user.setNickName("asdf");
+		assertFalse(dao.update(user));
 	}
-
+	
+	@Test
+	public void fillTest() {
+		User user = new User();
+		user.setStringId("as");
+		dao.fill(user);
+		System.out.println(user);
+	}
+	
+	
 	@Test
 	public void selectTest() {
 		User user = new User();

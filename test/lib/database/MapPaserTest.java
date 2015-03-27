@@ -14,7 +14,7 @@ public class MapPaserTest {
 		map.put("Member_name", "abc");
 		map.put("Member_age", 17);
 		map.put("Member_birthday", new Date());
-		Member m = Parser.setObject(Member.class, map);
+		Member m = Parser.getObject(Member.class, map);
 		System.out.println(map);
 		System.out.println(m);
 	}

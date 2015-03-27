@@ -17,8 +17,7 @@ public class Parser {
 		return prefix + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
 	}
 
-	public static <T> T setObject(Class<T> cLass, Map<String, Object> record) {
-		Field[] fields = cLass.getDeclaredFields();
+	public static <T> T getObject(Class<T> cLass, Map<String, Object> record) {
 		T result = null;
 		try {
 			result = cLass.getConstructor().newInstance();
@@ -26,8 +25,15 @@ public class Parser {
 				| SecurityException e) {
 			e.printStackTrace();
 		}
+		setObject(result, record);
+		return result;
+	}
+	
+	public static void setObject(Object record, Map<String, Object> recordMap) {
+		Class<?> cLass = record.getClass();
+		Field[] fields = cLass.getDeclaredFields();
 		for (int i = 0; i < fields.length; i++) {
-			Object obj = record.get(SqlField.getInstance(fields[i]).getColumnName());
+			Object obj = recordMap.get(SqlField.getInstance(fields[i]).getColumnName());
 			if (obj == null)
 				continue;
 			if (obj.getClass().equals(Timestamp.class)){
@@ -38,13 +44,12 @@ public class Parser {
 				if (setterMethod == null)
 					continue;
 				try {
-					setterMethod.invoke(result, obj);
+					setterMethod.invoke(record, obj);
 				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 				}
 			} catch (NoSuchMethodException | SecurityException e) {
 			}
 		}
-		return result;
 	}
 
 }

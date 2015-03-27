@@ -10,35 +10,35 @@ import java.util.Map;
 import lib.database.Parser;
 import lib.database.annotation.Key;
 
-public class SqlParams {
-	private static final String DETER = "=?, ";
-	private static final String GET = "get";
+public class KeyParams {
+	protected static final String GET = "get";
 
-	private List<FieldObject> params;
-	private List<FieldObject> keyParams;
-	private String tableName;
+	protected List<FieldObject> params;
+	protected List<FieldObject> keyParams;
+	protected String tableName;
 
-	public String getFieldNames() {
+	public String getFieldNames(String deter) {
 		String result = new String();
 		if (!hasParams())
 			return result;
 		for (int i = 0; i < params.size(); i++)
-			result += params.get(i).getColumnName() + DETER;
-		result = result.substring(0, result.length() - 2);
+			result += params.get(i).getColumnName() + deter;
+		result = result.substring(0, result.length() - (deter.length() - 2));
 		return result;
 	}
 
 	public boolean hasParams() {
 		return params.size() != 0;
 	}
+	
 
-	public String getKeyFieldNames() {
+	public String getKeyFieldNames(String deter) {
 		String result = new String();
 		if (!hasKeyParams())
 			return result;
 		for (int i = 0; i < keyParams.size(); i++)
-			result += keyParams.get(i).getColumnName() + DETER;
-		result = result.substring(0, result.length() - 2);
+			result += keyParams.get(i).getColumnName() + deter;
+		result = result.substring(0, result.length() -  (deter.length() - 2));
 		return result;
 	}
 
@@ -50,16 +50,17 @@ public class SqlParams {
 		return !hasKeyParams() && !hasParams();
 	}
 
-	public String getIntegratedFieldNames() {
+	public String getIntegratedFieldNames(String deter) {
 		if (isEmpty())
 			return "";
-		String field = getFieldNames();
-		String key = getKeyFieldNames();
+		String field = getFieldNames(deter);
+		String key = getKeyFieldNames(deter);
 		if (!hasKeyParams())
 			return field;
 		if (!hasParams())
 			return key;
-		return key + ", " + field;
+		
+		return key + deter + field;
 	}
 
 	public List<Object> getIntegratedParams() {
@@ -85,18 +86,18 @@ public class SqlParams {
 		return result;
 	}
 
-	private static Map<Class<?>, SqlParams> map = new HashMap<Class<?>, SqlParams>();
+	private static Map<Class<?>, KeyParams> map = new HashMap<Class<?>, KeyParams>();
 
-	public static SqlParams getInstance(Class<?> cLass) {
-		SqlParams result = map.get(cLass);
+	public static KeyParams getInstance(Class<?> cLass) {
+		KeyParams result = map.get(cLass);
 		if (result != null)
 			return map.get(cLass);
-		result = new SqlParams(cLass);
+		result = new KeyParams(cLass);
 		map.put(cLass, result);
 		return result;
 	}
 
-	private SqlParams(Class<?> cLass) {
+	private KeyParams(Class<?> cLass) {
 		SqlTable table = SqlTable.getInstance(cLass);
 		tableName = table.getTableName();
 		Field[] fields = cLass.getDeclaredFields();
@@ -111,7 +112,10 @@ public class SqlParams {
 		}
 	}
 
-	public SqlParams(Object record) {
+	public KeyParams() {
+	}
+
+	public KeyParams(Object record) {
 		Class<?> cLass = record.getClass();
 		SqlTable table = SqlTable.getInstance(cLass);
 		tableName = table.getTableName();

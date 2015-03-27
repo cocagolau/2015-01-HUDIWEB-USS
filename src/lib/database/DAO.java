@@ -12,7 +12,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import lib.database.sql.SqlParams;
+import lib.database.sql.KeyParams;
+import lib.database.sql.NullableParams;
 import lib.database.sql.SqlTable;
 import lib.setting.Setting;
 
@@ -149,14 +150,24 @@ public class DAO {
 
 	public <T> T getRecord(Class<T> cLass, String sql, Object... parameters) {
 		Map<String, Object> record = getRecordMap(sql, parameters);
-		T result = Parser.setObject(cLass, record);
+		T result = Parser.getObject(cLass, record);
 		return result;
 	}
 
+	public static final String and = "=? and ";
+	public static final String comma = "=?, ";
+
+	public void fill(Object record) {
+		KeyParams kp = new NullableParams(record);
+		Map<String, Object> recordMap = getRecordMap(String.format("SELECT * FROM %s WHERE %s", kp.getTableName(), kp.getKeyFieldNames(and)),
+				kp.getKeyParams().toArray());
+		Parser.setObject(record, recordMap);
+	}
+
 	public <T> T getRecordByClass(Class<T> cLass, Object... parameters) {
-		SqlParams sp = SqlParams.getInstance(cLass);
-		Map<String, Object> record = getRecordMap(String.format("SELECT * FROM %s WHERE %s", sp.getTableName(), sp.getKeyFieldNames()), parameters);
-		T result = Parser.setObject(cLass, record);
+		KeyParams sp = KeyParams.getInstance(cLass);
+		Map<String, Object> record = getRecordMap(String.format("SELECT * FROM %s WHERE %s", sp.getTableName(), sp.getKeyFieldNames(and)), parameters);
+		T result = Parser.getObject(cLass, record);
 		return result;
 	}
 
@@ -164,7 +175,7 @@ public class DAO {
 		List<Map<String, Object>> records = getRecordsMap(sql, parameters);
 		List<T> result = new ArrayList<T>();
 		records.forEach(record -> {
-			result.add(Parser.setObject(cLass, record));
+			result.add(Parser.getObject(cLass, record));
 		});
 		return result;
 	}
@@ -174,11 +185,11 @@ public class DAO {
 				String.format("SELECT * FROM %s %s", SqlTable.getInstance(cLass).getTableName(), whereClause), parameters);
 		List<T> result = new ArrayList<T>();
 		records.forEach(record -> {
-			result.add(Parser.setObject(cLass, record));
+			result.add(Parser.getObject(cLass, record));
 		});
 		return result;
 	}
-	
+
 	public <T> List<T> getRecordsByClass(Class<T> cLass) {
 		return getRecordsByClass(cLass, "");
 	}
@@ -227,32 +238,32 @@ public class DAO {
 	private final static String INSERT = "INSERT %s SET %s";
 
 	public boolean insert(Object record) {
-		SqlParams sap = new SqlParams(record);
+		KeyParams sap = new KeyParams(record);
 		if (sap.isEmpty())
 			return false;
-		String sql = String.format(INSERT, sap.getTableName(), sap.getIntegratedFieldNames());
+		String sql = String.format(INSERT, sap.getTableName(), sap.getIntegratedFieldNames(comma));
 		return execute(sql, sap.getIntegratedParams().toArray());
 	}
 
 	private final static String UPDATE = "UPDATE %s SET %s WHERE %s";
 
 	public boolean update(Object record) {
-		SqlParams sap = new SqlParams(record);
+		KeyParams sap = new KeyParams(record);
 		if (!sap.hasKeyParams())
 			return false;
 		if (!sap.hasParams())
 			return false;
-		String sql = String.format(UPDATE, sap.getTableName(), sap.getFieldNames(), sap.getKeyFieldNames());
+		String sql = String.format(UPDATE, sap.getTableName(), sap.getFieldNames(comma), sap.getKeyFieldNames(and));
 		return execute(sql, sap.getIntegratedParams().toArray());
 	}
 
-	private final static String DELETE = "UPDATE %s SET %s WHERE %s";
+	private final static String DELETE = "DELETE FROM %s WHERE %s";
 
 	public boolean delete(Object record) {
-		SqlParams sap = new SqlParams(record);
+		KeyParams sap = new KeyParams(record);
 		if (!sap.hasKeyParams())
 			return false;
-		return execute(String.format(DELETE, sap.getTableName(), sap.getKeyFieldNames()), sap.getKeyParams().toArray());
+		return execute(String.format(DELETE, sap.getTableName(), sap.getKeyFieldNames(and)), sap.getKeyParams().toArray());
 	}
 
 	private final static String LAST = "SELECT LAST_INSERT_ID();";
@@ -260,4 +271,5 @@ public class DAO {
 	public BigInteger getLastKey() {
 		return (BigInteger) getRecord(LAST, 1).get(0);
 	}
+
 }
