@@ -17,6 +17,7 @@ public class User {
 	private String profile;
 	@Column(DEFAULT = "0", DATA_TYPE = "TINYINT")
 	private Integer gender;
+	
 	@OtherTable
 	private Integer UserPhoto_id;
 
