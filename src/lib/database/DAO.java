@@ -53,10 +53,9 @@ public class DAO {
 					pstmt.setObject(j + 1, parameters[j]);
 				}
 		} catch (SQLException e) {
-			logger.debug(sql);
-			logger.debug(parameters.toString());
 			e.printStackTrace();
 		}
+		logger.debug(pstmt.toString());
 		return pstmt;
 	}
 
@@ -73,8 +72,6 @@ public class DAO {
 			close(pstmt);
 			close(rs);
 		} catch (SQLException e) {
-			logger.debug(sql);
-			logger.debug(parameters.toString());
 			e.printStackTrace();
 		}
 		return record;
@@ -95,8 +92,6 @@ public class DAO {
 			close(pstmt);
 			close(rs);
 		} catch (SQLException e) {
-			logger.debug(sql);
-			logger.debug(parameters.toString());
 			e.printStackTrace();
 		}
 		return record;
@@ -118,7 +113,6 @@ public class DAO {
 			close(pstmt);
 			close(rs);
 		} catch (SQLException e) {
-			logger.debug(sql);
 			e.printStackTrace();
 		}
 
@@ -142,7 +136,6 @@ public class DAO {
 			close(pstmt);
 			close(rs);
 		} catch (SQLException e) {
-			logger.debug(sql);
 			e.printStackTrace();
 		}
 		return result;
@@ -201,11 +194,11 @@ public class DAO {
 			for (int j = 0; j < parameters.length; j++) {
 				pstmt.setObject(j + 1, parameters[j]);
 			}
+			logger.debug(pstmt.toString());
 			pstmt.execute();
 			close(pstmt);
 			return true;
 		} catch (SQLException e) {
-			logger.debug(sql);
 			e.printStackTrace();
 			return false;
 		}

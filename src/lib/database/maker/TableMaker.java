@@ -36,7 +36,6 @@ public class TableMaker {
 
 	public void createTable() {
 		String sql = String.format(CREATE_TABLE, tableName, getColumnString(), table_suffix);
-		System.out.println(sql);
 		dao.execute(sql);
 	}
 
@@ -44,7 +43,6 @@ public class TableMaker {
 
 	public void dropTable() {
 		String sql = String.format(DROP_TABLE, tableName);
-		System.out.println(sql);
 		dao.execute(sql);
 	}
 
