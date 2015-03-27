@@ -10,6 +10,8 @@ public @interface Column {
 
 	boolean NULL() default false;
 
+	boolean hasDefaultValue() default true;
+
 	String DEFAULT() default "";
 
 	String DATA_TYPE() default "";

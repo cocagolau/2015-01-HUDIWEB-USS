@@ -1,6 +1,6 @@
 /build/
 /target/
-!/target/*.setting
+!/target/lib.setting
 .DS_Store
 .classpath
 .project
@@ -76,7 +76,6 @@ hs_err_pid*
 
 
 ### Maven ###
-target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup

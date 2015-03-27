@@ -6,7 +6,7 @@ import lib.database.annotation.Key;
 public class UserPhoto {
 	@Key(AUTO_INCREMENT = true)
 	private Integer id;
-	@Column(DATA_TYPE = "TEXT")
+	@Column(DATA_TYPE = "TEXT", hasDefaultValue = false)
 	private String userId;
 	private String url;
 
@@ -33,6 +33,5 @@ public class UserPhoto {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-
 
 }

@@ -2,11 +2,11 @@ package lib.database.maker;
 
 import org.junit.Test;
 
-import uss.model.database.User;
+import uss.model.database.UserPhoto;
 
 public class TableMakerTest {
 
-	TableMaker tm = new TableMaker(User.class);
+	TableMaker tm = new TableMaker(UserPhoto.class);
 	
 	@Test
 	public void print(){
@@ -22,6 +22,11 @@ public class TableMakerTest {
 	@Test
 	public void createTest() {
 		tm.createTable();
+	}
+	
+	@Test
+	public void resetTest() {
+		tm.reset();
 	}
 
 }

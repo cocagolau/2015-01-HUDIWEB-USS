@@ -9,37 +9,46 @@ import lib.database.annotation.Table;
 import lib.database.annotation.Unique;
 import lib.database.sql.SqlField;
 import lib.database.sql.SqlFieldNormal;
+import lib.setting.Setting;
 
 public class TableMaker {
 
 	private DAO dao;
 	private Class<?> tableClass;
 	private String tableName;
+	private String table_suffix;
 
 	public TableMaker(Class<?> tableObj) {
 		dao = new DAO();
 		tableClass = tableObj;
 		tableName = tableClass.getSimpleName();
+		table_suffix = Setting.get("database", "default", "table_suffix");
 		if (!tableClass.isAnnotationPresent(Table.class))
 			return;
 		Table table = tableClass.getAnnotation(Table.class);
 		if (!table.value().equals(""))
 			tableName = table.value();
+		if (!table.table_suffix().equals(""))
+			table_suffix = table.table_suffix();
 	}
 
-	private static final String CREATE_TABLE = "CREATE TABLE `%s` %s ENGINE = InnoDB DEFAULT CHARACTER SET utf8;";
+	private static final String CREATE_TABLE = "CREATE TABLE `%s` %s %s";
 
 	public void createTable() {
-		dao.execute(String.format(CREATE_TABLE, tableName, getColumnString()));
+		String sql = String.format(CREATE_TABLE, tableName, getColumnString(), table_suffix);
+		System.out.println(sql);
+		dao.execute(sql);
 	}
 
 	private static final String DROP_TABLE = "DROP TABLE IF EXISTS `%s`";
 
 	public void dropTable() {
-		dao.execute(String.format(DROP_TABLE, tableName));
+		String sql = String.format(DROP_TABLE, tableName);
+		System.out.println(sql);
+		dao.execute(sql);
 	}
-	
-	public void reset(){
+
+	public void reset() {
 		dropTable();
 		createTable();
 	}

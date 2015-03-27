@@ -8,4 +8,6 @@ public @interface Table {
 
 	String value() default "";
 
+	String table_suffix() default "";
+
 }

@@ -64,7 +64,7 @@ public class SqlFieldNormal implements SqlField {
 		if (!Boolean.parseBoolean(Setting.get("database", "default", type, "NOT NULL")))
 			return;
 		nullType = "NOT " + nullType;
-		if (!Boolean.parseBoolean(Setting.get("database", "default", type, "hasDefault")))
+		if (!Boolean.parseBoolean(Setting.get("database", "default", type, "hasDefaultValue")))
 			return;
 		String defaultvalue = Setting.get("database", "default", type, "DEFAULT");
 		if (type.equals("String") && defaultvalue.equals(""))
@@ -73,44 +73,44 @@ public class SqlFieldNormal implements SqlField {
 	}
 
 	private void setFieldString() {
-		String result = new String();
+		fieldString = "";
 		columnName = tableName + "_" + field.getName();
 		if (!field.isAnnotationPresent(Column.class)) {
-			result += getWrappedColumnName() + SPACE + type + SPACE;
+			fieldString += getWrappedColumnName() + SPACE + type + SPACE;
 			if (field.isAnnotationPresent(Key.class) && field.getAnnotation(Key.class).AUTO_INCREMENT()) {
-				result += "AUTO_INCREMENT" + SPACE + "NOT NULL";
-				fieldString = result;
+				fieldString += "AUTO_INCREMENT" + SPACE + "NOT NULL";
 				return;
 			}
-			result += nullType + SPACE + defaultValue;
-			fieldString = result;
+			fieldString += nullType + SPACE + defaultValue;
 			return;
 		}
 		Column column = field.getAnnotation(Column.class);
 		if (!column.value().equals(""))
 			columnName = column.value();
-		result += getWrappedColumnName() + SPACE;
+		fieldString += getWrappedColumnName() + SPACE;
 
 		if (column.DATA_TYPE().equals(""))
-			result += type + SPACE;
+			fieldString += type + SPACE;
 		else
-			result += column.DATA_TYPE() + SPACE;
+			fieldString += column.DATA_TYPE() + SPACE;
 
 		if (field.isAnnotationPresent(Key.class) && field.getAnnotation(Key.class).AUTO_INCREMENT()) {
-			result += "AUTO_INCREMENT" + SPACE;
-			fieldString = result;
+			fieldString += "AUTO_INCREMENT" + SPACE;
 			return;
 		}
 
 		if (column.NULL())
-			result += "NULL" + SPACE;
+			fieldString += "NULL" + SPACE;
 		else
-			result += "NOT NULL" + SPACE;
+			fieldString += "NOT NULL" + SPACE;
 
+		if (!column.hasDefaultValue())
+			return;
 		if (!column.DEFAULT().equals(""))
-			result += "DEFAULT" + SPACE + column.DEFAULT();
+			fieldString += "DEFAULT" + SPACE + column.DEFAULT();
+		else
+			fieldString += "DEFAULT" + SPACE + defaultValue;
 
-		fieldString = result;
 	}
 
 }
