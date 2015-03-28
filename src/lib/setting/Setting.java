@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import lib.setting.Jobject.JMap;
+
 import com.google.gson.stream.JsonReader;
 
 public class Setting {

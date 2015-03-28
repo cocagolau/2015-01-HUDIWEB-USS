@@ -60,11 +60,13 @@ public class DAO {
 	}
 
 	public List<Object> getRecord(String sql, int resultSize, Object... parameters) {
-		List<Object> record = new ArrayList<Object>();
+		List<Object> record = null;
 		try {
 			PreparedStatement pstmt = getPSTMT(conn, sql, parameters);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
+				if (record == null)
+					record = new ArrayList<Object>();
 				for (int i = 0; i < resultSize; i++) {
 					record.add(rs.getObject(i + 1));
 				}
@@ -78,13 +80,15 @@ public class DAO {
 	}
 
 	public Map<String, Object> getRecordMap(String sql, Object... parameters) {
-		Map<String, Object> record = new LinkedHashMap<String, Object>();
+		Map<String, Object> record = null;
 		try {
 			PreparedStatement pstmt = getPSTMT(conn, sql, parameters);
 			ResultSet rs = pstmt.executeQuery();
 			ResultSetMetaData metaData = rs.getMetaData();
 			int columnCount = metaData.getColumnCount();
 			while (rs.next()) {
+				if (record == null)
+					record = new LinkedHashMap<String, Object>();
 				for (int i = 1; i <= columnCount; i++) {
 					record.put(metaData.getColumnLabel(i), rs.getObject(i));
 				}
@@ -99,11 +103,13 @@ public class DAO {
 
 	public List<List<Object>> getRecords(String sql, int resultSize, Object... parameters) {
 		List<Object> record;
-		List<List<Object>> result = new ArrayList<List<Object>>();
+		List<List<Object>> result = null;
 		try {
 			PreparedStatement pstmt = getPSTMT(conn, sql, parameters);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
+				if (result == null)
+					result = new ArrayList<List<Object>>();
 				record = new ArrayList<Object>();
 				for (int i = 0; i < resultSize; i++) {
 					record.add(rs.getObject(i + 1));
@@ -120,13 +126,15 @@ public class DAO {
 	}
 
 	public List<Map<String, Object>> getRecordsMap(String sql, Object... parameters) {
-		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> result = null;
 		try {
 			PreparedStatement pstmt = getPSTMT(conn, sql, parameters);
 			ResultSet rs = pstmt.executeQuery();
 			ResultSetMetaData metaData = rs.getMetaData();
 			int columnCount = metaData.getColumnCount();
 			while (rs.next()) {
+				if(result == null)
+					result = new ArrayList<Map<String, Object>>();
 				Map<String, Object> columns = new LinkedHashMap<String, Object>();
 				for (int i = 1; i <= columnCount; i++) {
 					columns.put(metaData.getColumnLabel(i), rs.getObject(i));
@@ -150,11 +158,11 @@ public class DAO {
 	public static final String and = "=? and ";
 	public static final String comma = "=?, ";
 
-	public void fill(Object record) {
+	public boolean fill(Object record) {
 		KeyParams kp = new NullableParams(record);
-		Map<String, Object> recordMap = getRecordMap(String.format("SELECT * FROM %s WHERE %s", kp.getTableName(), kp.getKeyFieldNames(and)),
-				kp.getKeyParams().toArray());
-		Parser.setObject(record, recordMap);
+		Map<String, Object> recordMap = getRecordMap(String.format("SELECT * FROM %s WHERE %s", kp.getTableName(), kp.getKeyFieldNames(and)), kp
+				.getKeyParams().toArray());
+		return Parser.setObject(record, recordMap);
 	}
 
 	public <T> T getRecordByClass(Class<T> cLass, Object... parameters) {

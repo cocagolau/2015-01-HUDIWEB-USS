@@ -4,7 +4,6 @@ import lib.database.annotation.Column;
 import lib.database.annotation.Key;
 import lib.database.annotation.OtherTable;
 import lib.database.annotation.Unique;
-import uss.exception.JsonAlert;
 
 public class User {
 
@@ -83,10 +82,4 @@ public class User {
 		this.gender = gender;
 	}
 
-	public void login(User loggedUser) throws JsonAlert {
-		if (id == null)
-			throw new JsonAlert("없는 아이디입니다.");
-		if (!password.equals(loggedUser.getPassword()))
-			throw new JsonAlert("패스워드가 틀렸습니다.");
-	}
 }

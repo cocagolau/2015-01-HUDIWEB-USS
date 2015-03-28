@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import lib.database.DAO;
-import lib.mapping.dispatch.support.Http;
 import lib.mapping.exception.HandleException;
+import lib.mapping.http.Http;
 
 public class MethodHolder {
 

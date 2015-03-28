@@ -6,20 +6,22 @@ import lib.database.DAO;
 import lib.mapping.annotation.Before;
 import lib.mapping.annotation.HttpMethod;
 import lib.mapping.annotation.Mapping;
-import lib.mapping.dispatch.support.Http;
+import lib.mapping.http.Http;
 import lib.mapping.view.Json;
 import uss.exception.JsonAlert;
 import uss.model.database.User;
 import uss.right.Right;
 import uss.right.user.ReadRight;
 import uss.right.user.UpdateRight;
+import uss.service.UserService;
 
 public class UserController {
 
 	@Mapping(value = "/api/user", method = "POST")
-	public void register(Http http, DAO dao) {
+	public void register(Http http, DAO dao) throws JsonAlert {
 		User user = http.getJsonObject(User.class, "user");
-		dao.insert(user);
+		if (dao.insert(user))
+			throw new JsonAlert("DB입력 중 오류가 발생했습니다.");
 		user.setId(dao.getLastKey().intValue());
 		http.setSessionAttribute("user", user);
 		http.setView(new Json(user));
@@ -51,9 +53,20 @@ public class UserController {
 	public void login(Http http, DAO dao) throws JsonAlert {
 		User loggedUser = http.getJsonObject(User.class, "user");
 		User user = dao.getRecord(User.class, "SELECT * FROM User WHERE User_stringId=?", loggedUser.getStringId());
-		user.login(loggedUser);
+		UserService.login(user, loggedUser);
 		http.setSessionAttribute("user", user);
 		http.setView(new Json(user));
+	}
+
+	@Mapping(value = "/api/user/idCheck", method = { "GET", "POST" })
+	public void idCheck(Http http, DAO dao) {
+		String id = http.getParameter("stringId");
+		User user = dao.getRecord(User.class, "SELECT * FROM User WHERE User_stringId=?", id);
+		if (user == null) {
+			http.setView(new Json(true));
+			return;
+		}
+		http.setView(new Json(false));
 	}
 
 	@HttpMethod
@@ -62,7 +75,7 @@ public class UserController {
 		if (user == null)
 			throw new JsonAlert("로그인이 필요합니다.");
 	}
-	
+
 	@Before
 	public void characterSet(Http http) {
 		try {

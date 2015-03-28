@@ -1,4 +1,4 @@
-package lib.setting;
+package lib.setting.Jobject;
 
 public interface JObject {
 

@@ -1,6 +1,7 @@
 package lib.mapping.view;
 
-import lib.mapping.dispatch.support.Http;
+import lib.mapping.http.Http;
+
 
 public interface View {
 

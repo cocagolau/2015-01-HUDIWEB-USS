@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import lib.mapping.dispatch.support.Http;
+import lib.mapping.http.Http;
 
 public class UriMap {
 
@@ -34,7 +34,7 @@ public class UriMap {
 			if (matcher.matches()) {
 				methodArray = match.get(regexList.get(i));
 				for (int j = 1; j < matcher.groupCount() + 1; j++) {
-					http.addParameter(matcher.group(i));
+					http.addUriVariable(matcher.group(i));
 				}
 			}
 		}

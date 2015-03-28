@@ -3,7 +3,7 @@ package uss.controllers.methods;
 import java.io.UnsupportedEncodingException;
 
 import lib.mapping.annotation.HttpMethod;
-import lib.mapping.dispatch.support.Http;
+import lib.mapping.http.Http;
 
 public class Methods {
 

@@ -1,4 +1,4 @@
-package lib.setting;
+package lib.setting.Jobject;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -91,6 +91,10 @@ public class JArray implements JObject{
 			tnode = tnode.getNode(keys[i]);
 		}
 		return null;
+	}
+	
+	public void add(Object obj){
+		childs.add(obj);
 	}
 
 }

@@ -16,11 +16,8 @@ public class DAOTest {
 	public void insertTest() {
 		User user = new User();
 		user.setGender(0);
+		user.setStringId("zerohouse");
 		dao.insert(user);
-		Matching matching = new Matching();
-		matching.setMale(1);
-		matching.setFemale(2);
-		dao.insert(matching);
 	}
 
 	@Test
@@ -54,7 +51,7 @@ public class DAOTest {
 		user.setGender(0);
 		user.setId(1);
 		user.setNickName("abc");
-		System.out.println(dao.getRecordByClass(User.class, 1));
+		System.out.println(dao.getRecordByClass(User.class, 3));
 	}
 
 	@Test

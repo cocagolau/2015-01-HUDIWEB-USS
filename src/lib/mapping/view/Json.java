@@ -1,6 +1,6 @@
 package lib.mapping.view;
 
-import lib.mapping.dispatch.support.Http;
+import lib.mapping.http.Http;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -8,7 +8,7 @@ import com.google.gson.GsonBuilder;
 
 public class Json implements View {
 
-	private Object jsonObj;
+	private Object object;
 	private String dateformat;
 
 	public void setDateformat(String dateformat) {
@@ -19,19 +19,23 @@ public class Json implements View {
 	}
 
 	public void setJsonObj(Object jsonObj) {
-		this.jsonObj = jsonObj;
+		this.object = jsonObj;
 	}
 
 	public Json(Object obj) {
-		this.jsonObj = obj;
+		this.object = obj;
 	}
+
 
 	@Override
 	public String toString() {
-		return "Json [jsonObj=" + jsonObj + ", dateformat=" + dateformat + "]";
+		return "Json [object=" + object + ", dateformat=" + dateformat + "]";
 	}
 
-	@Override
+	public Object getObject() {
+		return object;
+	}
+
 	public void render(Http http) {
 		Gson gson;
 		if(dateformat!=null)
@@ -39,11 +43,7 @@ public class Json implements View {
 		else
 			gson = new Gson();
 		http.setContentType("application/json");
-		http.write(gson.toJson(jsonObj));
-	}
-
-	public Object getJsonObj() {
-		return jsonObj;
+		http.write(gson.toJson(object));
 	}
 
 }

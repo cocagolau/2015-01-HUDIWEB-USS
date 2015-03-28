@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lib.setting.Jobject.JMap;
+
 import org.junit.Test;
 
 public class SettingTest {
@@ -21,7 +23,8 @@ public class SettingTest {
 		abc.add("cfd");
 		abc.add("ef");
 		JMap node2 = new JMap(node.toString());
-		node2.childs.put("abc", abc);
+		node2.put("abc", abc);
+		
 		System.out.println(node2);
 		
 		JMap node3 = new JMap(node2.toString());

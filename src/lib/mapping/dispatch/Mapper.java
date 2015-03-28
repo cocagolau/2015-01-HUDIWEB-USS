@@ -12,7 +12,7 @@ import lib.mapping.annotation.Before;
 import lib.mapping.annotation.HttpMethod;
 import lib.mapping.annotation.Mapping;
 import lib.mapping.dispatch.support.ClassFinder;
-import lib.mapping.dispatch.support.Http;
+import lib.mapping.http.Http;
 import lib.setting.Setting;
 
 import org.slf4j.Logger;
@@ -74,7 +74,7 @@ public class Mapper {
 		for (int i = 0; i < methods.length; i++) {
 			if (methods[i].isAnnotationPresent(Mapping.class)) {
 				Mapping mapping = methods[i].getAnnotation(Mapping.class);
-				String key = mapping.method() + ">" + mapping.value();
+				String key = mapping.method()[0] + ">" + mapping.value()[0];
 				methodMap.put(key, new MethodHolder(methods[i]));
 			}
 			if (methods[i].isAnnotationPresent(HttpMethod.class)) {
@@ -102,11 +102,17 @@ public class Mapper {
 				List<MethodHolder> methodList = new ArrayList<MethodHolder>();
 				String[] before = mapping.before();
 				String[] after = mapping.after();
-				String key = mapping.method() + ">" + mapping.value();
+				String key = mapping.method()[0] + ">" + mapping.value()[0];
 				addAll(methodList, before);
 				methodList.add(methodMap.get(key));
 				addAll(methodList, after);
-				uriMap.put(key, methodList);
+
+				for (int j = 0; j < mapping.method().length; j++)
+					for (int k = 0; k < mapping.value().length; k++) {
+						String urikey = mapping.method()[j] + ">" + mapping.value()[k];
+						uriMap.put(urikey, methodList);
+					}
+
 			}
 		}
 

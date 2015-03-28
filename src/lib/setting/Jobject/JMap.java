@@ -1,4 +1,4 @@
-package lib.setting;
+package lib.setting.Jobject;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -43,7 +43,7 @@ public class JMap implements JObject{
 	public JMap(String string) throws IOException {
 		this(new JsonReader(new StringReader(string)));
 	}
-
+	
 	public static Map<Object, Object> toMap(JMap jnode) {
 		Map<Object, Object> result = new HashMap<Object, Object>();
 		Map<Object, Object> childNodes = jnode.getChilds();
@@ -94,6 +94,10 @@ public class JMap implements JObject{
 			tnode = tnode.getNode(keys[i]);
 		}
 		return null;
+	}
+
+	public void put(String key, Object value) {
+		childs.put(key, value);
 	}
 
 }

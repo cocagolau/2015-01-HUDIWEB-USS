@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import lib.mapping.dispatch.support.Http;
+import lib.mapping.http.HttpImpl;
 
 public class Dispatcher extends HttpServlet {
 
@@ -16,9 +16,7 @@ public class Dispatcher extends HttpServlet {
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-		resp.setCharacterEncoding("UTF-8");
-		mapper.execute(req.getMethod() + ">" + req.getRequestURI(), new Http(req, resp));
+		mapper.execute(req.getMethod() + ">" + req.getRequestURI(), new HttpImpl(req, resp));
 	}
 
 }

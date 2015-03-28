@@ -1,20 +1,19 @@
 package lib.mapping.view;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 
-import lib.mapping.dispatch.support.Http;
+import lib.mapping.http.Http;
 import lib.setting.Setting;
 
 public class Jsp implements View {
 
 	private String jspFileName;
 
-	private List<String> keys = new ArrayList<String>();
-	private List<Object> objs = new ArrayList<Object>();
+	private Map<String, Object> attributes = new HashMap<String, Object>();
 
 	public Jsp() {
 	}
@@ -28,14 +27,16 @@ public class Jsp implements View {
 	}
 
 	public void put(String key, Object obj) {
-		keys.add(key);
-		objs.add(obj);
+		attributes.put(key, obj);
+	}
+	
+	public Object get(String key) {
+		return attributes.get(key);
 	}
 
-	@Override
 	public void render(Http http) {
-		for (int i = 0; i < keys.size(); i++) {
-			http.getReq().setAttribute(keys.get(i), objs.get(i));
+		for (Map.Entry<String, Object> entry : attributes.entrySet()) {
+		    http.setAttribute(entry.getKey(), entry.getValue());
 		}
 		try {
 			http.forword(Setting.get("jspPath") + jspFileName);
@@ -48,11 +49,9 @@ public class Jsp implements View {
 		return jspFileName;
 	}
 
-	public List<String> getKeys() {
-		return keys;
+	@Override
+	public String toString() {
+		return "Jsp [jspFileName=" + jspFileName + ", attributes=" + attributes + "]";
 	}
 
-	public List<Object> getObjs() {
-		return objs;
-	}
 }
