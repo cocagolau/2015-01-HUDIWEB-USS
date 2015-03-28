@@ -2,16 +2,14 @@ package lib.setting;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 
-public class JMap {
+public class JMap implements JObject{
 
 	Map<Object, Object> childs = new HashMap<Object, Object>();
 
@@ -34,36 +32,12 @@ public class JMap {
 					JMap node = new JMap(reader);
 					childs.put(key, node);
 				} else if (peek == JsonToken.BEGIN_ARRAY) {
-					childs.put(key, array(reader));
+					JArray node = new JArray(reader);
+					childs.put(key, node);
 				}
 			}
 		}
 		reader.endObject();
-	}
-
-	private List<Object> array(JsonReader reader) throws IOException {
-		List<Object> result = new ArrayList<Object>();
-		reader.beginArray();
-		while (reader.hasNext()) {
-			JsonToken peek = reader.peek();
-			if (peek == JsonToken.STRING)
-				result.add(reader.nextString());
-			else if (peek == JsonToken.NUMBER)
-				result.add(reader.nextDouble());
-			else if (peek == JsonToken.BOOLEAN)
-				result.add(reader.nextBoolean());
-			else if (peek == JsonToken.NULL) {
-				reader.nextNull();
-				result.add(null);
-			} else if (peek == JsonToken.BEGIN_OBJECT) {
-				JMap node = new JMap(reader);
-				result.add(node);
-			} else if (peek == JsonToken.BEGIN_ARRAY) {
-				result.add(array(reader));
-			}
-		}
-		reader.endArray();
-		return result;
 	}
 
 	public JMap(String string) throws IOException {
@@ -77,6 +51,8 @@ public class JMap {
 			for (Map.Entry<Object, Object> entry : childNodes.entrySet()) {
 				if (entry.getValue().getClass().equals(JMap.class))
 					result.put(entry.getKey(), toMap((JMap) entry.getValue()));
+				else if (entry.getValue().getClass().equals(JArray.class))
+					result.put(entry.getKey(), JArray.toArray((JArray) entry.getValue()));
 				else
 					result.put(entry.getKey(), entry.getValue());
 			}
@@ -94,21 +70,24 @@ public class JMap {
 		return childs;
 	}
 
+	@Override
 	public Object get(String key) {
 		return childs.get(key);
 	}
 
-	public JMap getNode(String key) {
-		return (JMap) childs.get(key);
+	@Override
+	public JObject getNode(String key) {
+		return (JObject) childs.get(key);
 	}
 
+	@Override
 	public Object get(String... keys) {
 		int length = keys.length;
 		if (length == 0)
 			return null;
 		if (length == 1)
 			return get(keys[0]);
-		JMap tnode = this;
+		JObject tnode = this;
 		for (int i = 0; i < length; i++) {
 			if (i == length - 1)
 				return tnode.get(keys[i]);
