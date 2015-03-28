@@ -132,7 +132,8 @@ public class HttpForTest implements Http {
 	@Override
 	public void render() {
 		logger.debug(this.toString());
-		logger.debug(view.toString());
+		if (view != null)
+			logger.debug(view.toString());
 	}
 
 	@Override

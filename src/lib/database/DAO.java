@@ -15,6 +15,7 @@ import java.util.Map;
 import lib.database.sql.KeyParams;
 import lib.database.sql.NullableParams;
 import lib.database.sql.SqlTable;
+import lib.mapping.exception.RegexNotMatches;
 import lib.setting.Setting;
 
 import org.slf4j.Logger;
@@ -158,14 +159,14 @@ public class DAO {
 	public static final String and = "=? and ";
 	public static final String comma = "=?, ";
 
-	public boolean fill(Object record) {
+	public boolean fill(Object record) throws RegexNotMatches {
 		KeyParams kp = new NullableParams(record);
 		Map<String, Object> recordMap = getRecordMap(String.format("SELECT * FROM %s WHERE %s", kp.getTableName(), kp.getKeyFieldNames(and)), kp
 				.getKeyParams().toArray());
 		return Parser.setObject(record, recordMap);
 	}
 
-	public <T> T getRecordByClass(Class<T> cLass, Object... parameters) {
+	public <T> T getRecordByClass(Class<T> cLass, Object... parameters) throws RegexNotMatches {
 		KeyParams sp = KeyParams.getInstance(cLass);
 		Map<String, Object> record = getRecordMap(String.format("SELECT * FROM %s WHERE %s", sp.getTableName(), sp.getKeyFieldNames(and)), parameters);
 		T result = Parser.getObject(cLass, record);
@@ -238,7 +239,7 @@ public class DAO {
 
 	private final static String INSERT = "INSERT %s SET %s";
 
-	public boolean insert(Object record) {
+	public boolean insert(Object record) throws RegexNotMatches {
 		KeyParams sap = new KeyParams(record);
 		if (sap.isEmpty())
 			return false;
@@ -248,7 +249,7 @@ public class DAO {
 
 	private final static String UPDATE = "UPDATE %s SET %s WHERE %s";
 
-	public boolean update(Object record) {
+	public boolean update(Object record) throws RegexNotMatches {
 		KeyParams sap = new KeyParams(record);
 		if (!sap.hasKeyParams())
 			return false;
@@ -260,7 +261,7 @@ public class DAO {
 
 	private final static String DELETE = "DELETE FROM %s WHERE %s";
 
-	public boolean delete(Object record) {
+	public boolean delete(Object record) throws RegexNotMatches {
 		KeyParams sap = new KeyParams(record);
 		if (!sap.hasKeyParams())
 			return false;

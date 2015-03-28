@@ -41,7 +41,7 @@ public class UserController {
 	}
 
 	@Mapping(value = "/api/user", method = "GET", before = "loginCheck")
-	public void read(Http http, DAO dao) throws JsonAlert {
+	public void read(Http http, DAO dao) throws JsonAlert, RegexNotMatches {
 		User loggedUser = http.getSessionAttribute(User.class, "user");
 		User user = dao.getRecordByClass(User.class, http.getParameter("stringId"));
 		Right right = new ReadRight(loggedUser, user);

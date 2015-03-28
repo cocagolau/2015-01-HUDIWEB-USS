@@ -5,10 +5,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import lib.database.Parser;
+import lib.mapping.exception.RegexNotMatches;
 
 public class NullableParams extends KeyParams {
 	
-	public NullableParams(Object record) {
+	public NullableParams(Object record) throws RegexNotMatches {
 		Class<?> cLass = record.getClass();
 		SqlTable table = SqlTable.getInstance(cLass);
 		tableName = table.getTableName();

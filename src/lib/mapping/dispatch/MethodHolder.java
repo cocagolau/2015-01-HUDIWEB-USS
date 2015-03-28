@@ -1,6 +1,5 @@
 package lib.mapping.dispatch;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,10 +46,10 @@ public class MethodHolder {
 			}
 			method.invoke(instance, http, dao);
 			return true;
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+		} catch (Exception e) {
 			if (!e.getCause().getClass().getSuperclass().equals(HandleException.class)) {
 				e.printStackTrace();
-				return true;
+				return false;
 			}
 			HandleException e1 = (HandleException) e.getCause();
 			e1.handle(http);

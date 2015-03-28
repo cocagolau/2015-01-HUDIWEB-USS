@@ -1,6 +1,7 @@
 package uss.database.objects;
 
 import lib.database.DAO;
+import lib.mapping.exception.RegexNotMatches;
 
 import org.junit.Test;
 
@@ -9,7 +10,7 @@ import uss.model.database.User;
 public class UserTest {
 
 	@Test
-	public void insertTest() {
+	public void insertTest() throws RegexNotMatches {
 		DAO dao = new DAO();
 		User user = new User();
 		user.setGender(0);
@@ -18,7 +19,7 @@ public class UserTest {
 	}
 	
 	@Test
-	public void updateTest() {
+	public void updateTest() throws RegexNotMatches {
 		DAO dao = new DAO();
 		User user = new User();
 		user.setGender(1);
@@ -32,7 +33,7 @@ public class UserTest {
 	}
 	
 	@Test
-	public void deleteTest() {
+	public void deleteTest() throws RegexNotMatches {
 		DAO dao = new DAO();
 		User user = new User();
 		user.setGender(1);

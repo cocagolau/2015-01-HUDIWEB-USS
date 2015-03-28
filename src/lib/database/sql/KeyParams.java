@@ -9,6 +9,7 @@ import java.util.Map;
 
 import lib.database.Parser;
 import lib.database.annotation.Key;
+import lib.mapping.exception.RegexNotMatches;
 
 public class KeyParams {
 	protected static final String GET = "get";
@@ -88,7 +89,7 @@ public class KeyParams {
 
 	private static Map<Class<?>, KeyParams> map = new HashMap<Class<?>, KeyParams>();
 
-	public static KeyParams getInstance(Class<?> cLass) {
+	public static KeyParams getInstance(Class<?> cLass) throws RegexNotMatches {
 		KeyParams result = map.get(cLass);
 		if (result != null)
 			return map.get(cLass);
@@ -97,7 +98,7 @@ public class KeyParams {
 		return result;
 	}
 
-	private KeyParams(Class<?> cLass) {
+	private KeyParams(Class<?> cLass) throws RegexNotMatches {
 		SqlTable table = SqlTable.getInstance(cLass);
 		tableName = table.getTableName();
 		Field[] fields = cLass.getDeclaredFields();
@@ -115,7 +116,7 @@ public class KeyParams {
 	public KeyParams() {
 	}
 
-	public KeyParams(Object record) {
+	public KeyParams(Object record) throws RegexNotMatches {
 		Class<?> cLass = record.getClass();
 		SqlTable table = SqlTable.getInstance(cLass);
 		tableName = table.getTableName();

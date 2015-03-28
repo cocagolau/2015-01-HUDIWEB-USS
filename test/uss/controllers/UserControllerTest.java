@@ -2,6 +2,7 @@ package uss.controllers;
 
 import static org.junit.Assert.*;
 import lib.database.DAO;
+import lib.mapping.exception.RegexNotMatches;
 import lib.mapping.http.HttpForTest;
 import lib.mapping.view.Json;
 
@@ -19,6 +20,21 @@ public class UserControllerTest {
 	HttpForTest http = new HttpForTest();
 	DAO dao = new DAO();
 	Gson gson = new Gson();
+
+	@Test
+	public void registerTest() {
+		User user = new User();
+		user.setStringId("zerohous@e");
+		user.setPassword("");
+		http.setParameter("user", gson.toJson(user));
+		try {
+			uc.register(http, dao);
+		} catch (JsonAlert e) {
+			assertFalse(true);
+		} catch (RegexNotMatches e) {
+			assertTrue(true);
+		}
+	}
 
 	@Test
 	public void idCheckTest() {

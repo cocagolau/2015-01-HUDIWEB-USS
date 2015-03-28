@@ -4,6 +4,8 @@ import static org.junit.Assert.assertFalse;
 
 import java.util.Date;
 
+import lib.mapping.exception.RegexNotMatches;
+
 import org.junit.Test;
 
 import uss.model.database.Matching;
@@ -13,7 +15,7 @@ public class DAOTest {
 	DAO dao = new DAO();
 
 	@Test
-	public void insertTest() {
+	public void insertTest() throws RegexNotMatches {
 		User user = new User();
 		user.setGender(0);
 		user.setStringId("zerohouse");
@@ -21,7 +23,7 @@ public class DAOTest {
 	}
 
 	@Test
-	public void updateTest() {
+	public void updateTest() throws RegexNotMatches {
 		Matching matching = new Matching();
 		matching.setMale(1);
 		matching.setFemale(2);
@@ -37,7 +39,7 @@ public class DAOTest {
 	}
 	
 	@Test
-	public void fillTest() {
+	public void fillTest() throws RegexNotMatches {
 		User user = new User();
 		user.setStringId("as");
 		dao.fill(user);
@@ -46,7 +48,7 @@ public class DAOTest {
 	
 	
 	@Test
-	public void selectTest() {
+	public void selectTest() throws RegexNotMatches {
 		User user = new User();
 		user.setGender(0);
 		user.setId(1);
