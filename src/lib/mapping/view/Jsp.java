@@ -13,7 +13,7 @@ public class Jsp implements View {
 
 	private String jspFileName;
 
-	private Map<String, Object> attributes = new HashMap<String, Object>();
+	private Map<String, Object> variables = new HashMap<String, Object>();
 
 	public Jsp() {
 	}
@@ -27,15 +27,15 @@ public class Jsp implements View {
 	}
 
 	public void put(String key, Object obj) {
-		attributes.put(key, obj);
+		variables.put(key, obj);
 	}
 	
 	public Object get(String key) {
-		return attributes.get(key);
+		return variables.get(key);
 	}
 
 	public void render(Http http) {
-		for (Map.Entry<String, Object> entry : attributes.entrySet()) {
+		for (Map.Entry<String, Object> entry : variables.entrySet()) {
 		    http.setAttribute(entry.getKey(), entry.getValue());
 		}
 		try {
@@ -51,7 +51,7 @@ public class Jsp implements View {
 
 	@Override
 	public String toString() {
-		return "Jsp [jspFileName=" + jspFileName + ", attributes=" + attributes + "]";
+		return "Jsp [" + jspFileName + "] variables : " + variables;
 	}
 
 }

@@ -10,6 +10,8 @@ public class FieldObject {
 	public FieldObject(Object param, Field field) {
 		this.param = param;
 		this.field = SqlField.getInstance(field);
+		RegexCheck.check(param, field);
+			
 	}
 
 	public Object getParam() {

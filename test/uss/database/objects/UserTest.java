@@ -13,6 +13,7 @@ public class UserTest {
 		DAO dao = new DAO();
 		User user = new User();
 		user.setGender(0);
+		user.setStringId("abcASD@@F325d");
 		dao.insert(user);
 	}
 	
@@ -45,18 +46,5 @@ public class UserTest {
 		User user = dao.getRecord(User.class, "SELECT * FROM User WHERE User_id=?", 2);
 		System.out.println(user);
 	}
-	
-	@Test
-	public void PostTest() {
-		User user = new User();
-		user.setGender(1);
-		user.setId(4);
-		user.setStringId("aa");
-		user.setNickName("a");
-		user.setPassword("abc");
-		user.setProfile("gg");
-		System.out.println(user);
-	}
-	
 
 }

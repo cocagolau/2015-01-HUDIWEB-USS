@@ -3,12 +3,14 @@ package uss.model.database;
 import lib.database.annotation.Column;
 import lib.database.annotation.Key;
 import lib.database.annotation.OtherTable;
+import lib.database.annotation.RequiredRegex;
 import lib.database.annotation.Unique;
 
 public class User {
 
 	@Key(AUTO_INCREMENT = true)
 	private Integer id;
+	@RequiredRegex("^\\w+$") //영문 숫자만 가능
 	@Unique
 	private String stringId;
 	private String nickName;

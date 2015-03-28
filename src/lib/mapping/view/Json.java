@@ -29,21 +29,25 @@ public class Json implements View {
 
 	@Override
 	public String toString() {
-		return "Json [object=" + object + ", dateformat=" + dateformat + "]";
+		return "Response : " + getJsonString();
 	}
 
 	public Object getObject() {
 		return object;
 	}
-
-	public void render(Http http) {
+	
+	public String getJsonString(){
 		Gson gson;
 		if(dateformat!=null)
 			gson = new GsonBuilder().setDateFormat(dateformat).create();
 		else
 			gson = new Gson();
+		return gson.toJson(object);
+	}
+
+	public void render(Http http) {
 		http.setContentType("application/json");
-		http.write(gson.toJson(object));
+		http.write(getJsonString());
 	}
 
 }

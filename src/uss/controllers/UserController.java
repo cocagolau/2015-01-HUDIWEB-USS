@@ -6,6 +6,7 @@ import lib.database.DAO;
 import lib.mapping.annotation.Before;
 import lib.mapping.annotation.HttpMethod;
 import lib.mapping.annotation.Mapping;
+import lib.mapping.exception.RegexNotMatches;
 import lib.mapping.http.Http;
 import lib.mapping.view.Json;
 import uss.exception.JsonAlert;
@@ -18,7 +19,7 @@ import uss.service.UserService;
 public class UserController {
 
 	@Mapping(value = "/api/user", method = "POST")
-	public void register(Http http, DAO dao) throws JsonAlert {
+	public void register(Http http, DAO dao) throws JsonAlert, RegexNotMatches {
 		User user = http.getJsonObject(User.class, "user");
 		if (dao.insert(user))
 			throw new JsonAlert("DB입력 중 오류가 발생했습니다.");
@@ -28,7 +29,7 @@ public class UserController {
 	}
 
 	@Mapping(value = "/api/user", method = "PUT", before = "loginCheck")
-	public void update(Http http, DAO dao) throws JsonAlert {
+	public void update(Http http, DAO dao) throws JsonAlert, RegexNotMatches {
 		User loggedUser = http.getSessionAttribute(User.class, "user");
 		User user = http.getJsonObject(User.class, "user");
 		Right right = new UpdateRight(loggedUser, user);

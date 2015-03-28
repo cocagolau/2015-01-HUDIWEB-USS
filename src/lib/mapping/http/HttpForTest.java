@@ -63,12 +63,10 @@ public class HttpForTest implements Http {
 		httpResult += string;
 	}
 
-	private List<String> uriVariables;
+	private List<String> uriVariables = new ArrayList<String>();
 
 	@Override
 	public void addUriVariable(String uriVariable) {
-		if (uriVariables == null)
-			uriVariables = new ArrayList<String>();
 		uriVariables.add(uriVariable);
 	}
 
@@ -119,7 +117,7 @@ public class HttpForTest implements Http {
 		redirect = location;
 	}
 
-	private int errorNo;
+	private Integer errorNo;
 
 	@Override
 	public void sendError(int errorNo) {
@@ -134,13 +132,33 @@ public class HttpForTest implements Http {
 	@Override
 	public void render() {
 		logger.debug(this.toString());
+		logger.debug(view.toString());
 	}
 
 	@Override
 	public String toString() {
-		return "HttpForTest \nparameters=" + parameters + ",\n path=" + path + ",\n contentType=" + contentType + ",\n httpResult=" + httpResult
-				+ ",\n uriVariables=" + uriVariables + ",\n characterEncoding=" + characterEncoding + ",\n sessionAttribute=" + sessionAttribute
-				+ ",\n redirect=" + redirect + ",\n errorNo=" + errorNo + ",\n view=" + view + ",\n attribute=" + attribute;
+		String result = "";
+		if (!parameters.isEmpty())
+			result += "parameters=" + parameters + ", ";
+		if (path != null)
+			result += "path=" + path + ", ";
+		if (contentType != null)
+			result += " contentType=" + contentType + ", ";
+		if (!httpResult.equals(""))
+			result += "httpResult=" + httpResult + ", ";
+		if (!uriVariables.isEmpty())
+			result += "uriVariables=" + uriVariables + ", ";
+		if (characterEncoding != null)
+			result += "characterEncoding=" + characterEncoding + ", ";
+		if (!sessionAttribute.isEmpty())
+			result += "sessionAttribute=" + sessionAttribute + ", ";
+		if (redirect != null)
+			result += "redirect=" + redirect + ", ";
+		if (errorNo != null)
+			result += "errorNo=" + errorNo + ", ";
+		if (!attribute.isEmpty())
+			result += "attribute=" + attribute;
+		return result;
 	}
 
 	private View view;
