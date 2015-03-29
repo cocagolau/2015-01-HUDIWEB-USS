@@ -1,7 +1,7 @@
 package uss.database.objects;
 
 import lib.database.DAO;
-import lib.mapping.exception.RegexNotMatches;
+import lib.database.exception.RegexNotMatches;
 
 import org.junit.Test;
 

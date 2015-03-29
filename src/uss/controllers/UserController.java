@@ -3,10 +3,10 @@ package uss.controllers;
 import java.io.UnsupportedEncodingException;
 
 import lib.database.DAO;
+import lib.database.exception.RegexNotMatches;
 import lib.mapping.annotation.Before;
 import lib.mapping.annotation.HttpMethod;
 import lib.mapping.annotation.Mapping;
-import lib.mapping.exception.RegexNotMatches;
 import lib.mapping.http.Http;
 import lib.mapping.view.Json;
 import uss.exception.JsonAlert;

@@ -2,7 +2,7 @@ package uss.controllers;
 
 import static org.junit.Assert.*;
 import lib.database.DAO;
-import lib.mapping.exception.RegexNotMatches;
+import lib.database.exception.RegexNotMatches;
 import lib.mapping.http.HttpForTest;
 import lib.mapping.view.Json;
 

@@ -2,8 +2,8 @@ package lib.database;
 
 import java.util.Date;
 
+import lib.database.exception.RegexNotMatches;
 import lib.database.sql.KeyParams;
-import lib.mapping.exception.RegexNotMatches;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package lib.mapping.exception;
+package lib.database.exception;
 
 public class RegexNotMatches extends Exception {
 

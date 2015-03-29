@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import lib.database.annotation.RequiredRegex;
-import lib.mapping.exception.RegexNotMatches;
+import lib.database.exception.RegexNotMatches;
 
 public class RegexCheck {
 

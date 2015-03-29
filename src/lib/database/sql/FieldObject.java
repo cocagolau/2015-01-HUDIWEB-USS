@@ -2,7 +2,7 @@ package lib.database.sql;
 
 import java.lang.reflect.Field;
 
-import lib.mapping.exception.RegexNotMatches;
+import lib.database.exception.RegexNotMatches;
 
 public class FieldObject {
 

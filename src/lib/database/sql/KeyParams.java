@@ -9,7 +9,7 @@ import java.util.Map;
 
 import lib.database.Parser;
 import lib.database.annotation.Key;
-import lib.mapping.exception.RegexNotMatches;
+import lib.database.exception.RegexNotMatches;
 
 public class KeyParams {
 	protected static final String GET = "get";

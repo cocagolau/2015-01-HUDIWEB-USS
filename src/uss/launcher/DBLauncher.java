@@ -2,8 +2,8 @@ package uss.launcher;
 
 import uss.model.database.User;
 import lib.database.DAO;
+import lib.database.exception.RegexNotMatches;
 import lib.database.maker.PackageCreator;
-import lib.mapping.exception.RegexNotMatches;
 
 public class DBLauncher {
 	public static void main(String[] args) throws Exception {

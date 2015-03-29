@@ -4,7 +4,7 @@ import static org.junit.Assert.assertFalse;
 
 import java.util.Date;
 
-import lib.mapping.exception.RegexNotMatches;
+import lib.database.exception.RegexNotMatches;
 
 import org.junit.Test;
 

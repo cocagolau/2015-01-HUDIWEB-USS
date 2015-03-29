@@ -12,10 +12,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import lib.database.exception.RegexNotMatches;
 import lib.database.sql.KeyParams;
 import lib.database.sql.NullableParams;
 import lib.database.sql.SqlTable;
-import lib.mapping.exception.RegexNotMatches;
 import lib.setting.Setting;
 
 import org.slf4j.Logger;
