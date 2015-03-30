@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 import lib.database.Parser;
+import lib.database.annotation.Exclude;
 import lib.database.annotation.Key;
+import lib.database.annotation.OtherTable;
 
 public class KeyParams {
 	protected static final String GET = "get";
@@ -122,6 +124,10 @@ public class KeyParams {
 		params = new ArrayList<FieldObject>();
 		keyParams = new ArrayList<FieldObject>();
 		for (int i = 0; i < fields.length; i++) {
+			if(fields[i].isAnnotationPresent(Exclude.class))
+				continue;
+			if(fields[i].isAnnotationPresent(OtherTable.class))
+				continue;
 			try {
 				Object param = cLass.getMethod(Parser.upperString(GET, fields[i].getName())).invoke(record);
 				if (param == null)

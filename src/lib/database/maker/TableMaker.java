@@ -6,6 +6,7 @@ import java.util.Map;
 
 import lib.database.DAO;
 import lib.database.annotation.Column;
+import lib.database.annotation.Exclude;
 import lib.database.annotation.Key;
 import lib.database.annotation.OtherTable;
 import lib.database.annotation.Table;
@@ -70,6 +71,8 @@ public class TableMaker {
 
 		for (int i = 0; i < fields.length; i++) {
 			if (fields[i].isAnnotationPresent(OtherTable.class))
+				continue;
+			if (fields[i].isAnnotationPresent(Exclude.class))
 				continue;
 			SqlFieldNormal fm = (SqlFieldNormal) SqlField.getInstance(fields[i]);
 			result += fm.getFieldString() + ", ";

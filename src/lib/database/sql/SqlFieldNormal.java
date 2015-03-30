@@ -81,7 +81,10 @@ public class SqlFieldNormal implements SqlField {
 				fieldString += "AUTO_INCREMENT" + SPACE + "NOT NULL";
 				return;
 			}
-			fieldString += nullType + SPACE + defaultValue;
+			fieldString += nullType;
+			if (field.isAnnotationPresent(Key.class))
+				return;
+			fieldString += SPACE + defaultValue;
 			return;
 		}
 		Column column = field.getAnnotation(Column.class);
@@ -104,6 +107,8 @@ public class SqlFieldNormal implements SqlField {
 		else
 			fieldString += "NOT NULL" + SPACE;
 
+		if (field.isAnnotationPresent(Key.class))
+			return;
 		if (!column.hasDefaultValue())
 			return;
 		if (!column.DEFAULT().equals(""))
