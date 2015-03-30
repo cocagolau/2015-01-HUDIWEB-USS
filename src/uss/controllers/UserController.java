@@ -20,7 +20,7 @@ public class UserController {
 	@Mapping(value = "/api/user", method = "POST")
 	public void register(Http http, DAO dao) throws JsonAlert {
 		User user = http.getJsonObject(User.class, "user");
-		if (dao.insert(user))
+		if (!dao.insert(user))
 			throw new JsonAlert("DB입력 중 오류가 발생했습니다.");
 		user.setId(dao.getLastKey().intValue());
 		http.setSessionAttribute("user", user);
