@@ -12,7 +12,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import lib.database.exception.RegexNotMatches;
 import lib.database.sql.KeyParams;
 import lib.database.sql.NullableParams;
 import lib.database.sql.SqlTable;
@@ -134,7 +133,7 @@ public class DAO {
 			ResultSetMetaData metaData = rs.getMetaData();
 			int columnCount = metaData.getColumnCount();
 			while (rs.next()) {
-				if(result == null)
+				if (result == null)
 					result = new ArrayList<Map<String, Object>>();
 				Map<String, Object> columns = new LinkedHashMap<String, Object>();
 				for (int i = 1; i <= columnCount; i++) {
@@ -159,14 +158,14 @@ public class DAO {
 	public static final String and = "=? and ";
 	public static final String comma = "=?, ";
 
-	public boolean fill(Object record) throws RegexNotMatches {
+	public boolean fill(Object record) {
 		KeyParams kp = new NullableParams(record);
 		Map<String, Object> recordMap = getRecordMap(String.format("SELECT * FROM %s WHERE %s", kp.getTableName(), kp.getKeyFieldNames(and)), kp
 				.getKeyParams().toArray());
 		return Parser.setObject(record, recordMap);
 	}
 
-	public <T> T getRecordByClass(Class<T> cLass, Object... parameters) throws RegexNotMatches {
+	public <T> T getRecordByClass(Class<T> cLass, Object... parameters) {
 		KeyParams sp = KeyParams.getInstance(cLass);
 		Map<String, Object> record = getRecordMap(String.format("SELECT * FROM %s WHERE %s", sp.getTableName(), sp.getKeyFieldNames(and)), parameters);
 		T result = Parser.getObject(cLass, record);
@@ -239,7 +238,7 @@ public class DAO {
 
 	private final static String INSERT = "INSERT %s SET %s";
 
-	public boolean insert(Object record) throws RegexNotMatches {
+	public boolean insert(Object record) {
 		KeyParams sap = new KeyParams(record);
 		if (sap.isEmpty())
 			return false;
@@ -249,7 +248,7 @@ public class DAO {
 
 	private final static String UPDATE = "UPDATE %s SET %s WHERE %s";
 
-	public boolean update(Object record) throws RegexNotMatches {
+	public boolean update(Object record) {
 		KeyParams sap = new KeyParams(record);
 		if (!sap.hasKeyParams())
 			return false;
@@ -261,7 +260,7 @@ public class DAO {
 
 	private final static String DELETE = "DELETE FROM %s WHERE %s";
 
-	public boolean delete(Object record) throws RegexNotMatches {
+	public boolean delete(Object record) {
 		KeyParams sap = new KeyParams(record);
 		if (!sap.hasKeyParams())
 			return false;

@@ -2,7 +2,6 @@ package uss.launcher;
 
 import uss.model.database.User;
 import lib.database.DAO;
-import lib.database.exception.RegexNotMatches;
 import lib.database.maker.PackageCreator;
 
 public class DBLauncher {
@@ -11,7 +10,7 @@ public class DBLauncher {
 		insertTestData();
 	}
 
-	private static void insertTestData() throws RegexNotMatches {
+	private static void insertTestData() {
 		DAO dao = new DAO();
 		User user = new User();
 		user.setNickName("abc");

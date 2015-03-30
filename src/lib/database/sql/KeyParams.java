@@ -9,7 +9,6 @@ import java.util.Map;
 
 import lib.database.Parser;
 import lib.database.annotation.Key;
-import lib.database.exception.RegexNotMatches;
 
 public class KeyParams {
 	protected static final String GET = "get";
@@ -31,7 +30,6 @@ public class KeyParams {
 	public boolean hasParams() {
 		return params.size() != 0;
 	}
-	
 
 	public String getKeyFieldNames(String deter) {
 		String result = new String();
@@ -39,7 +37,7 @@ public class KeyParams {
 			return result;
 		for (int i = 0; i < keyParams.size(); i++)
 			result += keyParams.get(i).getColumnName() + deter;
-		result = result.substring(0, result.length() -  (deter.length() - 2));
+		result = result.substring(0, result.length() - (deter.length() - 2));
 		return result;
 	}
 
@@ -60,7 +58,7 @@ public class KeyParams {
 			return field;
 		if (!hasParams())
 			return key;
-		
+
 		return key + deter + field;
 	}
 
@@ -89,7 +87,7 @@ public class KeyParams {
 
 	private static Map<Class<?>, KeyParams> map = new HashMap<Class<?>, KeyParams>();
 
-	public static KeyParams getInstance(Class<?> cLass) throws RegexNotMatches {
+	public static KeyParams getInstance(Class<?> cLass) {
 		KeyParams result = map.get(cLass);
 		if (result != null)
 			return map.get(cLass);
@@ -98,7 +96,7 @@ public class KeyParams {
 		return result;
 	}
 
-	private KeyParams(Class<?> cLass) throws RegexNotMatches {
+	private KeyParams(Class<?> cLass) {
 		SqlTable table = SqlTable.getInstance(cLass);
 		tableName = table.getTableName();
 		Field[] fields = cLass.getDeclaredFields();
@@ -116,7 +114,7 @@ public class KeyParams {
 	public KeyParams() {
 	}
 
-	public KeyParams(Object record) throws RegexNotMatches {
+	public KeyParams(Object record) {
 		Class<?> cLass = record.getClass();
 		SqlTable table = SqlTable.getInstance(cLass);
 		tableName = table.getTableName();

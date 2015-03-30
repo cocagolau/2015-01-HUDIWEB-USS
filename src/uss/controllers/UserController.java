@@ -3,7 +3,6 @@ package uss.controllers;
 import java.io.UnsupportedEncodingException;
 
 import lib.database.DAO;
-import lib.database.exception.RegexNotMatches;
 import lib.mapping.annotation.Before;
 import lib.mapping.annotation.HttpMethod;
 import lib.mapping.annotation.Mapping;
@@ -19,7 +18,7 @@ import uss.service.UserService;
 public class UserController {
 
 	@Mapping(value = "/api/user", method = "POST")
-	public void register(Http http, DAO dao) throws JsonAlert, RegexNotMatches {
+	public void register(Http http, DAO dao) throws JsonAlert {
 		User user = http.getJsonObject(User.class, "user");
 		if (dao.insert(user))
 			throw new JsonAlert("DB입력 중 오류가 발생했습니다.");
@@ -29,7 +28,7 @@ public class UserController {
 	}
 
 	@Mapping(value = "/api/user", method = "PUT", before = "loginCheck")
-	public void update(Http http, DAO dao) throws JsonAlert, RegexNotMatches {
+	public void update(Http http, DAO dao) throws JsonAlert {
 		User loggedUser = http.getSessionAttribute(User.class, "user");
 		User user = http.getJsonObject(User.class, "user");
 		Right right = new UpdateRight(loggedUser, user);
@@ -41,7 +40,7 @@ public class UserController {
 	}
 
 	@Mapping(value = "/api/user", method = "GET", before = "loginCheck")
-	public void read(Http http, DAO dao) throws JsonAlert, RegexNotMatches {
+	public void read(Http http, DAO dao) throws JsonAlert {
 		User loggedUser = http.getSessionAttribute(User.class, "user");
 		User user = dao.getRecordByClass(User.class, http.getParameter("stringId"));
 		Right right = new ReadRight(loggedUser, user);

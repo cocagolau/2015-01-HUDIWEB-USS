@@ -6,20 +6,19 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import lib.database.annotation.RequiredRegex;
-import lib.database.exception.RegexNotMatches;
 
 public class RegexCheck {
 
 	private static Map<Field, Pattern> patternMap = new HashMap<Field, Pattern>();
 
-	public static void check(Object param, Field field) throws RegexNotMatches {
+	public static boolean check(Object param, Field field) {
 		if (!field.isAnnotationPresent(RequiredRegex.class))
-			return;
+			return true;
 		Pattern matcher = getMatcher(field);
 		if (matcher.matcher(param.toString()).matches()) {
-			return;
+			return true;
 		}
-		throw new RegexNotMatches();
+		return false;
 	}
 
 	private static Pattern getMatcher(Field field) {
@@ -31,4 +30,5 @@ public class RegexCheck {
 		patternMap.put(field, pattern);
 		return pattern;
 	}
+
 }
