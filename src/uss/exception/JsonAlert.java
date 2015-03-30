@@ -8,14 +8,12 @@ public class JsonAlert extends HandleException {
 
 	private static final long serialVersionUID = -8132512868280285543L;
 	
-	private String errorMessage;
-
 	public JsonAlert(String string) {
-		errorMessage = string;
+		super(string);
 	}
 
 	public void handle(Http http) {
-		http.setView(new Json(new ErrorObj(errorMessage)));
+		http.setView(new Json(new ErrorObj(getMessage())));
 	}
 	
 	private class ErrorObj {
