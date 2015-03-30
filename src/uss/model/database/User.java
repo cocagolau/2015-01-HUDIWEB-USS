@@ -4,21 +4,20 @@ import lib.database.annotation.Column;
 import lib.database.annotation.Key;
 import lib.database.annotation.OtherTable;
 import lib.database.annotation.RequiredRegex;
-import lib.database.annotation.Unique;
 
 public class User {
 
 	@Key(AUTO_INCREMENT = true)
 	private Integer id;
-	@RequiredRegex("^\\w+$") //영문 숫자만 가능
-	@Unique
+	@RequiredRegex("^\\w+$")// 영문 숫자만 가능
+	@Column(function = "unique", hasDefaultValue = false)
 	private String stringId;
 	private String nickName;
 	private String password;
 	private String profile;
 	@Column(DEFAULT = "0", DATA_TYPE = "TINYINT")
 	private Integer gender;
-	
+
 	@OtherTable
 	private Integer UserPhoto_id;
 

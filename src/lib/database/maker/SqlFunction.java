@@ -5,7 +5,7 @@ import java.util.List;
 
 import lib.database.sql.SqlFieldNormal;
 
-public class Function {
+public class SqlFunction {
 	List<SqlFieldNormal> items = new ArrayList<SqlFieldNormal>();
 
 	public void add(SqlFieldNormal fm) {

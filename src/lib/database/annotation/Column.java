@@ -15,5 +15,7 @@ public @interface Column {
 	String DEFAULT() default "";
 
 	String DATA_TYPE() default "";
+	
+	String[] function() default "";
 
 }

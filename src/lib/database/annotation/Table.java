@@ -10,4 +10,6 @@ public @interface Table {
 
 	String table_suffix() default "";
 
+	String createQuery() default "";
+
 }
