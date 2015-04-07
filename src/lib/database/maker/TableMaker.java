@@ -30,10 +30,18 @@ public class TableMaker {
 		if (!tableClass.isAnnotationPresent(Table.class))
 			return;
 		Table table = tableClass.getAnnotation(Table.class);
-		if (!table.createQuery().equals(""))
+		/*
+		 * equals 사용방법을 참고 바랍니다.
+		 * http://egloos.zum.com/nestofeagle/v/1501427
+		 * 
+		 * if (!table.createQuery().equals(""))
+		 */
+		if (!"".equals(table.createQuery()))
 			createQuery = table.createQuery();
-		if (!table.value().equals(""))
+		//if (!table.value().equals(""))
+		if (!"".equals(table.value()))
 			tableName = table.value();
+		//if (!table.table_suffix().equals(""))
 		if (!table.table_suffix().equals(""))
 			table_suffix = table.table_suffix();
 	}

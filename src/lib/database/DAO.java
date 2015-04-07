@@ -196,7 +196,8 @@ public class DAO {
 	}
 
 	public Boolean execute(String sql, Object... parameters) {
-		PreparedStatement pstmt;
+		PreparedStatement pstmt = null;
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			for (int j = 0; j < parameters.length; j++) {
@@ -204,12 +205,17 @@ public class DAO {
 			}
 			logger.debug(pstmt.toString());
 			pstmt.execute();
-			close(pstmt);
-			return true;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
+		} finally {
+			/*
+			 * try에 close() 함수를 두면. exception 발생시 connection을 안전하게 종료하지 못합니다.
+			 */
+			close(pstmt);
 		}
+		return true;
 	}
 
 	private static void close(ResultSet rs) {
