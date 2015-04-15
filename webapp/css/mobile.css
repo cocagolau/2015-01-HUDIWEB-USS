@@ -1,0 +1,151 @@
+@media screen and (max-width: 600px) {
+
+    ul, li {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+    }
+
+    body {
+        text-align: center;
+    }
+
+    .logo {
+        font-size: 25px;
+        padding-top: 2px;
+        padding-right: 5px;
+        margin-bottom: 0;
+    }
+
+    input {
+        width: 86%;
+        margin: 5px 5%;
+        font-size: 22px;
+        padding: 5px 2%;
+    }
+
+    .button.mobile-big {
+        margin: 0;
+    }
+
+    .facebook-button {
+        padding: 8px;
+        margin: 3px;
+    }
+
+    .inline-block {
+        margin-top: 5px;
+        margin-bottom: -5px;
+    }
+
+    .icon {
+        float: left;
+        margin: 8px 12px;
+        margin-bottom: 10px;
+        background-size: 100%;
+        width: 30px;
+        background-position: center;
+        height: 30px;
+        background-repeat: no-repeat;
+    }
+
+    .logo-icon{
+        margin: 0 20px;
+        width: 46px;
+        height: 46px;
+        background-image: url('image/icon/logom.png');
+    }
+
+    .mobile-none {
+        display: none;
+    }
+
+    .container {
+        width: 88%;
+        overflow: auto;
+        display: block;
+        padding: 0 4%;
+        margin: 2%;
+        border-radius: 0;
+    }
+
+    .box {
+        text-align: justify;
+        margin: 10px 0;
+        padding: 5px 20px;
+    }
+
+    .q-icon {
+        display: none;
+    }
+
+    .button {
+        font-size: 14px;
+        color: #000000;
+    }
+
+    h1 {
+        font-size: 16px;
+    }
+
+    .mobile-small {
+        font-size: 16px;
+    }
+
+    h2 {
+        font-size: 16px;
+    }
+
+    h3 {
+        font-size: 14px;
+    }
+
+    .top-buffer{
+        padding-top:50px;
+    }
+
+    result {
+        width: 90%;
+        left: 6%;
+        top:0px;
+        position:absolute;
+    }
+
+    .add-letter {
+        width: 60px;
+        height: 60px;
+        bottom: 15px;
+        right: 15px;
+        line-height: 60px;
+        font-size: 25px;
+    }
+
+    alert * {
+        font-size: 20px;
+    }
+
+    .alert-text {
+        margin-top: 120px;
+    }
+
+    .mobile-big {
+        font-size: 25px;
+        margin-top: 20px;
+        margin-bottom: 0px;
+    }
+
+    .small-input {
+        max-width: 80px;
+        text-align: center;
+    }
+
+    canvas{
+        max-width:100%;
+        margin:auto;
+    }
+
+
+}

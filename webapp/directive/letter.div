@@ -1,0 +1,43 @@
+<h1 class="mobile-big">편지</h1>
+
+
+<h2>받은 편지
+    <small ng-show="receiveLetters.length==0">가 없습니다.</small>
+</h2>
+<div class='box letter none' ng-repeat="letter in receiveLetters">
+
+    <div ng-click="delete(letter)" class="sm-icon pointer close"></div>
+
+    <h1 class="letter-head">{{letter.head||"제목 없음"}}</h1>
+
+    <pre>{{letter.body||"내용 없음"}}</pre>
+
+
+    <span class="writer">written by {{letter.email}}</span>
+
+</div>
+
+<h2>보낸 편지
+    <small ng-show="sendLetters.length==0">가 없습니다.</small>
+</h2>
+<div id='letter{{letter.id}}' class='box letter none' ng-repeat="letter in sendLetters">
+
+    <div ng-show="!toggle['letterMod'+letter.id]">
+        <div ng-click="toggle.toggle('letterMod'+letter.id)" class="sm-icon pointer pen"></div>
+        <div ng-click="delete(letter)" class="sm-icon pointer close"></div>
+        <h1 class="letter-head">{{letter.head||"제목 없음"}}</h1>
+
+        <pre>{{letter.body||"내용 없음"}}</pre>
+
+        <span class="writer">To. {{letter.key}}</span>
+    </div>
+
+    <div ng-show="toggle['letterMod'+letter.id]">
+        <div class="sm-icon pointer check"
+             ng-click="update(letter);"></div>
+        <input class="input" ng-model="letter.head" placeholder="제목없음">
+        <textarea placeholder="내용없음" ng-model="letter.body">{{letter.body}}</textarea>
+    </div>
+
+</div>
+<!--<span class="add-letter flip" ng-click="nextError()"> > </span>-->

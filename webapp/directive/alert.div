@@ -1,0 +1,13 @@
+<div class="alert-body" ng-click="close()" ng-show="show">
+
+
+    <iframe ng-show="clip" class="clip" frameborder="0"
+            allowfullscreen></iframe>
+    <span ng-show="clip" class="sm-icon pointer close-icon close-white"></span>
+
+    <div class="dialog" ng-show="!clip">
+        <span class="alert-text"><h1>{{errorMessage.head||"?!!"}}</h1></span>
+        <span class="alert-tbody"><pre>{{errorMessage.body||errorMessage}}</pre></span>
+        <!--<span class="alert-writer">message from {{errorMessage.email||"만든 사람"}}</span>-->
+    </div>
+</div>

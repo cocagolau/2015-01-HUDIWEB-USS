@@ -1,0 +1,30 @@
+<div class="box" ng-class="{success:user.factors.MBTI!=undefined, disabled:disabled}">
+    <h3 class="green" ng-if="user.factors.MBTI!=undefined">테스트 결과 : {{user.factors.MBTI.type}}</h3>
+
+    <h1 ng-click="toggle.toggle('mbti')" class="pointer">MBTI</h1>
+    <h5 class="mobile-none"> 매칭분석근거 : http://www.massmatch.com/MBTI-2.php</h5>
+
+    <div ng-show="toggle.mbti">
+
+        <span ng-click="toggle.toggle('hideDone')">완료된것 <span ng-show="toggle.hideDone">보이기</span>  <span
+                ng-show="!toggle.hideDone">숨기기</span></span>
+        <span>{{testDone}}/47</span>
+        <ul>
+            <li ng-repeat="q in mbti"
+                ng-class="{done:q.selectedType!=undefined, hidden:q.selectedType!=undefined && toggle.hideDone}">
+                <h1>{{q.question}}</h1>
+
+                <div class="button" ng-repeat="a in q.answers">
+                    <div ng-click="q.selectedType = a.type"
+                         ng-class="{selected:q.selectedType == a.type}">
+                        {{a.answer}}
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <div ng-show="testDone == 47">
+            <h1 ng-click="showResult()">결과보기</h1>
+        </div>
+    </div>
+</div>

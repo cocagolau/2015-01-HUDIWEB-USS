@@ -1,0 +1,67 @@
+<div class="box" ng-class="{success:user.factors.EnneaGram!=undefined, disabled:disabled}">
+    <h3 class="green" ng-if="user.factors.EnneaGram!=undefined">테스트 결과 : {{user.factors.EnneaGram.type}}</h3>
+
+    <h1 ng-click="toggle.toggle('enneagram')" class="pointer">Enneagram</h1>
+    <h5 class="mobile-none"> 매칭분석근거 : http://www.9types.com/writeup/enneagram_relationships.php</h5>
+
+    <div ng-show="user.gender==0" class="red">이 테스트는 성별을 선택하셔야 진행할 수 있습니다.</div>
+
+    <div ng-show="user.gender!=0 && toggle.enneagram">
+        <span ng-click="toggle.toggle('hideDone')">완료된것 <span ng-show="toggle.hideDone">보이기</span>  <span
+                ng-show="!toggle.hideDone">숨기기</span></span> {{done}}/36
+        <ul>
+            <li ng-class="{done:q.answer!=undefined, hidden:q.answer!=undefined && toggle.hideDone}"
+                ng-repeat="q in test.a"><h1>{{q.question}}</h1>
+
+                <div class="button" ng-click="q.answer = 'y'" ng-class="{selected:q.answer == 'y'}">그렇다
+                </div>
+                <div class="button" ng-click="q.answer = 'n'" ng-class="{selected:q.answer == 'n'}">아니다
+                </div>
+            </li>
+            <li ng-class="{done:q.answer!=undefined, hidden:q.answer!=undefined && toggle.hideDone}"
+                ng-repeat="q in test.b"><h1>{{q.question}}</h1>
+
+                <div class="button" ng-click="q.answer = 'y'" ng-class="{selected:q.answer == 'y'}">그렇다
+                </div>
+                <div class="button" ng-click="q.answer = 'n'" ng-class="{selected:q.answer == 'n'}">아니다
+                </div>
+            </li>
+            <li ng-class="{done:q.answer!=undefined, hidden:q.answer!=undefined && toggle.hideDone}"
+                ng-repeat="q in test.c"><h1>{{q.question}}</h1>
+
+                <div class="button" ng-click="q.answer = 'y'" ng-class="{selected:q.answer == 'y'}">그렇다
+                </div>
+                <div class="button" ng-click="q.answer = 'n'" ng-class="{selected:q.answer == 'n'}">아니다
+                </div>
+            </li>
+            <li ng-class="{done:q.answer!=undefined, hidden:q.answer!=undefined && toggle.hideDone}"
+                ng-repeat="q in test.x"><h1>{{q.question}}</h1>
+
+                <div class="button" ng-click="q.answer = 'y'" ng-class="{selected:q.answer == 'y'}">그렇다
+                </div>
+                <div class="button" ng-click="q.answer = 'n'" ng-class="{selected:q.answer == 'n'}">아니다
+                </div>
+            </li>
+            <li ng-class="{done:q.answer!=undefined, hidden:q.answer!=undefined && toggle.hideDone}"
+                ng-repeat="q in test.y"><h1>{{q.question}}</h1>
+
+                <div class="button" ng-click="q.answer = 'y'" ng-class="{selected:q.answer == 'y'}">그렇다
+                </div>
+                <div class="button" ng-click="q.answer = 'n'" ng-class="{selected:q.answer == 'n'}">아니다
+                </div>
+            </li>
+            <li ng-class="{done:q.answer!=undefined, hidden:q.answer!=undefined && toggle.hideDone}"
+                ng-repeat="q in test.z"><h1>{{q.question}}</h1>
+
+                <div class="button" ng-click="q.answer = 'y'" ng-class="{selected:q.answer == 'y'}">그렇다
+                </div>
+                <div class="button" ng-click="q.answer = 'n'" ng-class="{selected:q.answer == 'n'}">아니다
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div ng-show="done==36">
+        <h1 ng-click="showResult()"> 결과보기 </h1>
+    </div>
+
+</div>

@@ -1,0 +1,60 @@
+<div class="box">
+    <h3><span class="profile" ng-click="toggle.toggle('uploading')" style="{{ifProfile(user)}}"
+              ng-class="{mancon:user.gender==1, womancon:user.gender!=1}"></span>
+        <input ng-show="toggle.uploading" type="file" name="file" nv-file-select="uploader.uploadAll();" uploader="uploader">
+
+
+        <span ng-click="toggle.toggle('nickName')" ng-show="!toggle.nickName">{{user.nickName||"내 프로필"}}</span>
+        <input class="small-input" type="text" style="width:inherit" placeholder="닉네임" ng-model="user.nickName"
+               ng-show="toggle.nickName">
+        <span ng-click="updateNickName();toggle.toggle('nickName')" ng-show="toggle.nickName">OK</span><span
+                class="location profile-icon" ng-click="getLocation()"></span></h3>
+
+    <div class="vertical-margin" ng-show="user.address">@ {{user.address}}</div>
+
+
+    <div>
+        <span>{{user.email}}</span>
+                    <span ng-click="toggle.toggle('age')" ng-show="!toggle.age"><span ng-show="user.age==0"
+                                                                                      class="red">나이 없음</span><span
+                            ng-show="user.age!=0">{{user.age||"나이 없음"}}</span></span>
+                <span ng-show="toggle.age"><input class='small-input input-number' ng-model="user.age" maxlength="3"
+                                                  type="number">
+                    <span ng-click="updateAge();toggle.toggle('age')">확인</span>
+                </span>
+        (<span ng-click="toggle.toggle('gender')">
+                            <span ng-show="user.gender!=1 && user.gender!=2" class="red">성별 없음</span>
+                            <span ng-show="user.gender==1">남</span><span ng-show="user.gender==2">여</span></span>
+                        <span ng-show="toggle.gender"
+                              ng-click="updateGender();toggle.toggle('gender')">
+                            <span ng-click="user.gender=1">남</span>
+                            <span ng-click="user.gender=2">여</span></span> )
+        <span class="green" ng-show="user.authEmail">인증</span>
+        <span class="red" ng-click="reMail()" ng-show="!user.authEmail">인증필요</span>
+    </div>
+
+
+    <div class="marginTop">
+        <div class="factor pointer" ng-repeat="(name, factor) in user.factors">
+            <span ng-click="toggle.toggle(name);setResult(name, factor, user)">{{name}} : {{factor.type}}</span>
+
+
+        </div>
+    </div>
+
+    <ul class="youtubeUl">
+        <li ng-click="showClip(like.id)" ng-repeat="like in user.likes" style="background-image:url('{{like.url}}')">
+            <div>{{like.title}}</div>
+            <span ng-click="deleteLike(like);$event.stopPropagation();"
+                  class="sm-icon pointer close-icon close-white"></span>
+        </li>
+    </ul>
+
+    <input type="text" class="input" ng-model="youtubeQuery" placeholder="I Like...">
+    <ul class="youtubeUl">
+        <li ng-click="addLike(result)" style="background-image:url('{{result.snippet.thumbnails.high.url}}')"
+            ng-repeat="result in youtubeResults">
+            <div>{{result.snippet.title}}</div>
+        </li>
+    </ul>
+</div>

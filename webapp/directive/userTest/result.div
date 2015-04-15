@@ -1,0 +1,24 @@
+<div class="light box description" ng-show="show">
+    <div ng-click="show=false" class="close-icon pointer"></div>
+
+    <h1 class="mobile-none">{{test}}</h1>
+    <h2>{{result.title}}</h2>
+
+    <p >{{result.description}}</p>
+
+    <div ng-show="chart">
+        <canvas width="400" height="400" id="canvasResult"></canvas>
+        <div class="ppwrap">
+            <div ng-show="friend"><span class="nemo fcolor"></span><span>인연</span></div>
+            <div><span class="nemo mcolor"></span><span>나</span></div>
+        </div>
+    </div>
+
+    <div ng-show="!chart">
+        <div>{{result.type}}와(과) 잘 맞는 타입(<span class="red">Best</span> <span class="green">Good</span>)
+        </div>
+        <span ng-repeat="type in result.bestTypes" class="red"> {{type}} </span>
+        <span ng-repeat="type in result.goodTypes" class="green"> {{type}} </span>
+    </div>
+
+</div>

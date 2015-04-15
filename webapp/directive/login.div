@@ -1,0 +1,72 @@
+<div>
+    <br>
+
+    <img class="logo" src="css/image/4b.png">
+    <h1 class="mobile-big">다시 한번, </h1>
+
+    <h1 class="mobile-big">당신과 꼭 맞는 사람을 만나요.</h1>
+
+    <p>여러가지 유형검사를 통해 <br>당신과 어울리는 인연을 찾습니다.</p>
+
+    <h1 class="green">현재 사용되는 테스트</h1>
+
+    <h3>MBTI(Katharine Cook Briggs, Isabel Briggs Myers)</h3>
+
+    <h3>Enneagram(한국형에니어그램 Prof. 윤운성, 2001)</h3>
+
+    <h3>6 Type Test Designed By Dr.Hatkoff and Dr.Lasswell(1979)</h3>
+
+    <br>
+
+
+    <input ng-model="user.email" class="input centered"
+           ng-class="{danger:user.email!='' && !check.email(), success:check.email()}"
+           placeholder="이메일을 입력하세요."/>
+
+    <div class='red' ng-show="user.email!='' && !check.email()">이메일 형식이 맞지 않습니다.</div>
+
+    <input class="input centered" ng-class="{danger:user.password!='' && !check.password(), success:check.password()}"
+           maxlength="12"
+           ng-show="user.email!='' && check.email()" ng-model="user.password" type="password"
+           placeholder="Password"/>
+
+    <div class='red' ng-show="user.password!='' && !check.password()">패스워드는 4~12자입니다.</div>
+
+    <div ng-show="user.email!='' && !checking && check.email()">
+        <div ng-show="registeredEmail" class="button mobile-big" ng-click="login()">로그인</div>
+        <div ng-show="registeredEmail" class="button mobile-big" ng-click="passwordRedefine()">비밀번호 바꾸기</div>
+        <div ng-show="!registeredEmail" class="button mobile-big" ng-click="register()">입력한 Email/Password로 가입하기</div>
+    </div>
+
+    <p>메일 주소만으로 가입하여 사용할 수 있습니다.</p>
+
+    <span class="facebook big-button" ng-click="facebookLogin()">Facebook으로 로그인</span>
+    <span class="testLogin big-button" ng-click="testLogin();">테스트 계정으로 둘러보기</span>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+    <div ng-click="toggle.toggle('explain')">+</div><br>
+    <div class="light" ng-show="toggle.explain">
+        헤어지고 늦은 나이에 다시 만나기도 힘들고, 지난번 이별이 힘들었던지라.. 안 헤어질 잘 맞는
+        사람 만나 보고싶어서 만들고 있습니다.<span class="striked">흔한 개발자의 실연 극복 방법..</span><br><br>
+
+
+        비루한 1인 개발자여서 작업이 더디네요.
+        기획도 어떤 걸 더 만들지도 만들면서 생각하는 중이라 조그만 피드백이라도 감사히 받아서 반영해 보려고 합니다.<br>
+        <a href="mailto:parksungho86@gmail.com">parksungho86@gmail.com</a> 카톡:zerohouse3<br>
+
+        <br>
+        디자인은.... 아무래도 개발자(그렇다고 개발잘하는것도아님..ㅜㅜ)라 좀 많이 그러네요ㅠ. 서비스에 관심 있으신 디자이너분 연락주시면 감사합니다.
+        현재는 1일 1~2회정도 매칭을 돌릴까 생각중입니다만.. 회원이 아직 없는 관계로 만들면서 생각해보려고 합니다.<br>
+        감사합니다~
+    </div>
+
+    <br>
+
+
+</div>

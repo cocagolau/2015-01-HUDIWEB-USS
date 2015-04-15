@@ -1,0 +1,149 @@
+
+.icon {
+    float: left;
+    margin: 20px;
+    margin-bottom: 10px;
+    background-size: 100%;
+    width: 40px;
+    background-position: center;
+    height: 40px;
+    background-repeat: no-repeat;
+}
+
+.test-icon {
+    background-image: url('image/icon/testicon.png');
+}
+
+.test-icon:hover {
+    background-image: url('image/icon/testiconhover.png');
+}
+
+.q-icon {
+    float: right;
+    background-image: url('image/icon/q.png');
+    margin-top: 59px;
+    width: 30px;
+    height: 30px;
+}
+
+.q-icon:hover {
+    background-image: url('image/icon/qhover.png');
+}
+
+.logout-icon {
+    background-image: url('image/icon/logout.png');
+}
+
+.logout-icon:hover {
+    background-image: url('image/icon/logouthover.png');
+}
+
+.manicon {
+    background-image: url('image/icon/man.png');
+}
+
+.manicon:hover {
+    background-image: url('image/icon/manhover.png');
+}
+
+.womanicon {
+    background-image: url('image/icon/woman.png');
+}
+
+.womanicon:hover {
+    background-image: url('image/icon/womanhover.png');
+}
+
+.musicicon {
+    background-image: url('image/icon/music.png');
+}
+
+.musicicon:hover {
+    background-image: url('image/icon/musichover.png');
+}
+
+.noteicon {
+    background-image: url('image/icon/noteicon.png');
+}
+
+.noteicon:hover {
+    background-image: url('image/icon/noteiconhover.png');
+}
+
+.close-icon {
+    position: absolute;
+    display: block;
+    right: 25px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    top: 20px;
+    width: 15px;
+    height: 15px;
+    background-image: url('image/icon/close.png');
+}
+
+.sm-icon {
+    position: absolute;
+    display: block;
+    right: 20px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    top: 20px;
+    width: 30px;
+    height: 30px;
+}
+
+.close-white {
+    background-image: url('image/icon/closewhite.png');
+    width: 20px;
+    height: 20px;
+    right: 10px;
+    top: 10px;
+}
+
+.close {
+    background-image: url('image/icon/close.png');
+}
+
+.check {
+    background-image: url('image/icon/check.png');
+    width: 40px;
+    height: 40px;
+}
+
+.pen {
+    right: 60px;
+    background-image: url('image/icon/pen.png');
+
+}
+
+.mancon {
+    background-image: url('image/icon/man.png');
+}
+
+.womancon {
+    background-image: url('image/icon/woman.png');
+}
+
+.writeLetter {
+    background-image: url('image/icon/letter.png');
+}
+
+.writeLetter:hover {
+    background-image: url('image/icon/letterhover.png');
+}
+
+.location {
+    background-image: url('image/icon/location.png');
+}
+
+.location:hover {
+    background-image: url('image/icon/locationhover.png');
+}
+
+.logo-icon {
+    background-image: url('image/icon/logo.png');
+    margin: 0 20px;
+    width: 80px;
+    height: 80px;
+}

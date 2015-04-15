@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, user-scalable=no">
+    <link rel="shortcut icon" href="css/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="css/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/icon.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <link rel="stylesheet" href="css/ng-animate.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <title>BeginAgain.be</title>
+</head>
+<body ng-app="meetfit">
+<div id="fb-root"></div>
+<script src="js/facebook.js"></script>
+
+<div class="back"></div>
+<div style="display:none" ng-style="{'display':'block'}" ng-controller="wrapController"
+     ng-class="{'top-buffer':user.logged}">
+
+    <header ng-show="user.logged"></header>
+    <result id="result"></result>
+
+
+    <login ng-show="!user.logged" class="container centered"></login>
+
+    <div id="body" ng-show="user.logged">
+        <div id="test" class="light no-select container" class="light">
+            <h1 class="mobile-big">당신은 어떤 사람인가요?</h1>
+            <lovetype></lovetype>
+            <mbti></mbti>
+            <enneagram></enneagram>
+        </div>
+
+
+        <div id="profile" class="container">
+            <h1 class="mobile-big">내 프로필</h1>
+            <user></user>
+            <h1 class="mobile-big">인연</h1>
+            <matched></matched>
+        </div>
+
+        <letter id="letter" class="container"></letter>
+
+
+    </div>
+</div>
+
+
+<alert></alert>
+
+<div class="beta light"  ng-controller="beta">
+    <span ng-click="toggle()" class="beta-title">건의사항 & 피드백</span>
+
+    <div ng-show="mod">
+        <div class="sm-icon pointer check" ng-click="update(letter);"></div>
+        <input class="input" ng-model="letter.head" placeholder="제목없음">
+        <textarea placeholder="내용없음" ng-model="letter.body">{{letter.body}}</textarea>
+    </div>
+</div>
+
+<script src="library/Chart.min.js"></script>
+<script src="library/angular/angular.min.js"></script>
+<script src="library/angular/angular-animate.min.js"></script>
+<script src="library/angular/angular-file-upload.min.js"></script>
+<script src="js/util.js"></script>
+<script src="js/nginit.js"></script>
+<script src="js/controllers/wrap.js"></script>
+<script src="js/controllers/letter.js"></script>
+<script src="js/controllers/login.js"></script>
+<script src="js/controllers/user.js"></script>
+<script src="js/controllers/matched.js"></script>
+<script src="js/controllers/alert.js"></script>
+<script src="js/controllers/type/result.js"></script>
+<script src="js/controllers/type/mbti.js"></script>
+<script src="js/controllers/type/enneagram.js"></script>
+<script src="js/controllers/type/loveType.js"></script>
+<script src="js/controllers/beta.js"></script>
+
+</body>
+</html>

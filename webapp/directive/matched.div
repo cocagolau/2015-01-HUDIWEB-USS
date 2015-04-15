@@ -1,0 +1,47 @@
+<div>
+    <h3 ng-if="matchedUsers[0]==undefined">매칭된 인연이 없습니다.</h3>
+
+    <div class='box' ng-repeat="matchedUser in matchedUsers">
+
+
+        <h3><span class="profile" style="{{ifProfile(matchedUser)}}"
+                  ng-class="{mancon:matchedUser.gender==1, womancon:matchedUser.gender!=1}"></span>
+            {{matchedUser.nickName||"나의 인연"}}
+            <span class="writeLetter profile-icon" ng-click="writeLetter(matchedUser)"></span></h3>
+
+        <div class="vertical-margin" ng-show="matchedUser.address">@ {{matchedUser.address}}</div>
+        <!--<div>{{matchedUser.email}}</div>-->
+        <div>
+            <span ng-show="matchedUser.age==0" class="red">나이 없음</span><span
+                ng-show="matchedUser.age!=0">{{matchedUser.age}}세</span>
+
+            ( <span ng-show="matchedUser.gender==0" class="red">성별 없음</span><span
+                ng-show="matchedUser.gender==1">남</span><span
+                ng-show="matchedUser.gender==2">여</span> )
+            <span class="green" ng-show="matchedUser.authEmail">인증</span>
+            <span class="red" ng-show="!matchedUser.authEmail">인증필요</span>
+
+            ( Matching : {{matchedUser.point}}% )
+        </div>
+
+
+        <div class="marginTop">
+            <div class="factor pointer" ng-repeat="(name, factor) in matchedUser.factors">
+                    <span ng-click="toggle.toggle(name + matchedUser.email);setResult(name, factor, matchedUser);">{{name}} <span
+                            ng-if="factor.point">( {{factor.point}}% )</span> : <span
+                            ng-class="{red:user.factors[name].bestTypes.contains(factor.type),green:user.factors[name].goodTypes.contains(factor.type)}">{{factor.type}}</span></span>
+
+
+            </div>
+        </div>
+
+        <ul class="youtubeUl">
+            <li ng-click="showClip(like.id)" ng-repeat="like in matchedUser.likes" style="background-image:url('{{like.url}}')"
+                ng-repeat="result in youtubeResults">
+                <div>{{like.title}}</div>
+            </li>
+        </ul>
+
+
+    </div>
+</div>

@@ -1,0 +1,7 @@
+<span class="icon logo-icon"></span>
+<span class="icon test-icon pointer" ng-click="move('test')"></span>
+<span class="icon pointer" ng-class="{manicon:user.gender==1, womanicon:user.gender!=1}"
+      ng-click="move('profile')"></span>
+<span class="icon pointer noteicon"
+      ng-click="move('letter')"></span>
+<span class="icon logout-icon pointer" ng-click="logout()"></span>
