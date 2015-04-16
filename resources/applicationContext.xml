@@ -16,4 +16,8 @@
 		p:username="${database.username}"
 		p:password="${database.password}"
 	/>
+	
+	<bean id="testDao" class="uss.dao.TestDao"
+		p:dataSource-ref="dataSource"
+	/>
 </beans>
