@@ -6,10 +6,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.JsonViewResponseBodyAdvice;
 
@@ -18,8 +20,8 @@ import com.google.gson.annotations.JsonAdapter;
 import uss.dao.TestDao;
 import uss.model.TestResult;
 
-@Controller
-@RequestMapping("/api/test")
+@RestController
+@RequestMapping(value = "/api/test", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TestController {
 	private static final Logger logger = LoggerFactory.getLogger(TestController.class);
 	
@@ -27,16 +29,13 @@ public class TestController {
 	private TestDao testDao;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView find(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ModelAndView mav = new ModelAndView();
+	public TestResult find(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String stringId = ServletRequestUtils.getStringParameter(request, "stringId");
 		
 		TestResult testResult = testDao.find(stringId);
-		mav.addObject(testResult);
-		mav.setViewName("jsonView");
 		
 		logger.debug("get test result userId : {} result: {}", stringId, testResult.toString());
-		return mav;
+		return testResult;
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)

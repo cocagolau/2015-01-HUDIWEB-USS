@@ -18,6 +18,8 @@
 	<mvc:resources location="/js/" mapping="/js/**" />
 	<mvc:resources location="/library/" mapping="/library/**" />
 	
-	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-		/>
+<!-- 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		/> -->
+		
+	<bean id="gsonHttpMessageConverter" class="org.springframework.http.converter.json.GsonHttpMessageConverter" />
 </beans>
