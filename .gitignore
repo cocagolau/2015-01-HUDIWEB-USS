@@ -6,7 +6,7 @@
 .settings
 /tomcat.8080/
 /bin/
-
+/webapp/node_modules/
 
 # Created by https://www.gitignore.io
 

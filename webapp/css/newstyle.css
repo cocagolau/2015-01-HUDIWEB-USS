@@ -1,0 +1,889 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,500,600,700);
+@import url(http://fonts.googleapis.com/css?family=Bangers);
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400);
+
+dl:after, fieldset:after, pre:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+fieldset, pre {
+    -webkit-border-radius: 0.8em;
+    border-radius: 0.8em;
+    background-clip: padding-box;
+}
+
+*, *:before, *:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    outline: none;
+}
+
+article, header, figure, img {
+    display: block;
+}
+
+html {
+    font-size: 100%;
+    line-height: 100%;
+}
+
+pre {
+    margin: 1em 0;
+}
+
+.responsive-fonts {
+    font-size: 100%;
+}
+
+.responsive-fonts span {
+    font: 400 4.9em 'Raleway', sans-serif;
+}
+
+html {
+    background: #ffce00;
+}
+
+article {
+    padding: 3% 6%;
+    margin: 0 auto;
+    min-width: 320px;
+    max-width: 1200px;
+}
+
+figure {
+    position: relative;
+    margin: 3rem 0 0;
+}
+
+figcaption {
+    position: absolute;
+    top: 32%;
+    font: 3em 'Bangers', cursive;
+}
+
+img {
+    width: 100%;
+}
+
+pre {
+    white-space: pre-wrap;
+}
+
+h1 {
+    text-transform: uppercase;
+}
+
+h2 {
+    font: 500 1.618rem/2.291 'Raleway', sans-serif;
+    margin-bottom: 0.673rem;
+}
+
+h3 {
+    font: 400 1.416rem/1.618 'Raleway', sans-serif;
+    margin-bottom: 0.202rem;
+}
+
+p, dt, dd, li {
+    font: 300 1rem 'Lato', sans-serif;
+    line-height: 1.416rem;
+    margin-bottom: 0.416rem;
+}
+
+dl {
+    margin: 1.618em;
+}
+
+dt, dd {
+    float: left;
+}
+
+dt {
+    clear: left;
+    width: 100px;
+    font-weight: 400;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    padding-left: 1rem;
+}
+
+.em span {
+    font-size: 2em;
+}
+
+.rem span {
+    font-size: 2rem;
+}
+
+.pct span {
+    font-size: 200%;
+}
+
+.px span {
+    font-size: 32px;
+}
+
+.done {
+    text-decoration: line-through;
+}
+
+@media (max-width: 325px) {
+    html {
+        font-size: 33%;
+    }
+}
+
+@media (min-width: 326px) {
+    html {
+        font-size: 34%;
+    }
+}
+
+@media (min-width: 336px) {
+    html {
+        font-size: 35%;
+    }
+}
+
+@media (min-width: 346px) {
+    html {
+        font-size: 36%;
+    }
+}
+
+@media (min-width: 355px) {
+    html {
+        font-size: 37%;
+    }
+}
+
+@media (min-width: 365px) {
+    html {
+        font-size: 38.0%;
+    }
+}
+
+@media (min-width: 374px) {
+    html {
+        font-size: 39%;
+    }
+}
+
+@media (min-width: 384px) {
+    html {
+        font-size: 40.0%;
+    }
+}
+
+@media (min-width: 394px) {
+    html {
+        font-size: 41.0%;
+    }
+}
+
+@media (min-width: 403px) {
+    html {
+        font-size: 42%;
+    }
+}
+
+@media (min-width: 413px) {
+    html {
+        font-size: 43%;
+    }
+}
+
+@media (min-width: 422px) {
+    html {
+        font-size: 44.0%;
+    }
+}
+
+@media (min-width: 432px) {
+    html {
+        font-size: 45%;
+    }
+}
+
+@media (min-width: 442px) {
+    html {
+        font-size: 46%;
+    }
+}
+
+@media (min-width: 451px) {
+    html {
+        font-size: 47.0%;
+    }
+}
+
+@media (min-width: 461px) {
+    html {
+        font-size: 48%;
+    }
+}
+
+@media (min-width: 470px) {
+    html {
+        font-size: 49%;
+    }
+}
+
+@media (min-width: 480px) {
+    html {
+        font-size: 50.0%;
+    }
+}
+
+@media (min-width: 490px) {
+    html {
+        font-size: 51%;
+    }
+}
+
+@media (min-width: 499px) {
+    html {
+        font-size: 52%;
+    }
+}
+
+@media (min-width: 509px) {
+    html {
+        font-size: 53.0%;
+    }
+}
+
+@media (min-width: 518px) {
+    html {
+        font-size: 54%;
+    }
+}
+
+@media (min-width: 528px) {
+    html {
+        font-size: 55.0%;
+    }
+}
+
+@media (min-width: 538px) {
+    html {
+        font-size: 56.0%;
+    }
+}
+
+@media (min-width: 547px) {
+    html {
+        font-size: 57%;
+    }
+}
+
+@media (min-width: 557px) {
+    html {
+        font-size: 58%;
+    }
+}
+
+@media (min-width: 566px) {
+    html {
+        font-size: 59.0%;
+    }
+}
+
+@media (min-width: 576px) {
+    html {
+        font-size: 60%;
+    }
+}
+
+@media (min-width: 586px) {
+    html {
+        font-size: 61.0%;
+    }
+}
+
+@media (min-width: 595px) {
+    html {
+        font-size: 62%;
+    }
+}
+
+@media (min-width: 605px) {
+    html {
+        font-size: 63%;
+    }
+}
+
+@media (min-width: 614px) {
+    html {
+        font-size: 64%;
+    }
+}
+
+@media (min-width: 624px) {
+    html {
+        font-size: 65%;
+    }
+}
+
+@media (min-width: 634px) {
+    html {
+        font-size: 66%;
+    }
+}
+
+@media (min-width: 643px) {
+    html {
+        font-size: 67%;
+    }
+}
+
+@media (min-width: 653px) {
+    html {
+        font-size: 68%;
+    }
+}
+
+@media (min-width: 662px) {
+    html {
+        font-size: 69.0%;
+    }
+}
+
+@media (min-width: 672px) {
+    html {
+        font-size: 70%;
+    }
+}
+
+@media (min-width: 682px) {
+    html {
+        font-size: 71%;
+    }
+}
+
+@media (min-width: 691px) {
+    html {
+        font-size: 72%;
+    }
+}
+
+@media (min-width: 701px) {
+    html {
+        font-size: 73.0%;
+    }
+}
+
+@media (min-width: 710px) {
+    html {
+        font-size: 74%;
+    }
+}
+
+@media (min-width: 720px) {
+    html {
+        font-size: 75%;
+    }
+}
+
+@media (min-width: 730px) {
+    html {
+        font-size: 76.0%;
+    }
+}
+
+@media (min-width: 739px) {
+    html {
+        font-size: 77%;
+    }
+}
+
+@media (min-width: 749px) {
+    html {
+        font-size: 78%;
+    }
+}
+
+@media (min-width: 758px) {
+    html {
+        font-size: 79.0%;
+    }
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 80.0%;
+    }
+}
+
+@media (min-width: 778px) {
+    html {
+        font-size: 81%;
+    }
+}
+
+@media (min-width: 787px) {
+    html {
+        font-size: 82.0%;
+    }
+}
+
+@media (min-width: 797px) {
+    html {
+        font-size: 83%;
+    }
+}
+
+@media (min-width: 806px) {
+    html {
+        font-size: 84%;
+    }
+}
+
+@media (min-width: 816px) {
+    html {
+        font-size: 85.0%;
+    }
+}
+
+@media (min-width: 826px) {
+    html {
+        font-size: 86%;
+    }
+}
+
+@media (min-width: 835px) {
+    html {
+        font-size: 87%;
+    }
+}
+
+@media (min-width: 845px) {
+    html {
+        font-size: 88.0%;
+    }
+}
+
+@media (min-width: 854px) {
+    html {
+        font-size: 89%;
+    }
+}
+
+@media (min-width: 864px) {
+    html {
+        font-size: 90%;
+    }
+}
+
+@media (min-width: 874px) {
+    html {
+        font-size: 91.0%;
+    }
+}
+
+@media (min-width: 883px) {
+    html {
+        font-size: 92%;
+    }
+}
+
+@media (min-width: 893px) {
+    html {
+        font-size: 93%;
+    }
+}
+
+@media (min-width: 902px) {
+    html {
+        font-size: 94.0%;
+    }
+}
+
+@media (min-width: 912px) {
+    html {
+        font-size: 95.0%;
+    }
+}
+
+@media (min-width: 922px) {
+    html {
+        font-size: 96%;
+    }
+}
+
+@media (min-width: 931px) {
+    html {
+        font-size: 97.0%;
+    }
+}
+
+@media (min-width: 941px) {
+    html {
+        font-size: 98%;
+    }
+}
+
+@media (min-width: 950px) {
+    html {
+        font-size: 99%;
+    }
+}
+
+@media (min-width: 960px) {
+    html {
+        font-size: 100.0%;
+    }
+}
+
+@media (min-width: 970px) {
+    html {
+        font-size: 101%;
+    }
+}
+
+@media (min-width: 979px) {
+    html {
+        font-size: 102%;
+    }
+}
+
+@media (min-width: 989px) {
+    html {
+        font-size: 103.0%;
+    }
+}
+
+@media (min-width: 998px) {
+    html {
+        font-size: 104%;
+    }
+}
+
+@media (min-width: 1008px) {
+    html {
+        font-size: 105%;
+    }
+}
+
+@media (min-width: 1018px) {
+    html {
+        font-size: 106.0%;
+    }
+}
+
+@media (min-width: 1027px) {
+    html {
+        font-size: 107%;
+    }
+}
+
+@media (min-width: 1037px) {
+    html {
+        font-size: 108%;
+    }
+}
+
+@media (min-width: 1046px) {
+    html {
+        font-size: 109.0%;
+    }
+}
+
+@media (min-width: 1056px) {
+    html {
+        font-size: 110.0%;
+    }
+}
+
+@media (min-width: 1066px) {
+    html {
+        font-size: 111%;
+    }
+}
+
+@media (min-width: 1075px) {
+    html {
+        font-size: 112.0%;
+    }
+}
+
+@media (min-width: 1085px) {
+    html {
+        font-size: 113%;
+    }
+}
+
+@media (min-width: 1094px) {
+    html {
+        font-size: 114%;
+    }
+}
+
+@media (min-width: 1104px) {
+    html {
+        font-size: 115.0%;
+    }
+}
+
+@media (min-width: 1114px) {
+    html {
+        font-size: 116%;
+    }
+}
+
+@media (min-width: 1123px) {
+    html {
+        font-size: 117%;
+    }
+}
+
+@media (min-width: 1133px) {
+    html {
+        font-size: 118.0%;
+    }
+}
+
+@media (min-width: 1142px) {
+    html {
+        font-size: 119%;
+    }
+}
+
+@media (min-width: 1152px) {
+    html {
+        font-size: 120%;
+    }
+}
+
+@media (min-width: 1162px) {
+    html {
+        font-size: 121.0%;
+    }
+}
+
+@media (min-width: 1171px) {
+    html {
+        font-size: 122.0%;
+    }
+}
+
+@media (min-width: 1181px) {
+    html {
+        font-size: 123.0%;
+    }
+}
+
+@media (min-width: 1190px) {
+    html {
+        font-size: 124%;
+    }
+}
+
+@media (min-width: 1200px) {
+    html {
+        font-size: 125%;
+    }
+}
+
+fieldset, pre {
+    border: 0;
+    padding: 3% 5%;
+    background: #ffc200;
+}
+
+label, a, button {
+    font: 400 1em 'Lato', sans-serif;
+    line-height: 1.416rem;
+    margin-bottom: 0.416rem;
+}
+
+label {
+    text-indent: 5%;
+    width: 100%;
+    float: left;
+    clear: left;
+    margin: 0.2rem;
+}
+
+input, textarea {
+    font-size: 100%;
+    padding: 1%;
+    width: 75%;
+    float: left;
+    margin-right: -100%;
+    margin-left: 20%;
+}
+
+textarea {
+    font-size: 0.5em;
+}
+
+a {
+    color: #333;
+}
+
+a:hover {
+    background: #333;
+    color: #ffce00;
+}
+
+textarea {
+    resize: none;
+}
+
+button {
+    width: 40%;
+    height:100px;
+    background: #231f20;
+    color: #fff;
+    padding: 0.8em;
+    float: left;
+    border: 1px solid #e3a600;
+    margin: 1% 0 0;
+    margin-left:60%
+}
+
+@media (max-width: 640px) {
+    label {
+        font-size: 1.5em;
+        text-indent: 0;
+    }
+
+    input, button, textarea {
+        width: 100%;
+        margin: 1% 0 0;
+    }
+}
+
+::-webkit-selection {
+    background: #fff0b2;
+}
+
+::-moz-selection {
+    background: #fff0b2;
+}
+
+::selection {
+    background: #fff0b2;
+}
+
+
+
+
+li {
+    list-style: none;
+    text-decoration: none;
+}
+.icons>li {
+    float: left;
+}
+.icons {
+    margin-left: 2%;
+}
+
+.icon {
+    margin-top : 60px;
+    margin-left: 10%;
+    margin-right: 2.5%;
+}
+
+.fa-github {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    width: 70px;
+    height: 70px;
+    box-shadow: 0 2px 2px #999;
+    padding: 0px;
+    text-decoration: none;
+    text-align: center;
+    color: #ffffff;
+    font-size: 50px;
+    font-weight: normal;
+    line-height: 1.5em;
+    border-radius: 25px;
+    -moz-border-radius:25px;
+    -webkit-border-radius:25px;
+    opacity: 0.75;
+    background-color: #FFDB4D;
+}
+
+.fa-facebook {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    width: 70px;
+    height: 70px;
+    box-shadow: 0 2px 2px #999;
+    padding: 0px;
+    text-decoration: none;
+    text-align: center;
+    color: #ffffff;
+    font-size: 50px;
+    font-weight: normal;
+    line-height: 1.5em;
+    border-radius: 25px;
+    -moz-border-radius:25px;
+    -webkit-border-radius:25px;
+    opacity: 0.75;
+    background-color: #4060A5;
+}
+
+.fa-twitter {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    width: 70px;
+    height: 70px;
+    box-shadow: 0 2px 2px #999;
+    padding: 0px;
+    text-decoration: none;
+    text-align: center;
+    color: #ffffff;
+    font-size: 50px;
+    font-weight: normal;
+    line-height: 1.5em;
+    border-radius: 25px;
+    -moz-border-radius:25px;
+    -webkit-border-radius:25px;
+    opacity: 0.75;
+    background-color: #00ABE3;
+}
+
+.fa-dribbble {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    width: 70px;
+    height: 70px;
+    box-shadow: 0 2px 2px #999;
+    padding: 0px;
+    text-decoration: none;
+    text-align: center;
+    color: #ffffff;
+    font-size: 50px;
+    font-weight: normal;
+    line-height: 1.5em;
+    border-radius: 25px;
+    -moz-border-radius:25px;
+    -webkit-border-radius:25px;
+    opacity: 0.75;
+    background-color: #ea4c89;
+}
+
+.temp{
+    width : 100%;
+    height:200px;
+    background-color: #231f20;
+    margin-top:40px;
+}
