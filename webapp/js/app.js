@@ -11,10 +11,6 @@ app.controller('userController', function ($scope) {
         this.intro = intro;
     }
 
-    $scope.show = function(){
-      alert();
-    };
-
     var users = $scope.users = [];
 
     //$scope.user = new User("FULL STACK", "WOOLIM RYU", "http://a.fod4.com/images/user_photos/1335039/b892600c3e15fb4dd218c3fe081d8b52_fullsize.jpg", "GOOGLE", "BOSS", "etc", "HI EVERYONE");

@@ -17,6 +17,8 @@
 	<mvc:resources location="/directive/" mapping="/directive/**" />
 	<mvc:resources location="/js/" mapping="/js/**" />
 	<mvc:resources location="/library/" mapping="/library/**" />
+	<mvc:resources location="/template1.html" mapping="/template1.html" />
+	<mvc:resources location="/template2.html" mapping="/template2.html" />
 	
 <!-- 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		/> -->
