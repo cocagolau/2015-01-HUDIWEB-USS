@@ -1,64 +1,81 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <title></title>
     <link rel='stylesheet prefetch'
           href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css'>
-    <link rel="stylesheet" href="css/newstyle.css">
+    <link href='http://fonts.googleapis.com/css?family=Rye' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/t2style.css">
 </head>
 
-<body ng-app="uss">
-<div ng-controller="userController">
-    <article ng-repeat="user in users">
-        <figure class="responsive-fonts">
-            <img src="http://a.fod4.com/images/user_photos/1335039/b892600c3e15fb4dd218c3fe081d8b52_fullsize.jpg">
-            <figcaption>{{user.name1}}<br>{{user.name2}}</figcaption>
-        </figure>
-        <fieldset class="responsive-fonts">
-            <br>
-
-            <h2>Company || {{user.company}}</h2>
-
-            <h2>Job || {{user.job}}</h2>
-
-            <h2>phone Number || {{user.phone}}</h2>
-
-            <h2>Intro || {{user.intro}}</h2>
-            <button ng-click="icons = true">CONTACT WITH ME</button>
-        </fieldset>
+<body ng-app="uss" ng-controller="userController">
+<p class="lines-text-after-before"></p>
 
 
-        <div class="temp" ng-show="icons">
-            <ul class="icons">
-                <li class="icon">
-                    <a href="/https://github.com">
-                        <i class="fa fa-github fa-lg"></i>
-                    </a>
-                </li>
-                <li class="icon">
-                    <a href="https://facebook.com">
-                        <i class="fa fa-facebook fa-lg"></i>
-                    </a>
-                </li>
-                <li class="icon">
-                    <a href="https://twitter.com">
-                        <i class="fa fa-twitter fa-lg"></i>
-                    </a>
-                </li>
-                <li class="icon">
-                    <a href="https://dribbble.com">
-                        <i class="fa fa-dribbble fa-lg"></i>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </article>
-</div>
+<header class="title">
+    <h1>
+        <img src="https://newevolutiondesigns.com/images/freebies/cat-wallpaper-24.jpg" alt="" class="profile-pic-face" />
+        WOOLIM RYU </h1>
+</header><br/>
+<section>
+    <header>
+        <p> Google CTO </p> <p> <br> 01049302778 <br> abcde@gmail.com</p>
+        <p class="lines-text-after-before"> @</p>
+        <p> 내가 다녔던 <br> 학교라던가 회사라던가 <br> 자랑하고 싶은거 있으면 <br> 여기다적으셈. </p>
+    </header>
+</section>
+<hr/>
+<footer>
+    <p><a href="" target="_blank">CONTACT ME</a></p>
+    <div class="temp" ng-show="icons">
+        <ul class="icons">
+            <li class="icon">
+                <a href="/https://github.com">
+                    <i class="fa fa-github fa-lg"></i>
+                </a>
+            </li>
+            <li class="icon">
+                <a href="https://facebook.com">
+                    <i class="fa fa-facebook fa-lg"></i>
+                </a>
+            </li>
+            <li class="icon">
+                <a href="https://twitter.com">
+                    <i class="fa fa-twitter fa-lg"></i>
+                </a>
+            </li>
+            <li class="icon">
+                <a href="https://dribbble.com">
+                    <i class="fa fa-dribbble fa-lg"></i>
+                </a>
+            </li>
+            <li class="icon">
+                <a href="https://dribbble.com">
+                    <i class="fa fa-dribbble fa-lg"></i>
+                </a>
+            </li>
+            <li class="icon">
+                <a href="/https://github.com">
+                    <i class="fa fa-github fa-lg"></i>
+                </a>
+            </li>
+            <li class="icon">
+                <a href="https://twitter.com">
+                    <i class="fa fa-twitter fa-lg"></i>
+                </a>
+            </li>
+            <li class="icon">
+                <a href="https://facebook.com">
+                    <i class="fa fa-facebook fa-lg"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</footer>
+
 </body>
-
-<script src="library/angular/angular.min.js"></script>
-<script src="js/app.js"></script>
 
 </html>
