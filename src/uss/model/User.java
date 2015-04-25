@@ -61,7 +61,11 @@ public class User {
 		return cover;
 	}
 
-	public Object[] getParameters() {
+	public Object[] getInsertParameters() {
 		return new Object[] { stringId, name, email, password, company, phoneNumber, profile, cover };
+	}
+	
+	public Object[] getUpdateParameters() {
+		return new Object[] { name, email, password, company, phoneNumber, profile, cover, stringId };
 	}
 }

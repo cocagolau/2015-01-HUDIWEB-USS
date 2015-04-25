@@ -4,9 +4,9 @@ public interface Dao<T> {
 
 	void insert(T object);
 
-	void update(T Object);
+	void update(T object);
 
-	void delete(Object... keys);
+	void delete(T object);
 
 	T find(Object... keys);
 }

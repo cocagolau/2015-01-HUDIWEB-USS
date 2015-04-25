@@ -53,10 +53,12 @@ public class TestDao extends JdbcDaoSupport implements Dao<TestResult>{
 
 
 	@Override
-	public void delete(Object... keys) {
+	public void delete(TestResult object) {
 		// TODO Auto-generated method stub
 		
 	}
+
+
 
 
 }
