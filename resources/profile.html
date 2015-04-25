@@ -11,7 +11,7 @@
 
 <body ng-app="uss">
 <div ng-controller="userController">
-    <article ng-repeat="user in users">
+    <article>
         <figure class="responsive-fonts">
             <img src="http://a.fod4.com/images/user_photos/1335039/b892600c3e15fb4dd218c3fe081d8b52_fullsize.jpg">
             <figcaption>{{user.name1}}<br>{{user.name2}}</figcaption>
@@ -19,13 +19,13 @@
         <fieldset class="responsive-fonts">
             <br>
 
-            <h2>Company || {{user.company}}</h2>
+            <h2>Name || {{user.name}}</h2>
 
-            <h2>Job || {{user.job}}</h2>
+            <h2>email || {{user.email}}</h2>
 
-            <h2>phone Number || {{user.phone}}</h2>
+            <h2>phoneNumber || {{user.phoneNumber}}</h2>
 
-            <h2>Intro || {{user.intro}}</h2>
+            <h2>company || {{user.company}}</h2>
             <button ng-click="icons = true">CONTACT WITH ME</button>
         </fieldset>
 
@@ -59,6 +59,7 @@
 </body>
 
 <script src="library/angular/angular.min.js"></script>
-<script src="js/app.js"></script>
+<script src="library/angular/angular-route.min.js"></script>
+<script src="js/profile.js"></script>
 
 </html>

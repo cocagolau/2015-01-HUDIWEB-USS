@@ -1,5 +1,8 @@
 package uss.controllers;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -35,14 +38,33 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView insert(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ModelAndView mav = new ModelAndView();
+	public void insert(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String userString = ServletRequestUtils.getStringParameter(request, "user");
 		Gson gson = new Gson();
 		User user = gson.fromJson(userString, User.class);
 		userDao.insert(user);
 		logger.debug("insert test result userId : {}", user.getStringId());
-		return mav;
+	}
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String userString = ServletRequestUtils.getStringParameter(request, "user");
+		Gson gson = new Gson();
+		User user = gson.fromJson(userString, User.class);
+		User fromDB = userDao.find(user.getStringId());
+
+		Map<String, String> error = new HashMap<String, String>();
+
+		if (fromDB == null) {
+			error.put("error", "not exist id");
+			return gson.toJson(error);
+		}
+		if (!fromDB.getPassword().equals(user.getPassword())) {
+			error.put("error", "wrong password");
+			return gson.toJson(error);
+		}
+		error.put("error", "Success!!");
+		return gson.toJson(error);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)

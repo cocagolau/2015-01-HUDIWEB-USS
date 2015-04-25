@@ -39,14 +39,18 @@ public class UserDao extends JdbcDaoSupport implements Dao<User> {
 	public User find(Object... stringId) {
 		String sql = "SELECT * FROM User WHERE User_stringId = ?";
 		RowMapper<User> rowMapper = new RowMapper<User>() {
-
 			public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 				return new User(rs.getInt("User_id"), rs.getString("User_stringId"), rs.getString("User_name"), rs.getString("User_email"),
 						rs.getString("User_password"), rs.getString("User_company"), rs.getString("User_phoneNumber"), rs.getString("User_profile"),
 						rs.getString("User_cover"));
 			}
 		};
-		return getJdbcTemplate().queryForObject(sql, rowMapper, stringId);
+		User user = null;
+		try {
+			user = getJdbcTemplate().queryForObject(sql, rowMapper, stringId);
+		} catch (Exception e) {
+		}
+		return user;
 	}
 
 	@Override

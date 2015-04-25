@@ -19,10 +19,10 @@ CREATE TABLE User(
 	User_name VARCHAR(20) NOT NULL DEFAULT '',
 	User_email VARCHAR(255) NOT NULL DEFAULT '',
 	User_password VARCHAR(20) NOT NULL DEFAULT '',
-	User_company VARCHAR(20) NOT NULL DEFAULT '',
-	User_phoneNumber VARCHAR(20) NOT NULL DEFAULT '',
-	User_profile VARCHAR(255) NOT NULL DEFAULT '',
-	User_cover VARCHAR(255) NOT NULL DEFAULT '',
+	User_company VARCHAR(20) NULL DEFAULT '',
+	User_phoneNumber VARCHAR(20) NULL DEFAULT '',
+	User_profile VARCHAR(255) NULL DEFAULT '',
+	User_cover VARCHAR(255) NULL DEFAULT '',
 	PRIMARY KEY(User_id)
 );
 
