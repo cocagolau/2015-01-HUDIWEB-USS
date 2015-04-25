@@ -1,5 +1,8 @@
 package uss.model;
 
+import java.util.List;
+
+
 public class User {
 
 	private Integer id;
@@ -11,6 +14,15 @@ public class User {
 	private String phoneNumber;
 	private String profile;
 	private String cover;
+
+	private List<User> friends;
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", stringId=" + stringId + ", name=" + name + ", email=" + email + ", password=" + password + ", company="
+				+ company + ", phoneNumber=" + phoneNumber + ", profile=" + profile + ", cover=" + cover + ", friends=" + friends
+				+ "]";
+	}
 
 	public User(Integer id, String stringId, String name, String email, String password, String company, String phoneNumber, String profile,
 			String cover) {
@@ -64,7 +76,7 @@ public class User {
 	public Object[] getInsertParameters() {
 		return new Object[] { stringId, name, email, password, company, phoneNumber, profile, cover };
 	}
-	
+
 	public Object[] getUpdateParameters() {
 		return new Object[] { name, email, password, company, phoneNumber, profile, cover, stringId };
 	}

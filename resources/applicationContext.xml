@@ -20,4 +20,11 @@
 	<bean id="testDao" class="uss.dao.TestDao"
 		p:dataSource-ref="dataSource"
 	/>
+	
+	<bean id="userDao" class="uss.dao.UserDao"
+		p:dataSource-ref="dataSource"
+	/>
+	<bean id="relationDao" class="uss.dao.RelationDao"
+		p:dataSource-ref="dataSource"
+	/>
 </beans>
