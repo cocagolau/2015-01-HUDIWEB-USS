@@ -13,7 +13,7 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
 import uss.model.TestResult;
 
-public class TestDao extends JdbcDaoSupport{
+public class TestDao extends JdbcDaoSupport implements Dao<TestResult>{
 	
 	@PostConstruct
 	public void initialize() {
@@ -23,12 +23,14 @@ public class TestDao extends JdbcDaoSupport{
 	}
 
 	
+	@Override
 	public void insert(TestResult testResult) {
 		String sql = "INSERT INTO TestResult Values(?, ?)";
 		getJdbcTemplate().update(sql, testResult.getStringId(), testResult.getResult());
 	}
 	
-	public TestResult find(String stringId) {
+	@Override
+	public TestResult find(Object... stringId) {
 		String sql = "SELECT * FROM TestResult WHERE TestResult_stringId = ?";
 		RowMapper<TestResult> rowMapper = new RowMapper<TestResult>() {
 			
@@ -43,10 +45,20 @@ public class TestDao extends JdbcDaoSupport{
 		return getJdbcTemplate().queryForObject(sql, rowMapper, stringId);
 	}
 	
+	@Override
 	public void update(TestResult testResult) {
 		String sql = "UPDATE TestResult SET TestResult_result = ? WHERE TestResult_stringId = ?";
 		getJdbcTemplate().update(sql, testResult.getStringId(), testResult.getResult());
 	}
+
+
+	@Override
+	public void delete(TestResult object) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 
 
 }

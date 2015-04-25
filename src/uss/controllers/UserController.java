@@ -13,48 +13,46 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import uss.dao.TestDao;
-import uss.model.TestResult;
+import uss.dao.UserDao;
+import uss.model.User;
+
+import com.google.gson.Gson;
 
 @RestController
-@RequestMapping(value = "/api/test", produces = MediaType.APPLICATION_JSON_VALUE)
-public class TestController {
-	private static final Logger logger = LoggerFactory.getLogger(TestController.class);
+@RequestMapping(value = "/api/user", produces = MediaType.APPLICATION_JSON_VALUE)
+public class UserController {
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
-	private TestDao testDao;
+	private UserDao userDao;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public TestResult find(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public User find(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String stringId = ServletRequestUtils.getStringParameter(request, "stringId");
-
-		TestResult testResult = testDao.find(stringId);
-
-		logger.debug("get test result userId : {} result: {}", stringId, testResult.toString());
-		return testResult;
+		User user = userDao.find(stringId);
+		logger.debug("get test result userId : {} result: {}", stringId, user.toString());
+		return user;
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView insert(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		String stringId = ServletRequestUtils.getStringParameter(request, "stringId");
-		String result = ServletRequestUtils.getStringParameter(request, "result");
-		TestResult testResult = new TestResult(stringId, result);
-		testDao.insert(testResult);
-
-		logger.debug("insert test result userId : {}", stringId);
+		String userString = ServletRequestUtils.getStringParameter(request, "user");
+		Gson gson = new Gson();
+		User user = gson.fromJson(userString, User.class);
+		userDao.insert(user);
+		logger.debug("insert test result userId : {}", user.getStringId());
 		return mav;
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
 	public ModelAndView update(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		String stringId = ServletRequestUtils.getStringParameter(request, "stringId");
-		String result = ServletRequestUtils.getStringParameter(request, "result");
-		TestResult testResult = new TestResult(stringId, result);
-		testDao.update(testResult);
-
-		logger.debug("update test result userId : {}", stringId);
+		String userString = ServletRequestUtils.getStringParameter(request, "user");
+		Gson gson = new Gson();
+		User user = gson.fromJson(userString, User.class);
+		userDao.update(user);
+		logger.debug("update test result userId : {}", user.getStringId());
 		return mav;
 	}
 
