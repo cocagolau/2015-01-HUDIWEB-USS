@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>CodePen - Login/Logout animation concept</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+
+  <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Open+Sans'>
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+  <div class="cont">
+    <div class="demo">
+      <div class="login">
+
+        <div class="lefticon">
+          <div id="heart"></div>
+        </div>
+
+        <div class="login__form">
+
+          <div class="login__row">
+            <label id='labelA'>류우림님, 반가워요!   당신의 프로필을 완성해주세요 :D </label>
+          </div>
+
+          <div class="login__row">
+            <label id='labelA'>School</label>
+            <input type="text" class="login__input name"/>
+          </div>
+
+          <div class="login__row">
+            <label id='labelA'>Office</label>
+            <input type="text" class="login__input name"/>
+          </div>
+          
+          <div class="login__row">
+            <label id='labelA'>Height</label>
+            <select name="topic" id="topic" class="mask" data-type="select" data-width="medium" >
+               <option value="1" selected="selected">키</option>
+               <option value="2">160</option>
+               <option value="3">165</option>
+               <option value="4">170</option>
+               <option value="5">173</option>
+               <option value="5">175</option>
+               <option value="5">177</option>
+               <option value="5">180</option>
+               <option value="5">190</option>
+             </select>
+            <label id='labelA'>Body Type</label>
+            <select name="topic" id="topic" class="mask" data-type="select" data-width="small">
+              <option value="1">체형</option>
+              <option value="2">슬림</option>
+              <option value="3">근육탄탄</option>
+              <option value="3">통통</option>
+            </select>
+          </div>
+
+          <div class="login__row">
+            <label id='labelA'>Hobby</label>
+            <input type="text" class="login__input name"/>
+          </div>
+          
+          <div class="login__row">
+            <label id='labelA'>I LIKE</label>
+            <input type="text" class="login__input pass"/>
+          </div>
+
+          <div id="fileupload" runat="server">
+              <img id="image1" src="#" alt="YOUR IMAGE"/>
+              <input type='file' id="imgInp" />
+          </div>
+          <div id="fileupload" runat="server">
+              <img id="image2" src="#" alt="YOUR IMAGE"/>
+              <input type='file' id="imgInp" />
+          </div>
+          <div id="fileupload" runat="server">
+              <img id="image3" src="#" alt="YOUR IMAGE"/>
+              <input type='file' id="imgInp" />
+          </div>
+
+          <button type="button" class="login__submit">Submit</button>
+          
+        </div>
+    </div>
+  </div>
+
+  <!-- file upload 를 위한 js -->
+  <script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

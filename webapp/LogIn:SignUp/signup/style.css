@@ -1,0 +1,173 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  font-size: 62.5%;
+  height: 100%;
+  overflow: hidden;
+}
+@media (max-width: 768px) {
+  html, body {
+    font-size: 40%;
+  }
+}
+
+input, button {
+  outline: none;
+  border: none;
+}
+
+.cont {
+  position: relative;
+  height: 100%;
+  overflow: auto;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  background-image: url("http://i.imgur.com/UP7fWfg.jpg");
+}
+
+.demo {
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  margin-left: -15rem;
+  margin-top: -26.5rem;
+  width: 80rem;
+  height: 65rem;
+  overflow: hidden;
+}
+
+.login {
+  position: relative;
+  height: 100%;
+  background: -webkit-linear-gradient(top, rgba(14, 135, 200, 0.8) 0%, rgba(0, 0, 0, 0.6) 100%);
+  background: linear-gradient(to bottom, rgba(14, 135, 200, 0.8) 0%, rgba(0, 0, 0, 0.4) 100%);
+  -webkit-transition: opacity 0.1s, -webkit-transform 0.3s cubic-bezier(0.17, -0.65, 0.665, 1.25);
+          transition: opacity 0.1s, transform 0.3s cubic-bezier(0.17, -0.65, 0.665, 1.25);
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);    
+}
+.login.inactive {
+  opacity: 0;
+  -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.lefticon{
+  width:30%;
+  height:100%;
+  float:left;
+}
+.login__form {
+  margin-top: 40px;
+  width:60%;
+  float:left;
+}
+.login__row {
+  height: 5rem;
+  padding-top: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+.login__input {
+  display: inline-block;
+  width: 22rem;
+  height: 100%;
+  padding-left: 1.5rem;
+  font-size: 1.5rem;
+  background: transparent;
+  color: #FDFCFD;
+}
+.login__submit {
+  position: relative;
+  width: 100%;
+  height: 4rem;
+  margin: 5rem 0 2.2rem;
+  color: white;
+  background: lightgray;
+  color:black;
+  font-size: 1.5rem;
+  border-radius: 3rem;
+  cursor: pointer;
+  overflow: hidden;
+  -webkit-transition: width 0.3s 0.15s, font-size 0.1s 0.15s;
+          transition: width 0.3s 0.15s, font-size 0.1s 0.15s;
+}
+
+#fileupload{
+  margin-top: 20px;
+  width:31%;
+  float:left;
+  margin-left: 11px;
+}
+#image1{
+  margin-top: 20px;
+  width:130px;height:130px;
+}
+#image2{
+  margin-top: 20px;
+  width:130px;height:130px;
+}
+#image3{
+  margin-top: 20px;
+  width:130px;height:130px;
+}
+
+#labelA{
+  padding-left: 1.5rem;
+  font-size: 1.5rem;
+  color: #FDFCFD;
+}
+
+#topic {
+  margin-left: 90px;
+  margin-right: 10px;
+}
+
+
+/* 아이콘- 하트 부분 */
+#heart {
+    position: relative;
+    width: 100px;
+    height: 90px;
+}
+#heart:before,
+#heart:after {
+    position: absolute;
+    content: "";
+    left: 50px;
+    top: 0;
+    margin-top: 80px;
+    margin-left: 65px;
+    width: 50px;
+    height: 80px;
+    background: pink;
+    -moz-border-radius: 50px 50px 0 0;
+    border-radius: 50px 50px 0 0;
+    -webkit-transform: rotate(-45deg);
+       -moz-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+         -o-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+    -webkit-transform-origin: 0 100%;
+       -moz-transform-origin: 0 100%;
+        -ms-transform-origin: 0 100%;
+         -o-transform-origin: 0 100%;
+            transform-origin: 0 100%;
+}
+#heart:after {
+    left: 0;
+    -webkit-transform: rotate(45deg);
+       -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+         -o-transform: rotate(45deg);
+            transform: rotate(45deg);
+    -webkit-transform-origin: 100% 100%;
+       -moz-transform-origin: 100% 100%;
+        -ms-transform-origin: 100% 100%;
+         -o-transform-origin: 100% 100%;
+            transform-origin :100% 100%;
+}
